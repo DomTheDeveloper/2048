@@ -147,7 +147,40 @@ h1.title {
 .super-chip.disabled { cursor: default; opacity: 0.6; }
 
 .super-row[data-row="speed2"],
-.super-row[data-row="algo2"] { margin-top: 4px; }
+.super-row[data-row="algo2"],
+.super-row[data-row="algo3"] { margin-top: 4px; }
+
+/* The decision models' bridge: where ai/bridge.py listens, and what it
+   said when asked. */
+.super-bridge-input {
+  -webkit-flex: 1 1 0;
+  flex: 1 1 0;
+  min-width: 0;
+  margin-left: 4px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 3px;
+  background: rgba(238, 228, 218, 0.35);
+  color: #f9f6f2;
+  font: inherit;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+.super-bridge-input::placeholder { color: rgba(249, 246, 242, 0.5); }
+.super-bridge-input:focus { outline: 2px solid #edc22e; }
+
+.super-bridge-status {
+  -webkit-flex: 0 1 auto;
+  flex: 0 1 auto;
+  max-width: 58%;
+  margin-left: 8px;
+  font-size: 11px;
+  opacity: 0.85;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* The pickers: a 2x2 corner grid says where the 131072 lives; two 4x4
    spiral grids draw both snakes out of that corner and you click the

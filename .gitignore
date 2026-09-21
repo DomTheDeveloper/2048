@@ -7,3 +7,8 @@ paper/*.bbl
 paper/*.blg
 paper/*.out
 paper/*.toc
+
+# Decision-model data and Python caches
+ai/data/
+ai/__pycache__/
+__pycache__/

@@ -13,18 +13,22 @@
 
   var Super = window.Super2048;
   var BASE_MPS = 8; // moves per second at 1x
-  var BUILD = "8";  // bump with index.html's ?v= so browsers refetch the scripts
+  var BUILD = "9";  // bump with index.html's ?v= so browsers refetch the scripts
 
   var TILES = ["evil", "regular", "perfect"];
   var UNDOS = ["disabled", "regular", "perfect"];
-  var ALGOS = ["genius", "smart", "algorithm", "priority", "random"];
+  var ALGOS = ["genius", "smart", "algorithm", "priority", "random", "laya", "jev"];
+  // The decision models: not search, a typed question answered with a
+  // probability per candidate move, through the bridge (ai/bridge.py).
+  var DECISION = { laya: true, jev: true };
+  var VARIANTS = ["board", "feature", "assist"];
   var GOALS = ["tile", "score", "spiral"];
   var SPEEDS = ["1", "2", "3", "4", "5", "10", "20", "50", "100", "afap", "headless"];
   var FINALES = ["slow", "hyper"];
   var CORNERS = ["tl", "tr", "bl", "br"];
   var ORIENTS = ["row", "col"];
   var ALGO_NAMES = { genius: "GENIUS", smart: "SMART", algorithm: "ALGORITHM",
-                     priority: "PRIORITY", random: "RANDOM" };
+                     priority: "PRIORITY", random: "RANDOM", laya: "LAYA", jev: "JEV" };
   var STALL_DEATHS = 40; // mirrors honest_ai.js
 
   var controller = {
@@ -54,7 +58,12 @@
     requestedKey: null,
     savedProtoMove: null,
     savedProtoRestart: null,
-    headless: null
+    headless: null,
+    variant: null,
+    bridge: null,
+    decision: null,       // a decision-model run's tally: calls, ms, tokens, model
+    bridgeChecked: "",    // the URL the status line last reported on
+    bridgeCheckAt: 0
   };
 
   function $(sel) { return document.querySelector(sel); }
@@ -78,6 +87,8 @@
   controller.tiles = pick(loadPref("super2048.tiles", "perfect"), TILES, "perfect");
   controller.undo = pick(loadPref("super2048.undo", "perfect"), UNDOS, "perfect");
   controller.algo = pick(loadPref("super2048.algo", "genius"), ALGOS, "genius");
+  controller.variant = pick(loadPref("super2048.variant", "feature"), VARIANTS, "feature");
+  controller.bridge = loadPref("super2048.bridge", Super.DEFAULT_BRIDGE || "http://127.0.0.1:2048");
   controller.goal = pick(loadPref("super2048.goal", "spiral"), GOALS, "spiral");
   controller.finaleMode = pick(loadPref("super2048.finale", "slow"), FINALES, "slow");
 
@@ -93,9 +104,15 @@
     if (perfectPlay()) return controller.goal;
     return controller.goal === "score" ? "score" : "tile";
   }
+  function isDecision() { return honestPlay() && !!DECISION[controller.algo]; }
   function honestConfig() {
-    return { algo: controller.algo, tiles: controller.tiles,
-             undo: controller.tiles === "regular" ? controller.undo : "disabled" };
+    var hc = { algo: controller.algo, tiles: controller.tiles,
+               undo: controller.tiles === "regular" ? controller.undo : "disabled" };
+    if (DECISION[controller.algo]) {
+      hc.bridge = controller.bridge;
+      hc.variant = controller.variant;
+    }
+    return hc;
   }
   function slowFinale() { return perfectPlay() && controller.finaleMode === "slow"; }
 
@@ -201,7 +218,8 @@
     controller.startedAt = Date.now();
     controller.driver = null;
     controller.headless = { stats: { moves: 0, attempts: 0, undos: 0, score: 0 },
-                            board: null, elapsed: 0 };
+                            board: null, elapsed: 0, model: null };
+    controller.decision = null;
     controller.worker = worker;
 
     installHooks();
@@ -212,10 +230,17 @@
       if (!controller.running) return;
       if (msg.type !== "headlessProgress" && msg.type !== "headlessDone") return;
       controller.headless = { stats: msg.stats, board: msg.board,
-                              elapsed: msg.elapsed };
+                              elapsed: msg.elapsed, model: msg.model || null };
       if (msg.type === "headlessDone") {
         controller.endReason = msg.reason || "won";
         if (controller.worker) { controller.worker.terminate(); controller.worker = null; }
+        if (msg.reason === "bridge error") {
+          installBoard(msg.board, msg.stats.score);
+          controller.done = true;
+          showErrorOverlay(msg.error || "the bridge stopped answering");
+          stopRun("bridge");
+          return;
+        }
         if (slowFinale() && perfectFinaleReplay(msg.board, msg.stats.score)) {
           return; // the cinema ends with the overlay and stopRun
         }
@@ -370,6 +395,7 @@
     controller.moveDebt = 0;
     controller.frameBudget = 0;
     controller.headless = null;
+    controller.decision = isDecision() ? { calls: 0, ms: 0, tokens: 0, model: null } : null;
 
     installHooks();
     hideWinOverlay();
@@ -401,6 +427,21 @@
           if (controller.driver && controller.driver.setMove) {
             controller.driver.setMove(msg.board, msg.dir);
           }
+          if (controller.decision && !msg.forced) {
+            controller.decision.calls++;
+            controller.decision.ms += msg.ms || 0;
+            controller.decision.tokens += msg.tokens || 0;
+            controller.decision.model = msg.model || controller.decision.model;
+          }
+        } else if (msg.type === "moveError") {
+          // The decision model could not answer: no silent fallback to
+          // another player. Stop where the game stands and say why.
+          controller.endReason = "bridge error";
+          controller.done = true;
+          render();
+          showErrorOverlay(msg.error || "the bridge stopped answering");
+          stopRun("bridge");
+          return;
         } else {
           return;
         }
@@ -411,6 +452,13 @@
         }
       };
       controller.worker.onerror = function () {
+        if (isDecision()) {
+          // A decision model only lives in the worker; without it the
+          // run cannot honestly continue.
+          showErrorOverlay("the background worker failed; reload the page and try again");
+          stopRun("error");
+          return;
+        }
         // Lose the worker, keep the run: fall back to sync thinking.
         if (controller.worker) controller.worker.terminate();
         controller.worker = null;
@@ -610,9 +658,26 @@
   }
 
   // Words for the honest selection (the end-of-run overlay).
+  function decisionModel() {
+    var m = controller.decision ? controller.decision.model
+          : controller.headless ? controller.headless.model : null;
+    return m || null;
+  }
   function algoWho() {
+    if (DECISION[controller.algo]) {
+      var m = decisionModel();
+      return ALGO_NAMES[controller.algo] + (m && /^mock/.test(m) ? " (mock)" : m ? " " + m : "");
+    }
     return controller.algo === "genius"
       ? "GENIUS" : "aj-r's " + ALGO_NAMES[controller.algo];
+  }
+  // "· 212 ms/move" for a decision-model run, "" otherwise.
+  function latencyWords() {
+    var st = controller.decision
+      || (controller.headless && controller.headless.stats && controller.headless.stats.calls !== undefined
+          ? controller.headless.stats : null);
+    if (!st || !st.calls) return "";
+    return " · " + Math.round(st.ms / st.calls) + " ms/move";
   }
   function tilesWords() {
     return controller.tiles === "evil" ? "Evil tiles" : "regular tiles";
@@ -659,10 +724,19 @@
     setRow("undo", controller.tiles === "regular");
     setRow("algo", honest);
     setRow("algo2", honest);
+    setRow("algo3", honest);
+    setRow("evidence", isDecision());
+    setRow("bridge", isDecision());
     setRow("finale", !honest);
     selectChips("data-tiles", controller.tiles);
     selectChips("data-undo", controller.undo);
     selectChips("data-algo", controller.algo);
+    selectChips("data-variant", controller.variant);
+    var input = $(".super-bridge-input");
+    if (input && document.activeElement !== input && input.value !== controller.bridge) {
+      input.value = controller.bridge;
+    }
+    if (isDecision()) checkBridge(false);
     selectChips("data-goal", runGoal());
     selectChips("data-finale", controller.finaleMode);
     $all('.super-chip[data-goal="spiral"]').forEach(function (el) {
@@ -731,7 +805,7 @@
               : controller.endReason === "out of luck" ? "Out of luck"
               : "Game over";
       $(".super-win-sub").textContent = why + " · " + algoWho() + " · " +
-        tilesWords() + " · " + fmtInt(score) + " points";
+        tilesWords() + " · " + fmtInt(score) + " points" + latencyWords();
     } else if (controller.goal === "score") {
       $(".super-win h2").textContent = fmtInt(score);
       $(".super-win-sub").textContent = "The full chain. The board is dead.";
@@ -750,8 +824,58 @@
     el.classList.add("super-win-active");
   }
 
+  // The end of a decision-model run that the bridge could not finish:
+  // the position stays on the board, the overlay says what went wrong.
+  function showErrorOverlay(message) {
+    var st = controller.driver ? controller.driver.stats
+           : controller.headless ? controller.headless.stats : null;
+    $(".super-win h2").textContent = "No answer";
+    $(".super-win-sub").textContent = ALGO_NAMES[controller.algo] + " · " + message +
+      " — start the bridge: python3 ai/bridge.py";
+    $(".super-win-moves").textContent = fmtInt(st ? st.moves : 0);
+    $(".super-win-undos").textContent = fmtInt(st ? st.undos : 0);
+    var secs = Math.floor((Date.now() - controller.startedAt) / 1000);
+    $(".super-win-time").textContent = Math.floor(secs / 60) + "m " + (secs % 60) + "s";
+    $(".super-win").classList.add("super-win-active");
+  }
+
   function hideWinOverlay() {
     $(".super-win").classList.remove("super-win-active");
+  }
+
+  // The bridge row's status: asked of the bridge itself (GET /health)
+  // whenever the row is shown for a new URL, and again after 10 s.
+  function checkBridge(force) {
+    var url = controller.bridge;
+    var now = Date.now();
+    if (!force && controller.bridgeChecked === url && now - controller.bridgeCheckAt < 10000) return;
+    controller.bridgeChecked = url;
+    controller.bridgeCheckAt = now;
+    var el = $(".super-bridge-status");
+    if (!el) return;
+    el.textContent = "…";
+    var client;
+    try { client = new Super.DecisionClient({ bridge: url }); } catch (e) { return; }
+    client.health().then(function (h) {
+      if (controller.bridge !== url) return;
+      var b = h && h.backends || {};
+      var text;
+      if (h && h.mock) {
+        text = "● mock mode — no weights, no key, no cost";
+      } else if (controller.algo === "jev") {
+        text = b.jev && b.jev.key ? "● jev " + (b.jev.model || "") + " · key set"
+             : "● bridge up · jev needs TYPESAFE_API_KEY";
+      } else {
+        var L = b.laya || {};
+        text = L.loaded ? "● laya ready · " + (L.device || "") + (L.load_s ? " · loaded in " + L.load_s + "s" : "")
+             : L.error ? "● bridge up · laya: " + L.error
+             : "● bridge up · laya loads on the first move";
+      }
+      el.textContent = text;
+    }, function () {
+      if (controller.bridge !== url) return;
+      el.textContent = "○ not running — python3 ai/bridge.py";
+    });
   }
 
   function setOption(name, value) {
@@ -767,7 +891,7 @@
       if (controller.running) stopRun("user"); else startRun();
     });
 
-    var OPTION_ATTRS = ["tiles", "undo", "algo", "goal", "finale"];
+    var OPTION_ATTRS = ["tiles", "undo", "algo", "goal", "finale", "variant"];
     $all(".super-chip").forEach(function (el) {
       el.addEventListener("click", function (e) {
         e.preventDefault();
@@ -810,6 +934,25 @@
         setOption("orient", el.getAttribute("data-orient"));
       });
     });
+
+    var bridgeInput = $(".super-bridge-input");
+    if (bridgeInput) {
+      var setBridge = function () {
+        var v = bridgeInput.value.trim().replace(/\/+$/, "");
+        if (!v) v = Super.DEFAULT_BRIDGE || "http://127.0.0.1:2048";
+        if (!/^https?:\/\//.test(v)) v = "http://" + v;
+        bridgeInput.value = v;
+        if (v !== controller.bridge) {
+          controller.bridge = v;
+          savePref("super2048.bridge", v);
+        }
+        checkBridge(true);
+      };
+      bridgeInput.addEventListener("change", setBridge);
+      bridgeInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") { e.preventDefault(); setBridge(); bridgeInput.blur(); }
+      });
+    }
 
     $(".super-win-again").addEventListener("click", function (e) {
       e.preventDefault();

@@ -1,0 +1,3 @@
+# The decision bridge (ai/bridge.py): Laya in-process, Jev relayed.
+laya>=0.3.4
+typesafe-sdk>=0.7.0

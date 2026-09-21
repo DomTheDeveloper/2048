@@ -5,7 +5,7 @@
   <title>2048 Superintelligence</title>
 
   <link href="style/main.css" rel="stylesheet" type="text/css">
-  <link href="style/super.css?v=8" rel="stylesheet" type="text/css">
+  <link href="style/super.css?v=9" rel="stylesheet" type="text/css">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -53,6 +53,22 @@
         <a class="super-chip" data-algo="algorithm" title="aj-r's Algorithm-based: up, left, up, left… (toward your corner), priority order when blocked">🔁 ALGORITHM</a>
         <a class="super-chip" data-algo="priority" title="aj-r's Priority-based: up > left > right > down (toward your corner)">📋 PRIORITY</a>
         <a class="super-chip" data-algo="random" title="aj-r's Random: a random legal move">🎰 RANDOM</a>
+      </div>
+      <div class="super-row" data-row="algo3">
+        <span class="super-label"></span>
+        <a class="super-chip" data-algo="laya" title="Laya, Convai Innovations' open-weights decision model (Apache 2.0): the position goes to it as a typed question and it answers with a probability per candidate move, in one forward pass. Runs on your own machine through ai/bridge.py">🪷 LAYA</a>
+        <a class="super-chip" data-algo="jev" title="Jev, TypeSafe's hosted decision model (jev-1.13.0): the same question relayed to api.typesafe.ai with your key by ai/bridge.py">🔮 JEV</a>
+      </div>
+      <div class="super-row" data-row="evidence">
+        <span class="super-label">evidence</span>
+        <a class="super-chip" data-variant="board" title="The model sees each candidate's board and the points it scores, nothing else">🧾 BOARD</a>
+        <a class="super-chip" data-variant="feature" title="Plus what a 2048 player looks at: empty cells, mergeable pairs, order, the corner, mobility">📊 FEATURES</a>
+        <a class="super-chip" data-variant="assist" title="Plus GENIUS's expectimax value per candidate, scaled 0 to 1: the model arbitrates over search evidence">🤝 ASSIST</a>
+      </div>
+      <div class="super-row" data-row="bridge">
+        <span class="super-label">bridge</span>
+        <input class="super-bridge-input" type="text" spellcheck="false" autocomplete="off" placeholder="http://127.0.0.1:2048" title="Where ai/bridge.py listens. Start it with: python3 ai/bridge.py — Laya loads on the first move, Jev needs TYPESAFE_API_KEY in its environment">
+        <span class="super-bridge-status"></span>
       </div>
       <div class="super-row" data-row="goal">
         <span class="super-label">goal</span>
@@ -217,10 +233,11 @@
   <script src="js/local_score_manager.js"></script>
   <script src="js/game_manager.js"></script>
   <script src="js/application.js"></script>
-  <script src="js/perfect_line.js?v=8"></script>
-  <script src="js/super_ai.js?v=8"></script>
-  <script src="js/honest_ai.js?v=8"></script>
-  <script src="js/super_mode.js?v=8"></script>
+  <script src="js/perfect_line.js?v=9"></script>
+  <script src="js/super_ai.js?v=9"></script>
+  <script src="js/honest_ai.js?v=9"></script>
+  <script src="js/decision_ai.js?v=9"></script>
+  <script src="js/super_mode.js?v=9"></script>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

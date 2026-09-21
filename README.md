@@ -69,6 +69,20 @@ above the board decide what kind of game that is:
     adjacent 2, judged by monotonicity and empty cells; Algorithm
     alternates up, left, up, left; Priority takes the first legal move
     of up > left > right > down; Random is a random legal move.
+  - **🪷 LAYA**, **🔮 JEV** — decision models, not search (below): the
+    position goes to them as a typed question — the legal moves as
+    anonymous candidates with the boards they produce — and they
+    answer with a probability per candidate. Laya is Convai
+    Innovations' open-weights model and runs on your machine; Jev is
+    TypeSafe's hosted model and needs your key. Both talk to the page
+    through `ai/bridge.py`.
+- **EVIDENCE** (decision models) — what the question carries beyond
+  the boards: **🧾 BOARD** nothing, **📊 FEATURES** what a 2048 player
+  looks at (empty cells, mergeable pairs, order, corner, mobility),
+  **🤝 ASSIST** GENIUS's value per candidate as well, so the model
+  arbitrates over search evidence.
+- **BRIDGE** (decision models) — where `python3 ai/bridge.py` listens
+  (http://127.0.0.1:2048 by default) and what it said when asked.
 - **GOAL** — **🏁 MAX BLOCK** or **💯 MAX SCORE**, and for perfect play
   **🌀 FULL SPIRAL**. Perfect play has an exact answer to each (below);
   honest play goes as far as it gets, MAX SCORE with GENIUS weighing
@@ -93,6 +107,51 @@ above the board decide what kind of game that is:
 - **Try again** above the board restarts at any time, and the game-over
   screen has a **Close** button that leaves the dead board on show (Z
   still takes moves back).
+
+### 🪷 Laya and 🔮 Jev: decision models at the board
+
+Two *System One* decision models as players. Neither generates text or
+searches the game: hand them a state and typed questions and they
+answer every question with a choice and calibrated probabilities in
+one forward pass. **Jev** is [TypeSafe](https://typesafe.ai)'s hosted
+model (pinned to `jev-1.13.0`, as the reference projects do);
+**Laya** is [Convai Innovations' open-weights
+counterpart](https://huggingface.co/convaiinnovations/laya) (Apache
+2.0, ModernBERT-large, 421M parameters, `pip install laya`), the one
+you can run yourself. Each move is one question: the legal moves are
+shuffled and labelled A–D, every candidate carries the board it
+produces and, at the richer evidence levels, what a player looks at —
+the blind design of Amansoory's
+[JEV2048](https://github.com/amansoory/JEV2048), whose saved runs put
+raw Jev near 800 points a game and Jev with such features near
+11,000 (his expectimax baseline: 89,000). Direction names never appear
+in the question; the probabilities are preferences among candidates,
+not chances of winning.
+
+```sh
+pip install -r ai/requirements.txt
+python3 ai/bridge.py                       # Laya loads on the first move
+TYPESAFE_API_KEY=... python3 ai/bridge.py  # and Jev
+python3 ai/bridge.py --mock                # the test path: no weights, no key
+node test/decision.js laya 5               # headless games from Node
+```
+
+Then pick REGULAR tiles, LAYA or JEV, an evidence level, and RUN AI;
+the bridge row says ● when the bridge answers. The page at
+domthedeveloper.github.io can talk to a bridge on your own machine
+(browsers treat http://127.0.0.1 as a secure origin). Laya's own
+README puts its base checkpoints near random on typed decisions they
+were not trained for and its value in fine-tuning, so the repository
+also ships the teacher: `node test/decision.js --dataset` writes
+GENIUS-labelled decisions and `ai/finetune_laya_2048.py` is Convai's
+own recipe pointed at them — a Laya that plays 2048 well is a
+fine-tuned Laya, and the bridge loads one with `--laya DIR`. The
+details, the evidence levels and the harness are in
+[`ai/README.md`](ai/README.md). The whole path is verified with the
+bridge's mock (`node test/decision.js --selftest`, `--check`, and the
+browser suite); the models themselves were not run in the environment
+this was built in, which reaches neither Hugging Face nor
+api.typesafe.ai.
 
 ### 🧠 How far honest play gets
 

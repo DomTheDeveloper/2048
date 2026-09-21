@@ -1216,6 +1216,25 @@ last column is the undo button used as a human uses it: only to escape
 game over, each death unwinding a doubling number of moves, giving up
 after forty deaths without a new best score.
 
+\paragraph{Decision models at the board.} The application can also hand
+each position to a \emph{decision model}: TypeSafe's hosted Jev
+\cite{typesafejev} or Convai Innovations' open-weights Laya
+\cite{laya2026}, models that answer typed questions with a choice and
+calibrated probabilities in one forward pass, without generating text or
+searching. Following the blind design of Amansoory's JEV2048
+\cite{jev2048}, the legal moves are shuffled and labelled, each candidate
+carries the board it produces and, optionally, the features a player
+looks at or the expectimax value of Section~\ref{sec:honest}, and the
+model's probabilities are read as preferences among the candidates.
+JEV2048's saved runs put raw Jev near $800$ points a game and Jev with
+structural features near $11{,}000$, against $89{,}000$ for its
+expectimax baseline; Laya's authors report their base checkpoints near
+random on typed decisions they were not trained for, and the repository
+therefore ships a teacher-labelled dataset generator and Laya's own
+fine-tuning recipe. The bridge, the harness and a mock that answers in
+the models' shape are in \texttt{ai/}; results with the models
+themselves are left to machines that can reach them.
+
 \section{Where the \texorpdfstring{$4\times4$}{4x4} game stands}\label{sec:recent}
 
 Kaneko and Yamashita's strong solution of $4\times3$ \cite{kaneko2026}

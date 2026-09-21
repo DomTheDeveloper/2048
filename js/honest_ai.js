@@ -496,7 +496,10 @@
     return { cells: ch.cells, rank: ch.value === 4 ? 2 : 1 };
   }
 
-  GeniusAI.prototype.nextMove = function (board, lastDir) {
+  // The expectimax value of every legal move (null where the move is
+  // illegal). nextMove is the argmax; the decision models' ASSIST
+  // evidence and the fine-tuning teacher read the whole vector.
+  GeniusAI.prototype.moveValues = function (board, lastDir) {
     var b = toRanks(board);
     var seen = {}, distinct = 0;
     for (var i = 0; i < CELLS; i++) {
@@ -506,15 +509,23 @@
     if (this.evil) depth = Math.min(depth + 2, this.maxDepth + 2);
     this.lastDepth = depth;
     this.memo = new Map();
-    var bestDir = -1, bestVal = -Infinity;
+    var values = [null, null, null, null];
     for (var d = 0; d < 4; d++) {
       var mv = moveRanks(b, d);
       if (!mv) continue;
       this.explored++;
-      var v = this.chance(mv.board, d, depth, 1.0);
-      if (v > bestVal) { bestVal = v; bestDir = d; }
+      values[d] = this.chance(mv.board, d, depth, 1.0);
     }
     this.memo = null;
+    return values;
+  };
+
+  GeniusAI.prototype.nextMove = function (board, lastDir) {
+    var values = this.moveValues(board, lastDir);
+    var bestDir = -1, bestVal = -Infinity;
+    for (var d = 0; d < 4; d++) {
+      if (values[d] !== null && values[d] > bestVal) { bestVal = values[d]; bestDir = d; }
+    }
     return bestDir;
   };
 
@@ -791,6 +802,10 @@
     randomSpawn: randomSpawn,
     HonestRunner: HonestRunner,
     HonestDriver: HonestDriver,
+    Ladder: Ladder,
+    legal: legal,
+    anyLegal: anyLegal,
+    emptyCount: emptyCount,
     ALGOS: ["genius", "smart", "algorithm", "priority", "random"]
   };
 
