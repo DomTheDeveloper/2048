@@ -1,0 +1,422 @@
+\section{Monotone boxes, direction obstructions, and robust rectangle folds}\label{sec:monotone}
+
+This section records a second infinite-family result.  It concerns a
+precisely restricted version of possible play, and is therefore separate
+from the still-unresolved unrestricted rectangle construction discussed
+in Section~\ref{sec:recent}.  Fix one direction on each nontrivial axis of
+a finite box and allow only those directions throughout the play.  By
+reflecting axes, call them the negative directions.  On a rectangle these
+are Up and Left.  Spawns remain unrestricted: after every changed slide,
+a 2 or 4 may appear in any empty cell.
+
+Let the box have side lengths $n_1,\ldots,n_d$ and at least two cells.  Put
+\[
+ c=\prod_{i=1}^d n_i,\qquad K_i=2^{n_i}-1,\qquad
+ K=\prod_{i=1}^d K_i,
+\]
+and for a cell $x=(x_1,\ldots,x_d)$, $0\le x_i<n_i$, define
+\[
+ A(x)=2+\sum_{i=1}^d(n_i-1-x_i),\qquad
+ D(x)=2^{A(x)}.
+\]
+Thus every step away from the chosen corner halves $D$.  We continue to
+write $\Phichain(B)=\sum_{2^k\in B}(k-1)2^k$ for the score potential of a
+position.
+
+\begin{theorem}[Exact monotone extrema]\label{thm:monotone}
+Under possible play using only the negative direction on each axis,
+\begin{align*}
+ \max\text{ tile}&=2^{\,2+\sum_i(n_i-1)},\\
+ \max\mass&=4K,\\
+ \max\mathrm{score}&=\Phichain(D)-4c,\\
+ \max\text{ rounds}&=2K-c-2.
+\end{align*}
+The full geometric array $D$ is reachable from an ordinary two-2 opening
+with exactly $c$ spawned 4s; this play simultaneously attains the score
+and round ceilings.  It is also reachable from an ordinary two-4 opening
+using only 4-spawns in exactly $K-2$ rounds, which is the fewest rounds in
+which the complete array $D$ can be reached.
+
+If
+\[
+ J_i=(n_i-2)2^{n_i}+2,
+\]
+then
+\[
+ \Phichain(D)=4\left[K+\sum_iJ_i\prod_{j\ne i}K_j\right].
+\]
+The minimum $K-2$ concerns the full array $D$, not necessarily the first
+appearance of its largest tile.
+\end{theorem}
+
+For a rectangle of height $h$ and width $w$ this gives
+\[
+ \max\text{ tile}=2^{h+w},\qquad
+ \max\text{ rounds}=2(2^h-1)(2^w-1)-hw-2,
+\]
+and
+\[
+ \max\mathrm{score}=4\big[(h+w-3)2^{h+w}+(3-h)2^h
+ +(3-w)2^w-3-hw\big].
+\]
+For example, the exact Up/Left extrema on $4\times4$ are tile 256,
+score 4916, and 432 rounds.  The saturated array is
+\[
+\begin{pmatrix}
+256&128&64&32\\
+128&64&32&16\\
+64&32&16&8\\
+32&16&8&4
+\end{pmatrix},
+\]
+of mass 900; its fastest construction has 223 rounds.  This is a theorem
+about the restricted game, not a claim that the unrestricted $4\times4$
+score is 4916.
+
+\subsection{A pointwise directional bound}
+
+For a tile of rank $k$ at $x$, set
+\[
+ p=k+\sum_i x_i.
+\]
+A nonmerging negative-direction movement cannot increase $p$.  Suppose a
+merge along axis $i$ has equal-rank inputs at coordinates $u<v$ on that
+axis and output coordinate $q$.  Since $q\le u$,
+\[
+ (k+1)+q\le k+v,
+\]
+so the output potential is no larger than that of one input.  Because a
+tile merges at most once in a slide, the same statement holds along every
+ancestry.
+
+\begin{lemma}[Ancestry-sensitive pointwise bound]\label{lem:monopoint}
+Let $h\in\{0,1\}$ indicate whether the merge tree of a tile at $x$ has a
+spawned 4 among its leaves.  Its rank satisfies
+\[
+ k\le A(x)-1+h.
+\]
+In particular every cell satisfies $B(x)\le D(x)$.
+\end{lemma}
+\begin{proof}
+A spawned 2 has initial potential at most
+$1+\sum_i(n_i-1)$ and a spawned 4 at most
+$2+\sum_i(n_i-1)$.  The potential cannot increase along a lineage under
+the permitted slides.  Subtracting $\sum_i x_i$ gives the claim.
+\end{proof}
+
+The mass bound of Theorem~\ref{thm:monotone} follows immediately and
+uniquely identifies the saturated spatial array, not merely its multiset.
+For score and length, let $h_x$ be the indicator of a 4-leaf in the final
+tile at $x$.  Final-tile ancestries are disjoint, so
+$\nfour\ge\sum_xh_x$.  At a cell with $a=A(x)\ge2$, Lemma~\ref{lem:monopoint}
+and the score identity give the local upper bound
+\[
+ \max_{k\le a-1+h}\big((k-1)2^k-4h\big)=(a-1)2^a-4.
+\]
+For $a>2$ the unique maximizing choice is $(k,h)=(a,1)$; for $a=2$,
+$(2,1)$ and $(1,0)$ tie at zero.  Likewise
+\[
+ \max_{k\le a-1+h}\big(2^{k-1}-h\big)=2^{a-1}-1.
+\]
+Summing proves the score and round ceilings.  Equality has the same
+last-cell tie familiar from Theorem~\ref{thm:score}: the far-corner 4 may
+be replaced by a final 2, saving one 4-birth without changing score or
+round count.
+
+\subsection{A search-free construction and its invariant}
+
+The attainment proof is recursive.  Its essential one-dimensional
+counter is useful independently.
+
+\begin{lemma}[Two scalar counters]\label{lem:monocounter}
+On a line of $n\ge2$ cells, keep sliding toward one end and place each
+new spawn at the far end.
+\begin{enumerate}[nosep,label=(\roman*)]
+\item Starting from a single 2 and always spawning 2 terminates at
+$(2^n,2^{n-1},\ldots,2)$.
+\item Starting from a single 2, spawn 4 precisely when the afterstate has
+exactly $n-1$ nonzero entries, all distinct and all at least 4; otherwise
+spawn 2.  The terminal line is $(2^{n+1},2^n,\ldots,4)$, and exactly $n$
+spawned 4s are used.
+\item Starting from a single 4 and always spawning 4 also terminates at
+$(2^{n+1},2^n,\ldots,4)$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Ignoring zeros, entries remain nonincreasing.  After every spawn the far
+cell is occupied, so the sole direction is blocked exactly when the line
+is full and strictly decreasing.  The pointwise bound limits the largest
+rank; therefore the pure-2 and pure-4 terminal lines are forced.
+
+For the adaptive rule, if a 2-spawn would complete a blocked line, the
+afterstate has precisely the property that triggers a 4.  If its smallest
+entry is 4, that 4 creates another merge; if its smallest entry is at
+least 8, the $n-1$ entries are exactly $2^{n+1},\ldots,8$, and the spawned
+4 completes the claimed terminal line.  Each time the rule chooses 4, the
+afterstate is an $(n-1)$-element subset of
+$\{4,8,\ldots,2^{n+1}\}$; different choices occur at different masses, so
+there are at most $n$ such events.  Conversely the $n$ terminal tiles all
+saturate their pointwise bound, hence each needs a disjoint 4-leaf by
+Lemma~\ref{lem:monopoint}.  Thus exactly $n$ fours are necessary and used.
+\end{proof}
+
+For an inner box with coordinates $y$, define its unit profile
+\[
+ E(y)=\prod_i2^{n_i-1-y_i}.
+\]
+A completed slice has the form $vE$.  Every inner-axis line in such a
+slice is full with pairwise distinct entries, so every inner-axis
+construction move leaves the completed slice unchanged.  Across an outer
+axis, slices $v_0E,\ldots,v_{m-1}E$ slide and merge in exact lockstep:
+each physical line sees the same coefficient list multiplied by one fixed
+entry of $E$.  Hence an outer slide is exactly a scalar 2048 slide on
+$v_0,\ldots,v_{m-1}$.
+
+\begin{lemma}[Recursive slice construction]\label{lem:monoslices}
+For every nontrivial box, from a single 2 at the far corner the profile
+$2E$ is constructible with no 4-spawns and $4E$ is constructible with
+exactly one spawned 4 per cell.  From a single 4, $4E$ is constructible
+using only 4-spawns.  All moves use the chosen negative directions and
+all physical spawns occur at the far corner.
+\end{lemma}
+\begin{proof}
+Induct on the number of nontrivial axes.  Lemma~\ref{lem:monocounter} is
+the one-dimensional base.  For the induction step, first construct the
+required inner profile in the far outer slice.  Treat each completed
+slice $vE$ as the scalar tile $v$ and run the corresponding scalar counter
+along the outer axis.  Each outer slide empties the far slice.  Its
+mandatory physical spawn starts the recursively constructed replacement
+slice there: a pure inner construction when the virtual counter requests
+2, and an adaptive inner construction when it requests 4.  The scalar
+adaptive counter requests exactly the outer side length many virtual 4s;
+each costs exactly the number of cells of the inner box, giving one
+physical 4 per cell overall.  Completed slices are invariant under every
+inner move, while outer moves act on their coefficients exactly as the
+scalar counter.  These two facts are the induction invariant.
+\end{proof}
+
+\begin{proof}[Completion of Theorem~\ref{thm:monotone}]
+Lemma~\ref{lem:monoslices} constructs $D=4E$ with exactly $c$ fours, or
+using only fours.  In either construction the first physical move merely
+moves a single seed and spawns an equal second seed.  Delete that first
+move and regard the resulting two equal tiles as the ordinary opening;
+no score is lost.  This gives respectively a two-2 and two-4 opening.
+The ledger identities yield the displayed score and length.  In the
+all-4 construction the final mass is $4K$, so the length is $K-2$; no
+ordinary opening has mass above 8 and no round adds more than 4 mass, so
+$K-2$ is also a lower bound.  Finally, every line of $D$ is full with
+unequal adjacent entries, so the endpoint is dead even if opposite
+moves are subsequently allowed.
+\end{proof}
+
+\subsection{Reverse directions are genuinely necessary}
+
+The monotone theorem also gives a clean obstruction to any purported
+one-corner proof of the unrestricted cell-count ceiling.  Let $N_i^+$ be
+the number of moves made in the direction opposite the chosen negative
+direction on axis $i$.  Such a move can increase the lineage potential
+$p$ by at most $n_i-1$.  Therefore every tile obeys
+\[
+ k+\sum_i x_i\le
+ 2+\sum_i(n_i-1)+\sum_i(n_i-1)N_i^+.
+\]
+Reflecting any subset of axes gives the analogous inequalities from every
+corner.
+
+\begin{corollary}[Direction obstruction]\label{cor:directions}
+On a box with $d\ge2$ nontrivial axes, reaching the unrestricted
+cell-count ceiling $2^{c+1}$ requires at least $d+1$ distinct direction
+types during the play.  In particular two fixed directions can never
+reach the $4\times4$ tile $131072$.
+\end{corollary}
+\begin{proof}
+If an axis is never used, every lineage stays in a proper slice and is
+subject to the smaller slice cell-count bound.  If exactly one direction
+on each axis is used, Theorem~\ref{thm:monotone} bounds the exponent by
+$2+\sum_i(n_i-1)<c+1$ for at least two nontrivial axes.
+\end{proof}
+
+For a $2\times n$ strip with Right never used, a target $2^{2n+1}$ at
+cell $(r,c)$ therefore satisfies the sharper necessary inequalities
+\[
+ N_D\ge n-1+r+c,\qquad N_U\ge n-r+c,
+\]
+and hence $N_U+N_D\ge2n-1+2c$.  The finite three-direction strip
+certificates described below therefore use the minimum possible number
+of distinct direction types.
+
+\subsection{A spawn-robust endgame on every rectangle}
+
+Return now to unrestricted play.  Let $h\ge2$, $w\ge1$, and $c=hw$.
+Define the full primed arrangement $Q_{h,w}$ by
+\[
+ Q(r,j)=2^{h(w-1-j)+r+1}\qquad(j<w-1),
+\]
+while its last column, from top to bottom, is
+\[
+ (4,4,8,16,\ldots,2^h).
+\]
+Its multiset is exactly $\{4,4,8,16,\ldots,2^c\}$ and its mass is
+$2^{c+1}$.  For $4\times4$,
+\[
+ Q_{4,4}=\begin{pmatrix}
+8192&512&32&4\\
+16384&1024&64&4\\
+32768&2048&128&8\\
+65536&4096&256&16
+\end{pmatrix}.
+\]
+For $h=2$ this is the canonical two-row ladder.
+
+\begin{theorem}[Spawn-robust rectangular fold]\label{thm:rectfold}
+From $Q_{h,w}$ the fixed word
+\[
+ (U^{h-1}L)^{w-1}U^{h-1}
+\]
+creates $2^{c+1}$ in exactly $c-1$ rounds for \emph{every} legal choice of
+spawn cells and spawn values during those rounds.  No play from
+$Q_{h,w}$ can create that tile sooner.
+\end{theorem}
+\begin{proof}
+Designate one of the two 4s as the carry.  After $t$ useful carry merges,
+its value is $2^{t+2}$.  All material spawned during the fold has total
+mass at most $4t<2^{t+2}$ for $t\ge1$; initially there is none.  Maintain
+a frontier column.  Columns to its left are full and unchanged.  In the
+frontier, the carry is followed by its successive equal doubling partners;
+all spawned material lies below this useful prefix or to its right.
+
+An Up move merges the carry with its equal next partner.  Earlier columns
+are full with unequal entries and therefore do not move.  Junk cannot
+merge with or pass a useful tile because its entire mass is below the
+current carry; the new spawn is necessarily outside the occupied useful
+prefix.  After $h-1$ Up moves the useful material of the frontier column
+has been consumed.  The next Left move merges the carry with the equal
+top entry of the column immediately to the left, placing the doubled
+carry at the new frontier while that column's remaining useful entries
+stay below it.  The same invariant repeats one column left.  There are
+$w(h-1)+(w-1)=c-1$ useful merges, giving the stated word.
+
+For the lower bound, any target $2^{c+1}$ formed from the starting
+position must contain either one of the initial 4s, or some subsequently
+spawned 2/4: the other initial tiles have total mass only $2^{c+1}-8$.
+A rank-2 leaf needs at least $c-1$ distinct rounds to reach rank $c+1$
+(one doubling per round), and a rank-1 leaf needs even more.  Hence the
+target cannot appear sooner.
+\end{proof}
+
+This theorem completely settles the endgame once the primed arrangement
+is available.  It does \emph{not} prove that $Q_{h,w}$ is reachable from
+an ordinary opening on every rectangle.  The unresolved part of the
+Das--Paul induction is therefore a priming problem, not a folding problem.
+
+\subsection{Near-ceiling rigidity in unrestricted play}
+
+The proof of Theorem~\ref{thm:score} yields more than the numerical
+ceiling.  Put
+\[
+ U_c=\Phi_c-4c=4(c-1)(2^c-1).
+\]
+At the $p$th tight-moment slot, the maximal rank is
+$b=c+2-p$.  The maximizing score contribution is
+$(b-1)2^b-4$; the best contribution after failing to saturate that slot is
+$(b-2)2^{b-1}$.  Their difference is
+\[
+ b2^{b-1}-4.
+\]
+
+\begin{theorem}[Score rigidity]\label{thm:scorerigidity}
+Suppose a legal $c$-cell play ends with score $U_c-\delta$.  If
+$3\le a\le c+1$ and
+\[
+ \delta<a2^{a-1}-4,
+\]
+then its final board contains every tile
+$2^a,2^{a+1},\ldots,2^{c+1}$.  In particular, a post-spawn board that is
+neither of the two equality multisets in Theorem~\ref{thm:score} has
+score at most $U_c-8$.
+\end{theorem}
+\begin{proof}
+Every slot has nonnegative deficit from its independent maximum.  If a
+slot of maximal rank $b\ge3$ is omitted or not saturated, it loses at
+least $b2^{b-1}-4$.  This gap increases with $b$, so a total deficit below
+the gap at $a$ forces every slot with $b\ge a$ to be saturated and hence
+forces the listed ranks.  If all slots $p<c$ are saturated, the mandatory
+last small spawn gives exactly one of the two equality multisets; otherwise
+a slot with $b\ge3$ loses at least $3\cdot4-4=8$.
+\end{proof}
+
+\begin{corollary}[Length rigidity]\label{cor:lengthrigidity}
+Let $L_c=2^{c+1}-c-4$.  If a legal play has length
+$L_c-\varepsilon$ and
+\[
+ \varepsilon<2^{a-2}-1,
+\]
+then its final board contains every tile $2^a,\ldots,2^{c+1}$.  Outside
+the two equality multisets, every play has length at most $L_c-1$.
+\end{corollary}
+\begin{proof}
+The maximizing length contribution at a slot of maximal rank $b$ is
+$2^{b-1}-1$ and the best nonsaturating contribution is $2^{b-2}$, a gap
+of $2^{b-2}-1$.  Apply the same nonnegative-deficit argument.
+\end{proof}
+
+For $4\times4$, the known score $3{,}925{,}224$ has deficit 6876, while
+$11\cdot2^{10}-4=11260$.  Thus every legal play meeting or beating that
+score must end with all seven tiles
+\[
+131072,65536,32768,16384,8192,4096,2048.
+\]
+This is a compulsory structural feature of any improved search, not a
+choice of heuristic target.
+
+Let $q_F$ be the fewest spawned 4s among reachable full-chain games.  The
+best score on that fixed chain is $\Phi_c-4q_F$, but this need not be the
+global score optimum a priori.  Theorem~\ref{thm:scorerigidity} supplies a
+sufficient reduction: if $q_F\le c+2$, the best full-chain score is a
+global score optimum; if $q_F\le c+1$, the longest full-chain play is a
+global length optimum.  Consequently an 18-four full-chain construction
+on $4\times4$ would already justify the fixed-chain reduction for score,
+while a 16-four construction would attain both universal ceilings.
+
+\subsection{Finite strip frontier and executable checks}
+
+The unrestricted two-row construction is not yet uniform, but explicit
+independently replayed certificates now extend the finite frontier through
+$2\times8$.  For $2\times n$, $2\le n\le8$, the cell-count maximum
+$2^{2n+1}$ is reached in exactly
+\[
+ 2^{2n-1}+2n-3
+\]
+rounds from a suitable two-4 opening, meeting Theorem~\ref{thm:moves}; a
+suitable two-2 opening requires exactly one additional preparatory round.
+The certificates use only Up, Left and Down, so Corollary~\ref{cor:directions}
+shows that three distinct direction types are optimal.
+
+\begin{center}\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+board & top tile & minimum rounds & two initial 2s\\
+\midrule
+$2\times2$ & 32 & 9 & 10\\
+$2\times3$ & 128 & 35 & 36\\
+$2\times4$ & 512 & 133 & 134\\
+$2\times5$ & 2048 & 519 & 520\\
+$2\times6$ & 8192 & 2057 & 2058\\
+$2\times7$ & 32768 & 8203 & 8204\\
+$2\times8$ & 131072 & 32781 & 32782\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The general monotone constructor, its standalone verifier, complete
+negative-direction enumerations on several small boxes, and exhaustive
+spawn-branch checks of Theorem~\ref{thm:rectfold} are under
+\path{research/monotone/}.  These additions are executable checks of the
+written proofs; they have not been translated into Lean.  In particular,
+they do not expand the formal scope stated in Section~\ref{sec:lean}.
+
+The unrestricted frontier remains explicit: the all-width priming
+construction, the 16-four $4\times4$ full-chain game, and a stochastic
+strong solution of the standard board remain open.  The results above
+remove the monotone family and the entire rectangular endgame from that
+list, and sharpen the structure any remaining construction must obey.

@@ -1,0 +1,136 @@
+--- a/paper/main.tex
++++ b/paper/main.tex
+@@ -39,8 +39,8 @@
+ \input{figs}
+ 
+ \title{Perfect 2048:\\ Kernel-Verified Optima and Extremal Play}
+-\author{Dom the Developer\\ \small \url{https://github.com/DomTheDeveloper/2048-undo}}
+-\date{Draft, September 2026}
++\input{author}
++\date{Research preprint, September 7, 2026}
+ 
+ \begin{document}
+ \maketitle
+@@ -388,7 +388,8 @@
+ \cite{leesmiller2017} exhibits the $519=510+9$ move win on $4\times4$. For
+ $n=17$ we generated, verified and ship a $32{,}781$-move line
+ (Section~\ref{sec:algorithm}); Table~\ref{tab:exact} shows that the bound
+-is attained for every tile on every board up to ten cells---the 2048
++is attained for every relevant tile on each enumerated board of at most
++ten cells---the 2048
+ tile, for instance, needs exactly $519$ moves on the ten-cell $2\times5$
+ board too, where it is the largest tile there is. For the
+ largest tile a board can hold, the fastest plays are far more constrained
+@@ -757,9 +758,10 @@
+ \label{tab:exact}
+ \end{table}
+ 
+-Table~\ref{tab:exact} summarises. On every board tested the score ceiling
+-is attained, always on the full chain, always with exactly one spawned 4
+-per tile, and the longest game is exactly $2^{c+1}-4-c$ moves and ends on
++Table~\ref{tab:exact} summarises. Each enumerated board admits a
++ceiling-score full-chain witness with exactly one spawned 4 per tile.
++Replacing its last spawned 4 by a 2 gives the other equality case without
++changing the score. The longest game is exactly $2^{c+1}-4-c$ moves and ends on
+ the full chain or on the chain with a 2 in place of the 4, as
+ Theorem~\ref{thm:longest} predicts; the fewest moves to every tile $2^k$
+ with $k\ge3$ equals $M(k)$ of Theorem~\ref{thm:moves}, and the fewest to
+@@ -1413,6 +1415,9 @@
+ test/honest\_drive.js} produce the honest-play table. The board drawings
+ are generated from the engine's own snake tables.
+ 
++\fussy
++\input{state-space}
++
+ \section*{AI-assisted development}
+ Generative AI assisted with conjecture exploration, manuscript drafting,
+ programming, and Lean proof development. Kernel verification applies to
+@@ -1422,8 +1427,6 @@
+ priority. The proof and experiment sources are provided for independent
+ checking.
+ 
+-\fussy
+-\input{state-space}
+ 
+ \bibliographystyle{plain}
+ \bibliography{refs}
+--- a/paper/refs.bib
++++ b/paper/refs.bib
+@@ -198,7 +198,7 @@
+   howpublished = {\url{https://github.com/nneonneo/2048-ai}}
+ }
+ @misc{superintelligence2026,
+-  author = {Dom the Developer},
++  author = {Dabish, Dominic},
+   title  = {2048 {S}uperintelligence},
+   year   = {2026},
+   howpublished = {\url{https://github.com/DomTheDeveloper/2048-undo}}
+@@ -264,7 +264,7 @@
+   note = {Accessed 7 September 2026}
+ }
+ @misc{lean2048artifact2026,
+-  author = {Dom the Developer},
++  author = {Dabish, Dominic},
+   title = {{Lean}-checked reachability and exact minimum move counts for 131072 in 2048},
+   year = {2026},
+   howpublished = {Source artifact, \url{https://github.com/DomTheDeveloper/2048-undo/tree/03ca3d181640a2c2a7685efc3ead4ff932d925e4/lean-kernel}},
+--- a/README.md
++++ b/README.md
+@@ -1,7 +1,15 @@
+ # 2048 Superintelligence
+ A small clone of [1024](https://play.google.com/store/apps/details?id=com.veewo.a1024), based on [Saming's 2048](http://saming.fr/p/2048/) (also a clone), with Alok Menghrajani's undo mod — and an AI panel on top. [Play it here!](https://domthedeveloper.github.io/2048-undo/)
+ 
+-### Further extremal results (research revision)
++### Research manuscript
++
++**Dominic Dabish — San Diego State University**  
++Correspondence: [ddabish@sdsu.edu](mailto:ddabish@sdsu.edu).
++
++**Perfect 2048: Kernel-Verified Optima and Extremal Play.**
++[Read the paper](paper/main.pdf) · [Reproduction and proof status](paper/README.md) ·
++[Citation metadata](CITATION.cff). This is a research preprint, not a claim of
++acceptance or peer review. Original game and fork credits remain below.
+ 
+ The new [research note](research/DEDUCTIONS.md) and expanded paper prove the
+ opening-dependent optimum for **all 480 ordinary openings**, jointly attain
+@@ -35,7 +43,8 @@
+ sequences, not guaranteed wins against random spawns.
+ 
+ The complete fixed-4×4 proofs are in [`lean-kernel/`](lean-kernel/README.md).
+-The [paper](paper/main.pdf) integrates them in Section 6.5, including the
++The [paper](paper/main.pdf) integrates them in the section
++“Kernel-checked reachability and optimality in Lean,” including the
+ formal rules, the direct threshold-mass lower bound, and the axiom audit.
+ 
+ ```sh
+--- a/lean-kernel/README.md
++++ b/lean-kernel/README.md
+@@ -3,18 +3,22 @@
+ This is the independent development whose entire 32,781-round witness and
+ universal lower bound passed Lean 4.19.0 kernel checking in run
+ [34092192490](https://github.com/DomTheDeveloper/2048-undo/actions/runs/34092192490).
+-The proof sources and generator are byte-identical to verified commit
+-`86bd902861306f43a5697edcf86ccd3f96028aef`; they have been relocated from
+-`lean/` to `lean-kernel/` to preserve a separate Lean development that was
+-added concurrently to the active branch. The two developments are not
+-silently mixed or substituted for each other.
++That historical check covered the original certificate and lower bound. The
++current development additionally includes every-opening joint time/mass optima
++and deadline-slack lemmas; its exact source identities and axiom dependencies
++are recorded in `research/audit/final-verification.json`. The release build
++rebuilds this kernel-only development with pinned Lean 4.19.0 and no Mathlib.
++The separate `lean/` Mathlib prototype remains preserved as historical source;
++its older workflow failed at recursion depth and is not the evidence for this
++paper. Both workflow entrypoints now invoke the documented kernel-only build.
+ 
+ ## Reproduce
+ 
+ With Python 3 and the locally pinned Lean 4.19.0 toolchain:
+ 
+ ```sh
+-bash lean-kernel/check.sh
++bash lean-kernel/check.sh       # original certificate and lower bounds
++bash research/finish.sh full   # also every-opening, mass, and deadline results
+ ```
+ 
+ No Mathlib or third-party Lean package is needed. The script compiles the

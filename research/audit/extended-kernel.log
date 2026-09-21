@@ -1,0 +1,13 @@
+CHECKING Symmetry
+'Game2048.Plays.rotate' does not depend on any axioms
+CHECKING ResidualMass
+'Game2048.lower_bound_mass_131072' depends on axioms: [propext, Quot.sound]
+CHECKING MinimumMass
+'Game2048.MinimumMass.certified_play' does not depend on any axioms
+'Game2048.MinimumMass.joint_optimum' depends on axioms: [propext, Quot.sound]
+CHECKING OpeningTails
+'Game2048.OpeningTails.tail7_3' does not depend on any axioms
+CHECKING OpeningCases
+CHECKING AllOpenings
+'Game2048.every_opening_attains_its_bound' does not depend on any axioms
+'Game2048.standard2048_all_openings_exact' depends on axioms: [propext, Quot.sound]

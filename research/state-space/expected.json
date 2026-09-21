@@ -1,0 +1,25 @@
+{
+  "2x2": {"H":2,"W":2,"target":0,"age_cap":0,"last_age":60,"orbits":110,"labeled":662,"after_orbits":67,"after_labeled":464,"dead_orbits":36,"full_chain_orbits":2,"win_reached":false},
+  "2x3": {"H":2,"W":3,"target":0,"age_cap":0,"last_age":252,"orbits":21752,"labeled":85844,"after_orbits":14883,"after_labeled":59038,"dead_orbits":4484,"full_chain_orbits":28,"win_reached":false},
+  "2x2-stop32": {"H":2,"W":2,"target":32,"age_cap":0,"last_age":40,"orbits":75,"labeled":422,"after_orbits":45,"after_labeled":296,"dead_orbits":18,"full_chain_orbits":0,"win_reached":true},
+  "3x3": {"H":3,"W":3,"target":0,"age_cap":0,"last_age":2044,"orbits":48713519,"labeled":388921077,"after_orbits":31431374,"after_labeled":251166532,"dead_orbits":7388502,"full_chain_orbits":528,"win_reached":false},
+  "4x4-stop8": {"H":4,"W":4,"target":8,"age_cap":0,"last_age":50,"orbits":84660,"labeled":675154,"after_orbits":7932,"after_labeled":62944,"dead_orbits":1,"full_chain_orbits":0,"win_reached":true},
+  "4x4-stop16": {"H":4,"W":4,"target":16,"age_cap":0,"last_age":96,"orbits":23483970,"labeled":187809874,"after_orbits":4365386,"after_labeled":34907696,"dead_orbits":1149,"full_chain_orbits":0,"win_reached":true},
+  "4x4-age24": {"H":4,"W":4,"target":0,"age_cap":24,"last_age":24,"orbits":67104,"labeled":535148,"after_orbits":8497,"after_labeled":67500,"dead_orbits":0,"full_chain_orbits":0,"win_reached":false},
+  "bounds": {
+    "rank": {"fixed":[42680958038114579072,15664,2271276544,15664,2271276544,2271276544,849475216832,849475216832],"labeled":42680958038114579072,"orbits":5335119967984859212},
+    "rank_latency": {"fixed":[40983653184749247968,14896,2157111920,14896,2157111920,2157111920,802336998252,802336998252],"labeled":40983653184749247968,"orbits":5122956849486826253},
+    "rank_causal": {"fixed":[39959565739082613552,14776,2127274896,14776,2127274896,2127274896,786532615424,786532615424],"labeled":39959565739082613552,"orbits":4994945914816212330},
+    "geometry": {"fixed":[23408633018322063456,9616,1074436428,9616,1321984404,1321984404,415550811074,415550811074],"labeled":23408633018322063456,"orbits":2926079231642763759,"including_initial_labeled":23408633018322063480,"including_initial_orbits":2926079231642763765},
+    "geometry_latency": {"fixed":[23100210429941144692,9616,1074156348,9616,1302352544,1302352544,412395285252,412395285252],"labeled":23100210429941144692,"orbits":2887526407301324483,"including_initial_labeled":23100210429941144716,"including_initial_orbits":2887526407301324489},
+    "geometry_causal": {"fixed":[22851583961907351128,9616,1074108288,9616,1296452906,1296452906,411457895734,411457895734],"labeled":22851583961907351128,"orbits":2856448098561271991,"including_initial_labeled":22851583961907351152,"including_initial_orbits":2856448098561271997},
+    "initial_extras": {"fixed":[24,0,4,0,4,4,6,6],"labeled":24,"orbits":6},
+    "eligible_occupancy_masks":11743
+  },
+  "inverse": {"input_rows":104976,"candidate_rows_through_rank17":104976,"image_rows_through_rank17":74818,"nonempty_image_rows_through_rank17":74817,"additional_synthetic_rank18_outputs":836,"no_predecessor_example":[2,4,8,8,4,4,8,16,16,32,64,64,16,32,128,256],"example_predecessors":0},
+  "enumeration_verification": {
+    "2x2":{"labeled":662,"orbits":110,"exact_set_match":true,"all_states_pass_rank_and_causal_tests":true},
+    "2x3":{"labeled":85844,"orbits":21752,"exact_set_match":true,"all_states_pass_rank_and_causal_tests":true},
+    "inverse_and_closure":{"all_2x2_syntactic_targets_checked":1296,"predecessor_relation_exact":true,"rooted_filter_cardinalities":[896,686,666,662],"fixed_point_equals_raw_reachability":true,"soundness_and_successor_closure_checked":true}
+  }
+}

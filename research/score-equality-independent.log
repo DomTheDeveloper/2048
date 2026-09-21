@@ -1,0 +1,11 @@
+Steps verified:      24
+Illegal moves:       0
+Illegal spawns:      0
+Spawned 2s / 4s:     23 / 3   (the two starting tiles included)
+Score:               180
+Final board:
+      32      8
+      16      2
+Final maximum tile:  32
+Game over:           yes, no move changes the board
+Certificate:         VALID

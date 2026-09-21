@@ -1,0 +1,272 @@
+[
+  {
+    "cells": 2,
+    "policy": "fours",
+    "rounds": 1,
+    "first_largest": 1,
+    "score": 8,
+    "twos": 0,
+    "fours": 3
+  },
+  {
+    "cells": 2,
+    "policy": "twos",
+    "rounds": 2,
+    "first_largest": 2,
+    "score": 12,
+    "twos": 2,
+    "fours": 2
+  },
+  {
+    "cells": 3,
+    "policy": "fours",
+    "rounds": 5,
+    "first_largest": 4,
+    "score": 40,
+    "twos": 0,
+    "fours": 7
+  },
+  {
+    "cells": 3,
+    "policy": "twos",
+    "rounds": 9,
+    "first_largest": 7,
+    "score": 56,
+    "twos": 8,
+    "fours": 3
+  },
+  {
+    "cells": 4,
+    "policy": "fours",
+    "rounds": 13,
+    "first_largest": 9,
+    "score": 136,
+    "twos": 0,
+    "fours": 15
+  },
+  {
+    "cells": 4,
+    "policy": "twos",
+    "rounds": 24,
+    "first_largest": 16,
+    "score": 180,
+    "twos": 22,
+    "fours": 4
+  },
+  {
+    "cells": 5,
+    "policy": "fours",
+    "rounds": 29,
+    "first_largest": 18,
+    "score": 392,
+    "twos": 0,
+    "fours": 31
+  },
+  {
+    "cells": 5,
+    "policy": "twos",
+    "rounds": 55,
+    "first_largest": 33,
+    "score": 496,
+    "twos": 52,
+    "fours": 5
+  },
+  {
+    "cells": 6,
+    "policy": "fours",
+    "rounds": 61,
+    "first_largest": 35,
+    "score": 1032,
+    "twos": 0,
+    "fours": 63
+  },
+  {
+    "cells": 6,
+    "policy": "twos",
+    "rounds": 118,
+    "first_largest": 66,
+    "score": 1260,
+    "twos": 114,
+    "fours": 6
+  },
+  {
+    "cells": 7,
+    "policy": "fours",
+    "rounds": 125,
+    "first_largest": 68,
+    "score": 2568,
+    "twos": 0,
+    "fours": 127
+  },
+  {
+    "cells": 7,
+    "policy": "twos",
+    "rounds": 245,
+    "first_largest": 131,
+    "score": 3048,
+    "twos": 240,
+    "fours": 7
+  },
+  {
+    "cells": 8,
+    "policy": "fours",
+    "rounds": 253,
+    "first_largest": 133,
+    "score": 6152,
+    "twos": 0,
+    "fours": 255
+  },
+  {
+    "cells": 8,
+    "policy": "twos",
+    "rounds": 500,
+    "first_largest": 260,
+    "score": 7140,
+    "twos": 494,
+    "fours": 8
+  },
+  {
+    "cells": 9,
+    "policy": "fours",
+    "rounds": 509,
+    "first_largest": 262,
+    "score": 14344,
+    "twos": 0,
+    "fours": 511
+  },
+  {
+    "cells": 9,
+    "policy": "twos",
+    "rounds": 1011,
+    "first_largest": 517,
+    "score": 16352,
+    "twos": 1004,
+    "fours": 9
+  },
+  {
+    "cells": 10,
+    "policy": "fours",
+    "rounds": 1021,
+    "first_largest": 519,
+    "score": 32776,
+    "twos": 0,
+    "fours": 1023
+  },
+  {
+    "cells": 10,
+    "policy": "twos",
+    "rounds": 2034,
+    "first_largest": 1030,
+    "score": 36828,
+    "twos": 2026,
+    "fours": 10
+  },
+  {
+    "cells": 11,
+    "policy": "fours",
+    "rounds": 2045,
+    "first_largest": 1032,
+    "score": 73736,
+    "twos": 0,
+    "fours": 2047
+  },
+  {
+    "cells": 11,
+    "policy": "twos",
+    "rounds": 4081,
+    "first_largest": 2055,
+    "score": 81880,
+    "twos": 4072,
+    "fours": 11
+  },
+  {
+    "cells": 12,
+    "policy": "fours",
+    "rounds": 4093,
+    "first_largest": 2057,
+    "score": 163848,
+    "twos": 0,
+    "fours": 4095
+  },
+  {
+    "cells": 12,
+    "policy": "twos",
+    "rounds": 8176,
+    "first_largest": 4104,
+    "score": 180180,
+    "twos": 8166,
+    "fours": 12
+  },
+  {
+    "cells": 13,
+    "policy": "fours",
+    "rounds": 8189,
+    "first_largest": 4106,
+    "score": 360456,
+    "twos": 0,
+    "fours": 8191
+  },
+  {
+    "cells": 13,
+    "policy": "twos",
+    "rounds": 16367,
+    "first_largest": 8201,
+    "score": 393168,
+    "twos": 16356,
+    "fours": 13
+  },
+  {
+    "cells": 14,
+    "policy": "fours",
+    "rounds": 16381,
+    "first_largest": 8203,
+    "score": 786440,
+    "twos": 0,
+    "fours": 16383
+  },
+  {
+    "cells": 14,
+    "policy": "twos",
+    "rounds": 32750,
+    "first_largest": 16394,
+    "score": 851916,
+    "twos": 32738,
+    "fours": 14
+  },
+  {
+    "cells": 15,
+    "policy": "fours",
+    "rounds": 32765,
+    "first_largest": 16396,
+    "score": 1703944,
+    "twos": 0,
+    "fours": 32767
+  },
+  {
+    "cells": 15,
+    "policy": "twos",
+    "rounds": 65517,
+    "first_largest": 32779,
+    "score": 1834952,
+    "twos": 65504,
+    "fours": 15
+  },
+  {
+    "cells": 16,
+    "policy": "fours",
+    "rounds": 65533,
+    "first_largest": 32781,
+    "score": 3670024,
+    "twos": 0,
+    "fours": 65535
+  },
+  {
+    "cells": 16,
+    "policy": "twos",
+    "rounds": 131052,
+    "first_largest": 65548,
+    "score": 3932100,
+    "twos": 131038,
+    "fours": 16
+  }
+]

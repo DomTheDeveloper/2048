@@ -1,0 +1,33 @@
+diff --git a/paper/main.tex b/paper/main.tex
+--- a/paper/main.tex
++++ b/paper/main.tex
+@@ -515,9 +515,10 @@
+ 
+ \begin{theorem}\label{thm:score}
+ On any board with $c$ cells, every play satisfies
+-$\mathrm{score}\le\Phi_c-4c$. Equality requires the final position to be
+-the full chain, reached with exactly one spawned 4 in the merge tree of
+-each of its $c$ tiles.
++$\mathrm{score}\le\Phi_c-4c$. For an ordinary post-spawn position,
++equality requires either the full chain, with exactly one spawned 4 in
++the merge tree of each tile, or the same chain with its final 4 replaced
++by a spawned 2, with exactly one spawned 4 in each of the other trees.
+ \end{theorem}
+ \begin{proof}
+ Fix a play and its final position with tiles $T_1,\dots,T_m$, $m\le c$, of
+@@ -548,7 +549,14 @@
+ \mathrm{score}\;\le\;\sum_{p=1}^{c}\Bigl[(c+1-p)2^{c+2-p}-4\Bigr]
+ =\sum_{k=2}^{c+1}(k-1)2^k-4c=\Phi_c-4c.
+ \]
+-Equality forces $k_p=c+2-p$ and $h_p=1$ with $h'_p=1$ for every $p$.
++For equality, every positive slot contribution ($p<c$) must be maximal.
++If $m<c-1$, a positive contribution is missing; if $m=c-1$, all final
++tiles have value at least 8, contradicting the mandatory most recent
++2/4 spawn. Thus $m=c$. For $p<c$, equality forces $k_p=c+2-p$ and
++$h_p=h'_p=1$. At $p=c$ the two zero-contribution choices tie:
++$(k_c,h_c,h'_c)=(2,1,1)$ or $(1,0,0)$. These give exactly the two
++stated endpoint alternatives. Replacing the last spawned 4 by a 2
++changes no merge and hence no score.
+ \end{proof}
+ 
+ \begin{corollary}\label{cor:4x4}

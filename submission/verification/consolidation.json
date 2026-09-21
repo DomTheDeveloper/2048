@@ -1,0 +1,6 @@
+{
+  "preserved_revision": "31cb657b9fc3d8fb5a653fcfe847c02fe682e31a",
+  "formal_inputs_unchanged": true,
+  "kernel_audit": "release-check.json",
+  "scope": "The completed fresh local kernel rebuild remains applicable to unchanged formal inputs. Concurrent monotone arguments are preserved as conventional mathematics, not newly Lean-verified."
+}

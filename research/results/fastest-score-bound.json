@@ -1,0 +1,98 @@
+{
+  "unscored_last_spawn_excluded": true,
+  "scoring_junk_sources": 14,
+  "target_tree_score": 1966080,
+  "rows": [
+    {
+      "four_births": 0,
+      "mass": 28,
+      "potential_upper": 68,
+      "score_upper": 68
+    },
+    {
+      "four_births": 1,
+      "mass": 30,
+      "potential_upper": 68,
+      "score_upper": 64
+    },
+    {
+      "four_births": 2,
+      "mass": 32,
+      "potential_upper": 128,
+      "score_upper": 120
+    },
+    {
+      "four_births": 3,
+      "mass": 34,
+      "potential_upper": 128,
+      "score_upper": 116
+    },
+    {
+      "four_births": 4,
+      "mass": 36,
+      "potential_upper": 132,
+      "score_upper": 116
+    },
+    {
+      "four_births": 5,
+      "mass": 38,
+      "potential_upper": 132,
+      "score_upper": 112
+    },
+    {
+      "four_births": 6,
+      "mass": 40,
+      "potential_upper": 144,
+      "score_upper": 120
+    },
+    {
+      "four_births": 7,
+      "mass": 42,
+      "potential_upper": 144,
+      "score_upper": 116
+    },
+    {
+      "four_births": 8,
+      "mass": 44,
+      "potential_upper": 148,
+      "score_upper": 116
+    },
+    {
+      "four_births": 9,
+      "mass": 46,
+      "potential_upper": 148,
+      "score_upper": 112
+    },
+    {
+      "four_births": 10,
+      "mass": 48,
+      "potential_upper": 176,
+      "score_upper": 136
+    },
+    {
+      "four_births": 11,
+      "mass": 50,
+      "potential_upper": 176,
+      "score_upper": 132
+    },
+    {
+      "four_births": 12,
+      "mass": 52,
+      "potential_upper": 180,
+      "score_upper": 132
+    },
+    {
+      "four_births": 13,
+      "mass": 54,
+      "potential_upper": 180,
+      "score_upper": 128
+    },
+    {
+      "four_births": 14,
+      "mass": 56,
+      "potential_upper": 192,
+      "score_upper": 136
+    }
+  ],
+  "maximum_fastest_game_score": 1966216
+}

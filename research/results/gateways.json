@@ -1,0 +1,206 @@
+{
+  "131072.txt": [
+    {
+      "mass": 131072,
+      "round": 32766,
+      "missing_tile": 131072,
+      "forced_spawn": 4
+    }
+  ],
+  "full-chain.txt": [
+    {
+      "mass": 131072,
+      "round": 32766,
+      "missing_tile": 131072,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 196608,
+      "round": 49150,
+      "missing_tile": 65536,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 229376,
+      "round": 57342,
+      "missing_tile": 32768,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 245760,
+      "round": 61438,
+      "missing_tile": 16384,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 253952,
+      "round": 63486,
+      "missing_tile": 8192,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 258048,
+      "round": 64510,
+      "missing_tile": 4096,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 260096,
+      "round": 65022,
+      "missing_tile": 2048,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 261120,
+      "round": 65278,
+      "missing_tile": 1024,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 261632,
+      "round": 65406,
+      "missing_tile": 512,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 261888,
+      "round": 65470,
+      "missing_tile": 256,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 262016,
+      "round": 65502,
+      "missing_tile": 128,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 262080,
+      "round": 65518,
+      "missing_tile": 64,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 262112,
+      "round": 65526,
+      "missing_tile": 32,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 262128,
+      "round": 65530,
+      "missing_tile": 16,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 262136,
+      "round": 65532,
+      "missing_tile": 8,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 262140,
+      "round": 65533,
+      "missing_tile": 4,
+      "forced_spawn": 4
+    }
+  ],
+  "max-score.txt": [
+    {
+      "mass": 131072,
+      "round": 65533,
+      "missing_tile": 131072,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 196608,
+      "round": 98008,
+      "missing_tile": 65536,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 229376,
+      "round": 114048,
+      "missing_tile": 32768,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 245760,
+      "round": 121910,
+      "missing_tile": 16384,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 253952,
+      "round": 125669,
+      "missing_tile": 8192,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 258048,
+      "round": 127429,
+      "missing_tile": 4096,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 260096,
+      "round": 128390,
+      "missing_tile": 2048,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 261120,
+      "round": 128876,
+      "missing_tile": 1024,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 261632,
+      "round": 129110,
+      "missing_tile": 512,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 261888,
+      "round": 129221,
+      "missing_tile": 256,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 262016,
+      "round": 129280,
+      "missing_tile": 128,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 262080,
+      "round": 129310,
+      "missing_tile": 64,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 262112,
+      "round": 129324,
+      "missing_tile": 32,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 262128,
+      "round": 129330,
+      "missing_tile": 16,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 262136,
+      "round": 129332,
+      "missing_tile": 8,
+      "forced_spawn": 4
+    },
+    {
+      "mass": 262140,
+      "round": 129333,
+      "missing_tile": 4,
+      "forced_spawn": 4
+    }
+  ]
+}

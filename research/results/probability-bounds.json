@@ -1,0 +1,8 @@
+{
+  "full_chain_probability_upper": "2.396314653816771935205414875689885089421107739241438218504981759691613E-17",
+  "score_ceiling_probability_upper": "1.071400661686492688550369066045355397955330054542118005614272572227293E-6011",
+  "score_ceiling_log10": "-6010.970048089747083468267226512400226067027788359190528848132451366765",
+  "largest_tile_probability_upper_exact": "(1 + 10^(-65535))/11",
+  "largest_tile_probability_upper_safe_decimal": "0.090909091",
+  "probability_model": "independent standard 90/10 values; arbitrary adaptive directions and uniform empty-cell placement"
+}

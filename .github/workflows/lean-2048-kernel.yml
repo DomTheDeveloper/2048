@@ -1,47 +1,53 @@
 name: Independent Lean 2048 full kernel proof
 on:
-  push:
-    branches: [proof/lean-131072]
-    paths: ["lean-kernel/**", "witness/131072.txt", ".github/workflows/lean-2048-kernel.yml"]
-  pull_request:
-    paths: ["lean-kernel/**", "witness/131072.txt", ".github/workflows/lean-2048-kernel.yml"]
+  workflow_call:
   workflow_dispatch:
+  pull_request:
+    paths: ['lean-kernel/**', 'witness/**', 'research/**', '.github/workflows/lean-2048-kernel.yml']
 permissions:
   contents: read
 concurrency:
-  group: lean-2048-kernel-${{ github.ref }}
+  group: lean-2048-kernel-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/cache/restore@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          path: ~/.elan
-          key: lean2048-toolchain-v4.19.0
-      - name: Install pinned Lean
+          persist-credentials: false
+      - name: Install isolated pinned Lean 4.19.0
         shell: bash
         run: |
           set -euo pipefail
-          if [ ! -x "$HOME/.elan/bin/lean" ]; then
-            curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain leanprover/lean4:v4.19.0
-          fi
-          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
-      - name: Rebuild all proofs and audit the final theorem
-        run: bash lean-kernel/check.sh
-      - uses: actions/upload-artifact@v4
+          mkdir -p "$RUNNER_TEMP/lean419"
+          curl --fail --location --retry 3 https://github.com/leanprover/lean4/releases/download/v4.19.0/lean-4.19.0-linux.tar.zst --output "$RUNNER_TEMP/lean419.tar.zst"
+          tar --use-compress-program=unzstd -xf "$RUNNER_TEMP/lean419.tar.zst" -C "$RUNNER_TEMP/lean419" --strip-components=1
+          "$RUNNER_TEMP/lean419/bin/lean" --version
+          echo "$RUNNER_TEMP/lean419/bin" >> "$GITHUB_PATH"
+      - name: Fresh original and extended kernel proof with independent finite checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          find lean-kernel -name '*.olean' -delete
+          mkdir -p research/audit/release
+          sha256sum "$RUNNER_TEMP/lean419.tar.zst" > research/audit/release/toolchain-download.sha256
+          bash research/finish.sh full 2>&1 | tee research/audit/release/full-kernel.log
+          git diff --exit-code -- js witness lean-kernel/Game2048
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
-          name: independent-lean2048-full-kernel-proof
+          name: kernel-2048-${{ github.run_id }}
           path: |
             lean-kernel/Game2048/**/*.lean
             lean-kernel/*.py
             lean-kernel/*.sh
-            lean-kernel/*.md
             lean-kernel/*.log
             lean-kernel/lean-toolchain
             lean-kernel/verification.json
+            research/audit/
+            research/results/
             witness/131072.txt
           if-no-files-found: error
+          retention-days: 90

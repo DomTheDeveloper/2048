@@ -1,0 +1,13 @@
+Steps verified:      32781
+Illegal moves:       0
+Illegal spawns:      0
+Spawned 2s / 4s:     0 / 32783   (the two starting tiles included)
+Score:               1966216
+Final board:
+       4      .      .      .
+       .      .      .      8
+       .      .     32     16
+       .      .      . 131072
+Final maximum tile:  131072
+Game over:           no
+Certificate:         VALID

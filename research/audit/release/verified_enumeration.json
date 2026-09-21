@@ -1,0 +1,26 @@
+{
+  "2x2": {
+    "labeled": 662,
+    "orbits": 110,
+    "exact_set_match": true,
+    "all_states_pass_rank_and_causal_tests": true
+  },
+  "2x3": {
+    "labeled": 85844,
+    "orbits": 21752,
+    "exact_set_match": true,
+    "all_states_pass_rank_and_causal_tests": true
+  },
+  "inverse_and_closure": {
+    "all_2x2_syntactic_targets_checked": 1296,
+    "predecessor_relation_exact": true,
+    "rooted_filter_cardinalities": [
+      896,
+      686,
+      666,
+      662
+    ],
+    "fixed_point_equals_raw_reachability": true,
+    "soundness_and_successor_closure_checked": true
+  }
+}

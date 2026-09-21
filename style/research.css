@@ -1,0 +1,43 @@
+/* Publication chrome; the original game layout and tile palette are retained. */
+.project-subtitle {
+  margin: -4px 0 14px;
+  font-size: 15px;
+  line-height: 1.5;
+  text-align: center;
+}
+.research-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin: 0 0 22px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.research-nav a { text-underline-offset: 3px; }
+.research-note {
+  border-left: 3px solid #8f7a66;
+  padding: 8px 12px;
+  margin: 18px 0;
+  background: #f0e9df;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.project-credits { font-size: 13px; line-height: 1.7; }
+a:focus-visible, [role="button"]:focus-visible {
+  outline: 3px solid #30271f;
+  outline-offset: 3px;
+}
+[aria-disabled="true"] { cursor: not-allowed; }
+@media (max-width: 520px) {
+  h1.title { font-size: 36px; }
+  .project-subtitle { font-size: 13px; }
+  .research-nav { gap: 8px 14px; font-size: 13px; }
+  .research-note { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tile, .tile-inner, .score-addition, .super-toggle {
+    animation: none !important;
+    transition: none !important;
+  }
+}

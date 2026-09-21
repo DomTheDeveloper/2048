@@ -1,0 +1,14 @@
+Steps verified:      65533
+Illegal moves:       0
+Illegal spawns:      0
+Spawned 2s / 4s:     0 / 65535   (the two starting tiles included)
+Score:               3670024
+Final board:
+       4      8     16     32
+      64    128    256    512
+    8192   4096   2048   1024
+   16384  32768  65536 131072
+Final maximum tile:  131072
+Final position:      every power of two from 131072 down to 4, one per cell
+Game over:           yes, no move changes the board
+Certificate:         VALID

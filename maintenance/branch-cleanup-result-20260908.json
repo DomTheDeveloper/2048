@@ -1,0 +1,49 @@
+{
+  "repository": "DomTheDeveloper/2048",
+  "repository_id": 80335655,
+  "canonical_branch": "gh-pages",
+  "integration_commit": "ef54d34ef6c8357a4ae4a773118e48a7ea6ea62c",
+  "verified_publication_commit": "d2d954fd77218248246db4ea8b30cd2f6333c75b",
+  "cleanup_commit": "b0cf8790c5f1a8409ff8e79aafc990afce6075b5",
+  "cleanup_run_id": 34175684178,
+  "cleanup_job_id": 101904476630,
+  "cleanup_conclusion": "success",
+  "cleanup_finished_at_utc": "2026-09-08T01:11:59Z",
+  "all_reviewed_tips_retained_as_ancestors": true,
+  "deletion_method": "atomic git push with an explicit expected-SHA lease for every deleted branch",
+  "cancelled_obsolete_run_ids": [34174871467],
+  "deleted_branches": [
+    "agent/sun214-lean-audit",
+    "claude/super-mode-speed-corners-doxfcj",
+    "proof/lean-131072-verified",
+    "proof/lean-131072",
+    "release/manuscript-20260907",
+    "research/extremal-2048",
+    "research/extremal-deductions",
+    "research/monotone-official-integration"
+  ],
+  "remaining_branches_at_cleanup": {
+    "gh-pages": "b0cf8790c5f1a8409ff8e79aafc990afce6075b5",
+    "master": "cb6fbf5cae470cdba7a0419edc1e923222ea4749"
+  },
+  "default_branch_at_cleanup": "master",
+  "default_branch_change": "HTTP 403: repository-administration permission required",
+  "remaining_action": "An administrator must set the repository default branch to gh-pages, then delete master. Its reviewed commit is already an ancestor of gh-pages.",
+  "verification": {
+    "unchanged_game_proof_witness_manuscript_and_research_inputs_vs_verified_publication": true,
+    "production_syntax_paper_facts_and_dual_witness_replays": "passed",
+    "complete_computational_research_suite": "passed",
+    "large_state_space_regression_suite": "passed",
+    "production_game_ci_run": 34175684239,
+    "production_game_ci_conclusion": "success",
+    "monotone_and_manuscript_ci_run": 34175684187,
+    "monotone_and_manuscript_ci_conclusion": "success",
+    "integration_pages_deployment_run": 34175683214,
+    "integration_pages_deployment_conclusion": "success",
+    "fresh_lean_kernel_rebuild_during_branch_cleanup": false,
+    "billion_state_2x5_enumeration_rerun_during_branch_cleanup": false
+  },
+  "evidence_artifact_id": 10037203576,
+  "evidence_artifact_sha256": "665d045c285c10dfc906ebc4956356f98e0a3e14b21f481163a36656f45d367e",
+  "maintenance_scripts": "The one-time branch-deletion script and workflow are removed after successful execution. Their exact source remains in integration-commit history."
+}

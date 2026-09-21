@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: >-
+  Please cite the research manuscript below when using its proofs, witnesses,
+  or enumeration results. Original game and fork credits are retained in README.md.
+title: "Perfect 2048: Kernel-Verified Optima and Extremal Play — research artifacts"
+type: software
+authors:
+  - family-names: "Dabish"
+    given-names: "Dominic"
+    affiliation: "San Diego State University"
+    email: "ddabish@sdsu.edu"
+repository-code: "https://github.com/DomTheDeveloper/2048"
+url: "https://github.com/DomTheDeveloper/2048"
+preferred-citation:
+  type: unpublished
+  title: "Perfect 2048: Kernel-Verified Optima and Extremal Play"
+  authors:
+    - family-names: "Dabish"
+      given-names: "Dominic"
+      affiliation: "San Diego State University"
+      email: "ddabish@sdsu.edu"
+  year: 2026
+  month: 9
+  notes: "Research preprint; no journal acceptance or peer-review status is asserted."
+  url: "https://github.com/DomTheDeveloper/2048/blob/gh-pages/paper/main.pdf"

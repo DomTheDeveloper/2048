@@ -1,0 +1,336 @@
+{
+  "board_size": [
+    2,
+    2
+  ],
+  "initial": [
+    0,
+    0,
+    2,
+    2
+  ],
+  "final": [
+    2,
+    8,
+    16,
+    32
+  ],
+  "score": 180,
+  "rounds": 24,
+  "fours_including_initial": 3,
+  "maximum_score_from_complete_dp": 180,
+  "steps": [
+    {
+      "direction": "left",
+      "spawn_row": 0,
+      "spawn_col": 1,
+      "spawn_value": 2,
+      "board_after": [
+        0,
+        2,
+        4,
+        0
+      ],
+      "score": 4
+    },
+    {
+      "direction": "down",
+      "spawn_row": 0,
+      "spawn_col": 1,
+      "spawn_value": 2,
+      "board_after": [
+        0,
+        2,
+        4,
+        2
+      ],
+      "score": 4
+    },
+    {
+      "direction": "up",
+      "spawn_row": 1,
+      "spawn_col": 1,
+      "spawn_value": 2,
+      "board_after": [
+        4,
+        4,
+        0,
+        2
+      ],
+      "score": 8
+    },
+    {
+      "direction": "right",
+      "spawn_row": 1,
+      "spawn_col": 0,
+      "spawn_value": 2,
+      "board_after": [
+        0,
+        8,
+        2,
+        2
+      ],
+      "score": 16
+    },
+    {
+      "direction": "up",
+      "spawn_row": 1,
+      "spawn_col": 0,
+      "spawn_value": 2,
+      "board_after": [
+        2,
+        8,
+        2,
+        2
+      ],
+      "score": 16
+    },
+    {
+      "direction": "up",
+      "spawn_row": 1,
+      "spawn_col": 0,
+      "spawn_value": 2,
+      "board_after": [
+        4,
+        8,
+        2,
+        2
+      ],
+      "score": 20
+    },
+    {
+      "direction": "left",
+      "spawn_row": 1,
+      "spawn_col": 1,
+      "spawn_value": 2,
+      "board_after": [
+        4,
+        8,
+        4,
+        2
+      ],
+      "score": 24
+    },
+    {
+      "direction": "up",
+      "spawn_row": 1,
+      "spawn_col": 0,
+      "spawn_value": 2,
+      "board_after": [
+        8,
+        8,
+        2,
+        2
+      ],
+      "score": 32
+    },
+    {
+      "direction": "right",
+      "spawn_row": 1,
+      "spawn_col": 0,
+      "spawn_value": 2,
+      "board_after": [
+        0,
+        16,
+        2,
+        4
+      ],
+      "score": 52
+    },
+    {
+      "direction": "up",
+      "spawn_row": 1,
+      "spawn_col": 0,
+      "spawn_value": 2,
+      "board_after": [
+        2,
+        16,
+        2,
+        4
+      ],
+      "score": 52
+    },
+    {
+      "direction": "down",
+      "spawn_row": 0,
+      "spawn_col": 0,
+      "spawn_value": 2,
+      "board_after": [
+        2,
+        16,
+        4,
+        4
+      ],
+      "score": 56
+    },
+    {
+      "direction": "right",
+      "spawn_row": 1,
+      "spawn_col": 0,
+      "spawn_value": 2,
+      "board_after": [
+        2,
+        16,
+        2,
+        8
+      ],
+      "score": 64
+    },
+    {
+      "direction": "up",
+      "spawn_row": 1,
+      "spawn_col": 0,
+      "spawn_value": 4,
+      "board_after": [
+        4,
+        16,
+        4,
+        8
+      ],
+      "score": 68
+    },
+    {
+      "direction": "down",
+      "spawn_row": 0,
+      "spawn_col": 0,
+      "spawn_value": 2,
+      "board_after": [
+        2,
+        16,
+        8,
+        8
+      ],
+      "score": 76
+    },
+    {
+      "direction": "right",
+      "spawn_row": 1,
+      "spawn_col": 0,
+      "spawn_value": 2,
+      "board_after": [
+        2,
+        16,
+        2,
+        16
+      ],
+      "score": 92
+    },
+    {
+      "direction": "down",
+      "spawn_row": 0,
+      "spawn_col": 1,
+      "spawn_value": 2,
+      "board_after": [
+        0,
+        2,
+        4,
+        32
+      ],
+      "score": 128
+    },
+    {
+      "direction": "left",
+      "spawn_row": 0,
+      "spawn_col": 1,
+      "spawn_value": 2,
+      "board_after": [
+        2,
+        2,
+        4,
+        32
+      ],
+      "score": 128
+    },
+    {
+      "direction": "left",
+      "spawn_row": 0,
+      "spawn_col": 1,
+      "spawn_value": 2,
+      "board_after": [
+        4,
+        2,
+        4,
+        32
+      ],
+      "score": 132
+    },
+    {
+      "direction": "down",
+      "spawn_row": 0,
+      "spawn_col": 0,
+      "spawn_value": 2,
+      "board_after": [
+        2,
+        2,
+        8,
+        32
+      ],
+      "score": 140
+    },
+    {
+      "direction": "left",
+      "spawn_row": 0,
+      "spawn_col": 1,
+      "spawn_value": 4,
+      "board_after": [
+        4,
+        4,
+        8,
+        32
+      ],
+      "score": 144
+    },
+    {
+      "direction": "left",
+      "spawn_row": 0,
+      "spawn_col": 1,
+      "spawn_value": 2,
+      "board_after": [
+        8,
+        2,
+        8,
+        32
+      ],
+      "score": 152
+    },
+    {
+      "direction": "down",
+      "spawn_row": 0,
+      "spawn_col": 0,
+      "spawn_value": 2,
+      "board_after": [
+        2,
+        2,
+        16,
+        32
+      ],
+      "score": 168
+    },
+    {
+      "direction": "left",
+      "spawn_row": 0,
+      "spawn_col": 1,
+      "spawn_value": 4,
+      "board_after": [
+        4,
+        4,
+        16,
+        32
+      ],
+      "score": 172
+    },
+    {
+      "direction": "right",
+      "spawn_row": 0,
+      "spawn_col": 0,
+      "spawn_value": 2,
+      "board_after": [
+        2,
+        8,
+        16,
+        32
+      ],
+      "score": 180
+    }
+  ]
+}

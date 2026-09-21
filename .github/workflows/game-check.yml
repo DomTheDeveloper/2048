@@ -1,0 +1,32 @@
+name: Production game and witness regression
+on:
+  push:
+    branches: [gh-pages]
+    paths: ['js/**', 'test/**', 'verify/**', 'witness/**', '.github/workflows/game-check.yml']
+  pull_request:
+    branches: [gh-pages]
+    paths: ['js/**', 'test/**', 'verify/**', 'witness/**', '.github/workflows/game-check.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: game-check-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Syntax, paper facts and independent production-engine replays
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in js/*.js; do node --check "$file"; done
+          node test/paper_facts.js
+          for name in 131072 full-chain max-score; do
+            python3 verify/verify2048.py "witness/$name.txt"
+            node test/replay_engine.js "witness/$name.txt"
+          done

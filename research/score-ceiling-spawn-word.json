@@ -1,0 +1,8 @@
+{
+  "cells": 16,
+  "rounds": 131052,
+  "initial_tiles": [2, 2],
+  "four_spawn_rounds": [65533, 98300, 114683, 122874, 126969, 129016, 130039, 130550, 130805, 130932, 130995, 131026, 131041, 131048, 131051, 131052],
+  "all_other_round_spawns": 2,
+  "necessary_and_sufficient_task": "Find any legal direction/location sequence for this exact type word; last 4 may be changed to 2 for the other score-equality ending."
+}

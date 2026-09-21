@@ -1,0 +1,8 @@
+{
+  "verified_artifact_id": 10036891180,
+  "verified_artifact_sha256": "1eee87081dc812c341ea6a080b4ac45fbd303c64ec9933255e391211e04056c8",
+  "kernel_audit_run": 34173916457,
+  "kernel_checked_source_commit": "2d301bc52d14ced8a91bbbbfe3af6600a6edee7b",
+  "audited_inputs_identical": true,
+  "reason": "Verification succeeded; publication was blocked only by raw-log whitespace. No proof test is waived. Concurrent manuscript/monotone additions are preserved."
+}

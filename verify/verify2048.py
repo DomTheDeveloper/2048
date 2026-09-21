@@ -20,6 +20,7 @@ processed starting from the wall they move toward. The slide is
 implemented twice below, once cell by cell as in the original and once
 line by line, and the two must agree at every move.
 """
+import re
 import sys
 
 N = 4
@@ -105,10 +106,24 @@ def main(path):
             if not line:
                 continue
             parts = line.split()
+            if len(parts) != 4:
+                sys.exit("line %d: expected exactly four fields\nCertificate: INVALID" % lineno)
+            if any(re.fullmatch(r"[+-]?[0-9]+", token) is None for token in parts[1:]):
+                sys.exit("line %d: coordinates and value must be decimal integers\nCertificate: INVALID" % lineno)
+            try:
+                r, c, v = (int(token) for token in parts[1:])
+            except ValueError:
+                sys.exit("line %d: coordinates and value must be integers\nCertificate: INVALID" % lineno)
+            # Check BEFORE indexing: Python otherwise accepts negative coordinates.
+            if not (0 <= r < N and 0 <= c < N):
+                sys.exit("line %d: coordinates outside the board\nCertificate: INVALID" % lineno)
+            if v not in (2, 4):
+                sys.exit("line %d: a new tile must be 2 or 4\nCertificate: INVALID" % lineno)
             if parts[0] == "start":
+                if starts >= 2:
+                    sys.exit("line %d: more than two starting tiles\nCertificate: INVALID" % lineno)
                 if moves:
                     sys.exit("line %d: start after moves began" % lineno)
-                r, c, v = int(parts[1]), int(parts[2]), int(parts[3])
                 if v not in (2, 4) or board[r][c]:
                     sys.exit("line %d: bad starting tile" % lineno)
                 board[r][c] = v
@@ -118,8 +133,9 @@ def main(path):
                 continue
             if starts != 2:
                 sys.exit("line %d: a game starts with exactly two tiles" % lineno)
+            if parts[0] not in dirs:
+                sys.exit("line %d: direction must be U, R, D, or L\nCertificate: INVALID" % lineno)
             d = dirs[parts[0]]
-            r, c, v = int(parts[1]), int(parts[2]), int(parts[3])
             a, moved_a, gain_a = slide_original(board, d)
             b, moved_b, gain_b = slide_lines(board, d)
             if a != b or moved_a != moved_b or gain_a != gain_b:
@@ -159,4 +175,7 @@ def main(path):
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         sys.exit("usage: python3 verify/verify2048.py WITNESS")
-    main(sys.argv[1])
+    try:
+        main(sys.argv[1])
+    except OSError as exc:
+        sys.exit("Cannot read witness: %s" % exc)

@@ -1,0 +1,35 @@
+Fresh local full original certificate rebuild and research/check.sh completed successfully with Lean 4.19.0 on 2026-09-07.
+
+Game2048/Generated/Certificate.lean: exit 0
+'Game2048.Cert131072.certified_play' does not depend on any axioms
+Game2048/Main.lean: exit 0
+'Game2048.reachable_131072' does not depend on any axioms
+'Game2048.standard2048_exact_131072' depends on axioms: [propext, Quot.sound]
+KERNEL VERIFIED: 131072 is reachable in 32781 rounds, and no legal play is shorter.
+'Game2048.standard2048_two_twos_exact' depends on axioms: [propext, Quot.sound]
+ALL CHECKS PASSED: standard start 32781; two-2s start 32782.
+
+All 32 representatives pass both independent full replayers.
+Generated OpeningTails, OpeningCases, and full all-openings theorem.
+CHECKING Symmetry
+'Game2048.Plays.rotate' does not depend on any axioms
+CHECKING ResidualMass
+'Game2048.lower_bound_mass_131072' depends on axioms: [propext, Quot.sound]
+CHECKING MinimumMass
+'Game2048.MinimumMass.certified_play' does not depend on any axioms
+'Game2048.MinimumMass.joint_optimum' depends on axioms: [propext, Quot.sound]
+CHECKING OpeningTails
+'Game2048.OpeningTails.tail7_3' does not depend on any axioms
+CHECKING OpeningCases
+CHECKING AllOpenings
+'Game2048.every_opening_attains_its_bound' does not depend on any axioms
+'Game2048.standard2048_all_openings_exact' depends on axioms: [propext, Quot.sound]
+EXTENDED KERNEL AUDIT PASSED: every opening, joint minimum time and mass.
+
+Supplementary module:
+'Game2048.deadline_slack_131072' depends on axioms: [propext, Quot.sound]
+'Game2048.optimal_opening_and_prefix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Game2048.target_prefix_budget' depends on axioms: [propext, Quot.sound]
+
+PASS: 48 complete histories, 40 endpoint orbits, 320 distinct labeled endpoints.
+FINAL AUDIT PASSED: all-opening joint optima, deadline rigidity, and 320 certified chain endpoints.

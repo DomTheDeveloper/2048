@@ -1,0 +1,22 @@
+'Game2048.lower_bound_131072' depends on axioms: [propext, Quot.sound]
+'Game2048.lower_bound_2048' depends on axioms: [propext, Quot.sound]
+'Game2048.lower_bound_power' depends on axioms: [propext, Quot.sound]
+'Game2048.lower_bound_rank' depends on axioms: [propext, Quot.sound]
+'Game2048.Board.slide_mass_eq' depends on axioms: [propext, Quot.sound]
+'Game2048.step_mass_exact' depends on axioms: [propext, Quot.sound]
+'Game2048.lower_bound_two_twos' depends on axioms: [propext, Quot.sound]
+'Game2048.optimal_initial_mass' depends on axioms: [propext, Quot.sound]
+'Game2048.Cert131072.certified_play' does not depend on any axioms
+'Game2048.reachable_131072' does not depend on any axioms
+'Game2048.standard2048_exact_131072' depends on axioms: [propext, Quot.sound]
+'Game2048.standard2048_two_twos_exact' depends on axioms: [propext, Quot.sound]
+'Game2048.Plays.rotate' does not depend on any axioms
+'Game2048.lower_bound_mass_131072' depends on axioms: [propext, Quot.sound]
+'Game2048.MinimumMass.certified_play' does not depend on any axioms
+'Game2048.MinimumMass.joint_optimum' depends on axioms: [propext, Quot.sound]
+'Game2048.OpeningTails.tail7_3' does not depend on any axioms
+'Game2048.every_opening_attains_its_bound' does not depend on any axioms
+'Game2048.standard2048_all_openings_exact' depends on axioms: [propext, Quot.sound]
+'Game2048.deadline_slack_131072' depends on axioms: [propext, Quot.sound]
+'Game2048.optimal_opening_and_prefix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Game2048.target_prefix_budget' depends on axioms: [propext, Quot.sound]

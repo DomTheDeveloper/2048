@@ -1,0 +1,15 @@
+{
+  "canonical_branch": "gh-pages",
+  "verified_publication_commit": "d2d954fd77218248246db4ea8b30cd2f6333c75b",
+  "reviewed_branch_tips": {
+    "agent/sun214-lean-audit": "5ca18f995a1d3a34d29bfb6776011e0e9ae00de8",
+    "claude/super-mode-speed-corners-doxfcj": "d2d954fd77218248246db4ea8b30cd2f6333c75b",
+    "master": "cb6fbf5cae470cdba7a0419edc1e923222ea4749",
+    "proof/lean-131072-verified": "d6aeeb9b6a0dcc834192e8cde2e1d77a0cd7b008",
+    "proof/lean-131072": "42e3aad76db0739098b62f3a7ce8e268790c4056",
+    "release/manuscript-20260907": "113cb6a71584bb9094f0e531b8eae498a87abcec",
+    "research/extremal-2048": "08eb0ddd1f3cb45409cffc12006177e8de0d193a",
+    "research/extremal-deductions": "f1d8747b4c15e42b0f2af4b3dcfe694c3bc6c20a",
+    "research/monotone-official-integration": "166e8d5dbc68124b57191d9363a6aff501fe8c6a"
+  }
+}

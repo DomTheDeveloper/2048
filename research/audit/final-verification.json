@@ -1,0 +1,132 @@
+{
+  "kernel_checked": true,
+  "checked_at_utc": "2026-09-08T00:52:28.615259+00:00",
+  "lean_version": "Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)",
+  "labeled_openings": 480,
+  "minimum_endpoint_mass": 131102,
+  "opening_minimum_rounds": {
+    "two_fours": 32781,
+    "mixed_or_two_twos": 32782
+  },
+  "labeled_chain_endpoints": 320,
+  "chain_endpoint_orbits": 40,
+  "axioms": {
+    "Game2048.Cert131072.certified_play": [],
+    "Game2048.reachable_131072": [],
+    "Game2048.standard2048_exact_131072": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Game2048.standard2048_two_twos_exact": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Game2048.Plays.rotate": [],
+    "Game2048.lower_bound_mass_131072": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Game2048.MinimumMass.certified_play": [],
+    "Game2048.MinimumMass.joint_optimum": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Game2048.OpeningTails.tail7_3": [],
+    "Game2048.every_opening_attains_its_bound": [],
+    "Game2048.standard2048_all_openings_exact": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Game2048.deadline_slack_131072": [
+      "propext",
+      "Quot.sound"
+    ],
+    "Game2048.optimal_opening_and_prefix": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "Game2048.target_prefix_budget": [
+      "propext",
+      "Quot.sound"
+    ]
+  },
+  "source_sha256": {
+    "lean-kernel/Game2048/AllOpenings.lean": "5294df78d03f654240d8b66d183ee13f8061e73a5754c948969057d664b55af0",
+    "lean-kernel/Game2048/Basic.lean": "d4977d67fa665416395329d9eea6a420094e24d22bdb857194ef9f7e4bd2da31",
+    "lean-kernel/Game2048/Corollaries.lean": "d21a866939ab221f5ec70b4deddb3fe74fccfd9a9e5633ecc5ce8d13e9701dac",
+    "lean-kernel/Game2048/DeadlineSlack.lean": "1ba1ea446d2b49818beea5b0f6de47f7bebf644a3cb1c8b003fdce36958f9f6a",
+    "lean-kernel/Game2048/Generated/Block000.lean": "15b3f596ecc37098ac80b4d98b326da6793adddcf34e0146962e60e78595884c",
+    "lean-kernel/Game2048/Generated/Block001.lean": "cd75248f65d2831fd01395eadb8893b3e555dac99564b1c7833c9667b749bc51",
+    "lean-kernel/Game2048/Generated/Block002.lean": "e066a2251cd519ca7ccb5075905bec77e0dfb37b56dabe77867616379fc033fd",
+    "lean-kernel/Game2048/Generated/Block003.lean": "953c4b7c0df8cb052231e323a6cab565da80918c32afe343c540df58a8414067",
+    "lean-kernel/Game2048/Generated/Block004.lean": "3244778bcf09ba65554df4a25d0c097a7565dc6aaebe62db2bfa2adc8e74a583",
+    "lean-kernel/Game2048/Generated/Block005.lean": "bab4664fd884c05a6bf3ec828e8e7537f8a563ba916c05b159dd2ed346cf23aa",
+    "lean-kernel/Game2048/Generated/Block006.lean": "62a8520be1506f3abce4fb03f111246a3144154700292870b407e3fb30f98677",
+    "lean-kernel/Game2048/Generated/Block007.lean": "e0ae68b3f61535e8942a2fa33d2eafa9d01d311714e35614f4c0b2c93fc6f871",
+    "lean-kernel/Game2048/Generated/Block008.lean": "13155223116ae654948fcd1f1fb41a571221b230f050a630aff349413b24d129",
+    "lean-kernel/Game2048/Generated/Block009.lean": "c73ebe437af5545f51b403dc01f5f8b35cc0cb653249c969e8b2d284d86d3897",
+    "lean-kernel/Game2048/Generated/Block010.lean": "b12da11d8031d2b420fd370d9981ad557838f5d1f365af5cbf75ebcd1f5040af",
+    "lean-kernel/Game2048/Generated/Block011.lean": "89eb258c1edfa45a4769d27df325c6813943edcffec7c99385c4ef97fa682266",
+    "lean-kernel/Game2048/Generated/Block012.lean": "a2e9e0d61246cc69dba118a524593c664d8ae909bd67db20105e9b1758fe5462",
+    "lean-kernel/Game2048/Generated/Block013.lean": "39c9be575c2db43562813be364eabd45a986b3b42ce08647e79fedee6d1cde76",
+    "lean-kernel/Game2048/Generated/Block014.lean": "38d31fd4f5776ca68b6e5d19d8449a69e2ba7b6e0fb80ba083806c0ceb7a8363",
+    "lean-kernel/Game2048/Generated/Block015.lean": "06ca02ebd3a67935c9ce2b03ef9f339f109faf54a738855ce90b79dd9bbe856c",
+    "lean-kernel/Game2048/Generated/Block016.lean": "e244ff79e2f3da7e09f28144c6381ae5db9cc962bf15142ef417be7e468a699c",
+    "lean-kernel/Game2048/Generated/Certificate.lean": "a8bf31da3b8d9e148ec14b0b961271b893e2e665ed2e3be53c4b8a5ecf2bb303",
+    "lean-kernel/Game2048/Generated/Checkpoints.lean": "3de98f0a5a56353deff3db120420e6a40784b115156a4645745480cd2f6a7f15",
+    "lean-kernel/Game2048/LowerBound.lean": "edb28d0ef330c3062ca607128a58080ab7d7a0513a9f5a5be7ea4757d319ae82",
+    "lean-kernel/Game2048/Main.lean": "97b76cd78f4fab453d2611515833165c205c497063a84131d39515e42673fed0",
+    "lean-kernel/Game2048/MinimumMass.lean": "8cb046acd31d33965ffca75828d962b05d507bb8f063d0d325974ea420578f22",
+    "lean-kernel/Game2048/OpeningCases.lean": "ff40924640bdc8e35a679e4b69915268ecfa5dff6eed4126a4cb32653a4183ee",
+    "lean-kernel/Game2048/OpeningTails.lean": "eff75909019365a1d0671d0202378a702a5396e3be48fa3e18839481b0d47d5c",
+    "lean-kernel/Game2048/PowerBounds.lean": "720a4219532ca7016569beb45626552e9003553e277b4e920cb5f1a51d2988c9",
+    "lean-kernel/Game2048/ResidualMass.lean": "6b44813baa23a3bc1a0179df75a809284611089a0b01ea01c0589eeca02f3a55",
+    "lean-kernel/Game2048/SemanticsChecks.lean": "f08ddcb6d2bdab8acfaa2490da963cb4121aeabb13842c2185e5a8202d030966",
+    "lean-kernel/Game2048/Symmetry.lean": "6faba69f1a2b3208220c86b33a21447e6300f2289dbfb4fd104d1d1658a04c36",
+    "lean-kernel/Game2048/TwoTwos.lean": "09039844ff041ce5ed10ab82608cc6367521ab29e8e6254db6f57743d5297eb3",
+    "lean-kernel/build_certificate.py": "5168404cae4594172eef8134b0a5732f5602a3059ea27fcd8962b8849a2bf8df",
+    "lean-kernel/lean-toolchain": "55e97be96000b5e9e290c9e74482e5e317861499a5540353ce845471bded8cea",
+    "research/arrangement_endings.py": "eaf6db4724863ded41ef6219d88a5a248a31b42b80579f7b7361e5b1491bc8f5",
+    "research/check.sh": "d88307a30b35de89bc42cb2ee68962035a48c2e53aa808f5520c484c66a53ed3",
+    "research/check_openings.sh": "e27f9eaf0db8d4d929c8daddd93057edd48490aefb2d2f0381ca656e1da01ff7",
+    "research/common.py": "bf0a1d5616537ef29a7476f83f5d86587f3edc77c219c1c2c940043a0b23224b",
+    "research/embedding.py": "439354106ebe7c6db4b9a46686f0f3cd3a67567c6d55844b142016cc4908baad",
+    "research/emit_opening_proofs.py": "522aec48d5b849ac787742c07c41c37f0efdb7ed8da37d2e9ae267276bb2fec7",
+    "research/final_audit.py": "4a8556c5a8e8e5697d35f3945247cfa9ece9ecb518e27017a79878c8f25e6390",
+    "research/final_review_patch.py": "cf75dd28efd4db209162ca1174769d1eb1d315435152fdc7fb810dc83f146a32",
+    "research/finish.sh": "90c7915db670089fe00da038d6c3deba894201978a6f1c7c69fd20f792b446d6",
+    "research/fold.py": "f5d745447a0e5b32fae39c3796135c421e9d1be05c564ea26524cae9bbaf915d",
+    "research/gateways.py": "a4d607d351a36b1f67ada3ebb1562e31c195e990440e45691236ab3bb503a26e",
+    "research/mass_barriers.py": "293e95cd88fca86b88a9bb1e7060f7bd27163059763867232909107c401239ad",
+    "research/mass_interval.py": "e1fe846c0c8412ac0e8a907662de00a2e9410c14b13e49d60078ef998b603603",
+    "research/openings.py": "6593faa14134e2ce0f54d4af3f68bde234bd5acc802327598b8c553560689e0c",
+    "research/score_bounds.py": "30ce6c9f34993826f74958b4b414f38b758338c1c650b2b438bd4cad9bdfa340",
+    "research/score_equality_test.py": "279d0fc9c139aa9c5dae58ea625534d349350ded9fa0e7e32cfeaa33eba9a2fc",
+    "research/spliced_certificates.py": "f91a0ea22b7504b6061ab65b858496a509a3b4ee7e4b343c841691cc6a6f6624",
+    "research/state-space/bounds.py": "9a5d496d7e688ceda1b9523ec1f7c2d35d5a66a365b17fed6bf8303a873542f9",
+    "research/state-space/filters.py": "28502a50458803bd210507841998dc2e56bf6d64c56510ac2f945dc18a187bb3",
+    "research/state-space/integrate_paper.py": "2e175d70f06943639f393afd1af28ddcbf1caf36a0cd4ea458c39e3e458d78a9",
+    "research/state-space/inverse.py": "8b7b02fbaee56664e011d0cb5d3106939037f0cc3fb74fa18a5ce5d4c098e13f",
+    "research/state-space/run.py": "cc4a434b61413d56189ee33cde400a4f91aed590c0d5d2ba3fa7c7074a915340",
+    "research/state-space/run.sh": "1eee0a459ec1fa1949e159615aaac69b2a46110b619d159de6a4c3f9a66d6e6f",
+    "research/state-space/score_counterexample.py": "e1c90e2fcd4864aacc1e6e933b31f9e9ca0b3e57e25b8af89dff53e17896b892",
+    "research/state-space/test_regressions.py": "f008860d5ee5ab5ae01ef7a5836b63032cdd80b623fd705e4ac9156192fbdeb5",
+    "research/state-space/verify_enumeration.py": "4f454706f70051bc2d404f1b1505833d9a3441d9e94f841efc3fb35881f2e980",
+    "research/supplement_checks.py": "7f04c7c0ca49c8643841d2caf9932562d5b7306b058a64398ce5d38b62ee8281",
+    "research/tails.py": "50a2081e1ad7af84a5f56178c1da15282b52938f4e3de08b184f84d50bbb22e8",
+    "research/verify_variants.py": "c34d779ce1605844aae63fe80057233da718bb80a91f0626666a75ec8fa8665d",
+    "research/witness_probabilities.py": "1fe49c5602d409f93220c3d022f2f6a48d127f4c59be077b69459d9b5e63cec3",
+    "witness/131072-fold-4.txt": "b29031e33a95c8d1997934ea6ec527c97b8c6fe12ea5294779cf4c17cfb01cb9",
+    "witness/131072-minimum-fold-fours.txt": "a309dface8c8ee01d514cbcd2c2000b111797cf9c11064d93c68b262a7b5da86",
+    "witness/131072-one-four.txt": "20903f7a237698e2e7d871e889075cd30f6ade6a393e26e44cc62991d4bcce11",
+    "witness/131072-two-twos.txt": "326fd1ab66c7258c9f6827c96f3fcac881c88f6d596e643d3d01a3782e101401",
+    "witness/131072.txt": "4f49c437f0946f17b6afb9c4c97c62ef1a44ee7595ad75888d3806c3291afe9e",
+    "witness/full-chain-noncorner.txt": "997678048905b2328d09e59296f7445029f1d19620ba7008eb2f2eb83d84fa81",
+    "witness/full-chain-opposite-corners.txt": "383ba4641b26aa1f286ad366318b77714df88ab6c17ebf19b8c184220cfe5dda",
+    "witness/full-chain-opposite.txt": "5e0fc86bd9a71ad529a94f17d2ba01bdacff669bd9f74d5ad32a157160526dea",
+    "witness/full-chain.txt": "465ebffedc2fcbdcc972a700a32f978c789dac2dcadad1b95805e4c5dc6cfd85",
+    "witness/max-score.txt": "8b80d89c711249c80ce48323a273f5a89d68a07976b3bb40313808eae1f84390"
+  },
+  "scope": "Full original certificate and extended deterministic Lean proofs rebuilt. New scores/arrangements use written proofs and independent replays. Probability and general-size results are not Lean-formalized. The 2x5 billion-state enumeration was not rerun."
+}

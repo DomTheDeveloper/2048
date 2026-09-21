@@ -1,24 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>2048 Superintelligence</title>
+  <title>2048 — Verified Play and Research</title>
+  <meta name="description" content="Explore 2048 with independent replay certificates, Lean-verified minimum move counts, and reproducible state-space research.">
+  <link rel="canonical" href="https://domthedeveloper.github.io/2048/">
+  <meta property="og:title" content="Perfect 2048 — Verified Play and Research">
+  <meta property="og:description" content="A playable demonstration and reproducible research artifact. Controlled spawn sequences show possibility, not guaranteed random-spawn wins.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://domthedeveloper.github.io/2048/">
 
   <link href="style/main.css" rel="stylesheet" type="text/css">
   <link href="style/super.css?v=9" rel="stylesheet" type="text/css">
+  <link href="style/research.css?v=1" rel="stylesheet" type="text/css">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
   <div class="container">
     <div class="heading">
-      <h1 class="title">2048 Superintelligence</h1>
+      <h1 class="title">2048</h1>
+      <p class="project-subtitle">Verified play. Reproducible research.</p>
     </div>
+    <nav class="research-nav" aria-label="Research resources">
+      <a href="paper/main.pdf">Research paper</a>
+      <a href="https://github.com/DomTheDeveloper/2048/blob/gh-pages/docs/REPRODUCIBILITY.md">Reproduce</a>
+      <a href="https://github.com/DomTheDeveloper/2048/blob/gh-pages/docs/USER_GUIDE.md">User guide</a>
+      <a href="https://github.com/DomTheDeveloper/2048/tree/gh-pages">Source</a>
+    </nav>
+    <noscript><p class="research-note">Enable JavaScript to play. The research paper and source links remain available without it.</p></noscript>
     <div class="above-game">
       <a class="restart-button">Try again</a>
       <div class="scores-container">
@@ -67,13 +82,13 @@
       </div>
       <div class="super-row" data-row="bridge">
         <span class="super-label">bridge</span>
-        <input class="super-bridge-input" type="text" spellcheck="false" autocomplete="off" placeholder="http://127.0.0.1:2048" title="Where ai/bridge.py listens. Start it with: python3 ai/bridge.py — Laya loads on the first move, Jev needs TYPESAFE_API_KEY in its environment">
-        <span class="super-bridge-status"></span>
+        <input class="super-bridge-input" type="text" spellcheck="false" autocomplete="off" placeholder="http://127.0.0.1:2048" aria-label="Decision bridge address" title="Where ai/bridge.py listens. Start it with: python3 ai/bridge.py — Laya loads on the first move, Jev needs TYPESAFE_API_KEY in its environment">
+        <span class="super-bridge-status" aria-live="polite"></span>
       </div>
       <div class="super-row" data-row="goal">
         <span class="super-label">goal</span>
         <a class="super-chip" data-goal="tile" title="The biggest tile the run can make — 131072 for perfect play, as far as the AI gets otherwise">🏁 MAX BLOCK</a>
-        <a class="super-chip" data-goal="score" title="The most points — for perfect play the full chain fed with 2s: 3,925,224 in 129,333 moves against a proved ceiling of 3,932,100 (see the README), otherwise survive as long as possible">💯 MAX SCORE</a>
+        <a class="super-chip" data-goal="score" title="The shipped controlled-spawn construction scores 3,925,224 in 129,333 moves. It does not attain the 3,932,100 upper bound; global score optimality is not claimed.">💯 HIGH SCORE</a>
         <a class="super-chip" data-goal="spiral" title="Perfect play only: build the 131072, then keep going until every power of two sits on the board at once — 65,533 moves">🌀 FULL SPIRAL</a>
       </div>
       <div class="super-row" data-row="speed">
@@ -210,17 +225,23 @@
       </div>
     </div>
 
+    <aside class="research-note" aria-label="Interpretation of controlled play">
+      <strong>What does “perfect” mean?</strong> Controlled playback follows a legal,
+      verified spawn sequence. It demonstrates what is possible, not a guaranteed
+      win with random tiles. High-score playback is a construction, not a proof of
+      the unrestricted score optimum.
+    </aside>
     <p class="game-explanation">
       <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
     </p>
     <hr>
-    <p>
-    Original game by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli</a>, <a href="https://github.com/gabrielecirulli/2048" target="_blank">source</a>.<br />
-    Based on <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a>.<br />
-    Conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer</a>.<br />
-    Undo-mod by <a href="http://quaxio.com/" target="_blank">Alok Menghrajani</a>, <a href="https://github.com/alokmenghrajani/2048" target="_blank">source</a>.<br />
-    2048-AI by <a href="https://github.com/aj-r" target="_blank">AJ Richardson</a>, <a href="https://github.com/aj-r/2048-AI" target="_blank">source</a>.<br />
-    2048 Superintelligence by <a href="https://github.com/DomTheDeveloper" target="_blank">Dom the Developer</a>, <a href="https://github.com/DomTheDeveloper/2048-undo" target="_blank">source</a>.
+    <p class="project-credits">
+    Original game by <a href="http://gabrielecirulli.com" target="_blank" rel="noopener noreferrer">Gabriele Cirulli</a>, <a href="https://github.com/gabrielecirulli/2048" target="_blank" rel="noopener noreferrer">source</a>.<br />
+    Based on <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank" rel="noopener noreferrer">1024 by Veewo Studio</a>.<br />
+    Conceptually similar to <a href="http://asherv.com/threes/" target="_blank" rel="noopener noreferrer">Threes by Asher Vollmer</a>.<br />
+    Undo-mod by <a href="http://quaxio.com/" target="_blank" rel="noopener noreferrer">Alok Menghrajani</a>, <a href="https://github.com/alokmenghrajani/2048" target="_blank" rel="noopener noreferrer">source</a>.<br />
+    2048-AI by <a href="https://github.com/aj-r" target="_blank" rel="noopener noreferrer">AJ Richardson</a>, <a href="https://github.com/aj-r/2048-AI" target="_blank" rel="noopener noreferrer">source</a>.<br />
+    Research and demonstration by <a href="https://github.com/DomTheDeveloper" target="_blank" rel="noopener noreferrer">Dom the Developer</a>, <a href="https://github.com/DomTheDeveloper/2048" target="_blank" rel="noopener noreferrer">source</a>.
     </p>
   </div>
 
@@ -238,16 +259,7 @@
   <script src="js/honest_ai.js?v=9"></script>
   <script src="js/decision_ai.js?v=9"></script>
   <script src="js/super_mode.js?v=9"></script>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-2373559-12', 'quaxio.com');
-  ga('send', 'pageview');
-</script>
+  <script src="js/accessibility.js?v=1"></script>
 
 </body>
 </html>

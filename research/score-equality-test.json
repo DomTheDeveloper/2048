@@ -1,0 +1,13 @@
+{
+  "raw_reachable_states": 662,
+  "maximum_score": 180,
+  "moves": 24,
+  "spawned_fours": 3,
+  "final_board": [
+    32,
+    8,
+    16,
+    2
+  ],
+  "old_full_chain_only_equality_clause": "false"
+}

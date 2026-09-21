@@ -1,0 +1,43 @@
+{
+  "checkpoint_move": 65517,
+  "total_moves": 65533,
+  "all_spawns": 4,
+  "visited_states": 199,
+  "layer_counts": [
+    3,
+    2,
+    3,
+    10,
+    19,
+    20,
+    29,
+    33,
+    26,
+    6,
+    3,
+    10,
+    14,
+    6,
+    6,
+    8
+  ],
+  "distinct_endings": 8,
+  "distinct_symmetry_images": 64
+}
+corner 0: both independent checkers VALID
+corner 1: both independent checkers VALID
+corner 2: both independent checkers VALID
+corner 3: both independent checkers VALID
+corner 4: both independent checkers VALID
+corner 5: both independent checkers VALID
+corner 6: both independent checkers VALID
+corner 7: both independent checkers VALID
+noncorner 0: both independent checkers VALID
+noncorner 1: both independent checkers VALID
+noncorner 2: both independent checkers VALID
+noncorner 3: both independent checkers VALID
+noncorner 4: both independent checkers VALID
+noncorner 5: both independent checkers VALID
+noncorner 6: both independent checkers VALID
+noncorner 7: both independent checkers VALID
+ALL CHECKS PASSED: 16 base games; 128 distinct symmetry images.

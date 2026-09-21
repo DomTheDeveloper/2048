@@ -1,0 +1,79 @@
+Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)
+Game2048/Basic.lean:97:25: warning: `List.length_eq_zero` has been deprecated: use `List.length_eq_zero_iff` instead
+'Game2048.lower_bound_131072' depends on axioms: [propext, Quot.sound]
+'Game2048.lower_bound_2048' depends on axioms: [propext, Quot.sound]
+'Game2048.lower_bound_power' depends on axioms: [propext, Quot.sound]
+'Game2048.lower_bound_rank' depends on axioms: [propext, Quot.sound]
+'Game2048.Board.slide_mass_eq' depends on axioms: [propext, Quot.sound]
+'Game2048.step_mass_exact' depends on axioms: [propext, Quot.sound]
+'Game2048.lower_bound_two_twos' depends on axioms: [propext, Quot.sound]
+'Game2048.optimal_initial_mass' depends on axioms: [propext, Quot.sound]
+{
+  "witness": "witness/131072.txt",
+  "sha256": "4f49c437f0946f17b6afb9c4c97c62ef1a44ee7595ad75888d3806c3291afe9e",
+  "moves": 32781,
+  "first_131072": 32781,
+  "score": 1966092,
+  "spawned_2s": 8,
+  "spawned_4s": 32775,
+  "final_board": [
+    4,
+    2,
+    4,
+    2,
+    2,
+    4,
+    8,
+    4,
+    4,
+    2,
+    4,
+    2,
+    2,
+    0,
+    0,
+    131072
+  ],
+  "chunks": 258,
+  "chunk_size": 128,
+  "kernel_transition_checks": 32781
+}
+Generated 32781 transitions in 258 chunks and 17 modules
+Negative kernel test: fabricated transition REJECTED
+Game2048/Generated/Checkpoints.lean: exit 0, 1.38s
+Game2048/Generated/Block000.lean: exit 0, 46.46s
+Game2048/Generated/Block001.lean: exit 0, 70.46s
+Game2048/Generated/Block002.lean: exit 0, 71.37s
+Game2048/Generated/Block003.lean: exit 0, 72.62s
+Game2048/Generated/Block004.lean: exit 0, 74.78s
+Game2048/Generated/Block005.lean: exit 0, 75.73s
+Game2048/Generated/Block006.lean: exit 0, 77.31s
+Game2048/Generated/Block007.lean: exit 0, 71.24s
+Game2048/Generated/Block008.lean: exit 0, 72.25s
+Game2048/Generated/Block009.lean: exit 0, 69.20s
+Game2048/Generated/Block010.lean: exit 0, 69.02s
+Game2048/Generated/Block011.lean: exit 0, 72.48s
+Game2048/Generated/Block012.lean: exit 0, 70.60s
+Game2048/Generated/Block013.lean: exit 0, 70.90s
+Game2048/Generated/Block014.lean: exit 0, 71.85s
+Game2048/Generated/Block016.lean: exit 0, 0.81s
+Game2048/Generated/Block015.lean: exit 0, 42.48s
+Game2048/Generated/Certificate.lean: exit 0, 2.20s
+'Game2048.Cert131072.certified_play' does not depend on any axioms
+
+Game2048/Main.lean: exit 0, 2.88s
+'Game2048.reachable_131072' does not depend on any axioms
+'Game2048.standard2048_exact_131072' depends on axioms: [propext, Quot.sound]
+
+KERNEL VERIFIED: 131072 is reachable in 32781 rounds, and no legal play is shorter.
+{
+  "Game2048.Cert131072.certified_play": [],
+  "Game2048.reachable_131072": [],
+  "Game2048.standard2048_exact_131072": [
+    "propext",
+    "Quot.sound"
+  ]
+}
+'Game2048.standard2048_two_twos_exact' depends on axioms: [propext, Quot.sound]
+'Game2048.standard2048_exact_131072' depends on axioms: [propext, Quot.sound]
+ALL CHECKS PASSED: standard start 32781; two-2s start 32782.

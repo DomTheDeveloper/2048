@@ -1,0 +1,75 @@
+name: Publication checks
+on:
+  push:
+    branches: [gh-pages]
+    paths:
+      - 'README.md'
+      - 'CONTRIBUTING.md'
+      - 'CITATION.*'
+      - 'docs/**'
+      - 'index.html'
+      - 'js/**'
+      - 'style/**'
+      - 'verify/**'
+      - 'test/**'
+      - 'witness/**'
+      - '.github/workflows/publication-checks.yml'
+  pull_request:
+    branches: [gh-pages]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: publication-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Documentation, malformed witnesses, and JavaScript syntax
+        run: |
+          set -euo pipefail
+          mkdir -p evidence
+          python3 test/release_checks.py | tee evidence/release-checks.log
+          for file in js/*.js test/*.js; do node --check "$file"; done
+      - name: Replay all principal witnesses through both independent routes
+        run: |
+          set -euo pipefail
+          for name in 131072 131072-two-twos full-chain max-score; do
+            python3 verify/verify2048.py "witness/$name.txt" | tee "evidence/$name-python.log"
+            node test/replay_engine.js "witness/$name.txt" | tee "evidence/$name-engine.log"
+          done
+          node test/paper_facts.js | tee evidence/paper-facts.log
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: publication-regression-${{ github.sha }}
+          path: evidence/
+          if-no-files-found: error
+          retention-days: 30
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Install pinned browser test dependency
+        run: |
+          python3 -m venv "$RUNNER_TEMP/browser-venv"
+          "$RUNNER_TEMP/browser-venv/bin/pip" install 'playwright==1.57.0'
+          "$RUNNER_TEMP/browser-venv/bin/python" -m playwright install --with-deps chromium
+      - name: Exercise keyboard controls, responsive layout, and complete witness playback
+        run: |
+          "$RUNNER_TEMP/browser-venv/bin/python" test/browser_smoke.py --output-dir evidence/browser
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: publication-browser-${{ github.sha }}
+          path: evidence/browser/
+          if-no-files-found: error
+          retention-days: 30

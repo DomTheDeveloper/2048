@@ -1,0 +1,2 @@
+# Preserve machine-verification transcripts byte for byte. Source checks remain enabled.
+research/audit/**/*.log -whitespace

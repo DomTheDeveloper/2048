@@ -3,18 +3,22 @@
 This is the independent development whose entire 32,781-round witness and
 universal lower bound passed Lean 4.19.0 kernel checking in run
 [34092192490](https://github.com/DomTheDeveloper/2048-undo/actions/runs/34092192490).
-The proof sources and generator are byte-identical to verified commit
-`86bd902861306f43a5697edcf86ccd3f96028aef`; they have been relocated from
-`lean/` to `lean-kernel/` to preserve a separate Lean development that was
-added concurrently to the active branch. The two developments are not
-silently mixed or substituted for each other.
+That historical check covered the original certificate and lower bound. The
+current development additionally includes every-opening joint time/mass optima
+and deadline-slack lemmas; its exact source identities and axiom dependencies
+are recorded in `research/audit/final-verification.json`. The release build
+rebuilds this kernel-only development with pinned Lean 4.19.0 and no Mathlib.
+The separate `lean/` Mathlib prototype remains preserved as historical source;
+its older workflow failed at recursion depth and is not the evidence for this
+paper. Both workflow entrypoints now invoke the documented kernel-only build.
 
 ## Reproduce
 
 With Python 3 and the locally pinned Lean 4.19.0 toolchain:
 
 ```sh
-bash lean-kernel/check.sh
+bash lean-kernel/check.sh       # original certificate and lower bounds
+bash research/finish.sh full   # also every-opening, mass, and deadline results
 ```
 
 No Mathlib or third-party Lean package is needed. The script compiles the

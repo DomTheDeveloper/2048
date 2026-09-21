@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "manuscript_title": "Perfect 2048: Kernel-Verified Optima and Extremal Play",
+  "author": "Dominic Dabish",
+  "affiliation": "San Diego State University",
+  "email": "ddabish@sdsu.edu",
+  "manuscript_status": "research preprint; not a claim of peer review or acceptance",
+  "checked_source_commit": "2d301bc52d14ced8a91bbbbfe3af6600a6edee7b",
+  "workflow_run": "34173916457",
+  "completed_at_utc": "2026-09-08T00:54:31.928793+00:00",
+  "fresh_kernel_rebuild": true,
+  "kernel_version": "Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)",
+  "labeled_openings": 480,
+  "endpoint_mass": 131102,
+  "fresh_state_space_cases": [
+    "2x2",
+    "2x3",
+    "2x2-stop32",
+    "4x4-stop8",
+    "4x4-age24",
+    "3x3",
+    "4x4-stop16"
+  ],
+  "pdf_sha256": "4b7308e4c0fd1af7af4a6597577d97ed03f7625acfd4beae6470fa880da01ba1",
+  "paper_source_sha256": {
+    "author.tex": "d62edfa0fbbee7a93d040b36cc8fd8141b2131288ce642b69f339cbad1524cf4",
+    "deductions.tex": "c0b34eb69bc4d7b11d71f7677afca84b44d4846ece719e74f7e06a3b4265029a",
+    "figs.tex": "697931a40181ec20c34acbbda926b0dc5b87d7ccf8875407154160d2c865ea6a",
+    "lean.tex": "93606f42156071d16c2221e6cbfe6f3e71b05e211a5ca50f4fe28ff76cf09912",
+    "main.tex": "b357fec9d5657f9284c3dfe891735038f9c5df80389e6388467043ba2fe34b02",
+    "refs.bib": "32d8b05edfaee54bd5da6657bfafdb353de875757df164448d9a841d757a05a2",
+    "state-space.tex": "2ddb2e6e5bf61e31d241de08baa3cb3cbabaddc5a1676792d97849d28983870a"
+  },
+  "scope": "Fresh kernel-only original witness and every-opening/mass/deadline proofs; fresh finite replays and seven state-space cases. General state-space proofs remain human proofs. Exact full 4x4 count and unrestricted score attainment are not established."
+}

@@ -38,45 +38,45 @@
          markline/.style={draw=black!80, line width=1.6pt}}
 \input{figs}
 
-\title{Perfect 2048:\\ the fewest moves, the highest score, the longest game,\\ and what the undo button buys}
-\author{Dom the Developer\\ \small \url{https://github.com/DomTheDeveloper/2048-undo}}
-\date{Draft, September 2026}
+\title{Perfect 2048:\\ Kernel-Verified Optima and Extremal Play}
+\input{author}
+\date{Research preprint, September 7, 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-We study 2048 under \emph{possible play}: the spawn sequence is part of
-an existential plan, rather than an adversary or a random outcome that
-the player must control. For standard $4\times4$ 2048, we give an explicit
-legal trajectory to $131072$ in exactly $32{,}781$ moves and prove that
-no legal trajectory from any ordinary two-tile opening can be shorter.
-Both the complete witness and the universal lower bound are checked by
-Lean~4's kernel. When both starting tiles are required to be 2s, the
-exact minimum is $32{,}782$; a single preparatory move converts a suitable
-two-2s opening into the certificate's two-4s opening. These are
-existential optima, not guarantees against every random spawn sequence.
+We study extremal \emph{possible play} in 2048: player moves and legal
+spawn outcomes together specify a trajectory, without asserting that
+those outcomes can be forced in random play. For every ordinary two-tile
+opening of the standard $4\times4$ game, we determine the exact minimum
+number of rounds to reach $131072$: $32{,}781$ from two 4s and $32{,}782$
+otherwise. Every opening attains its time optimum jointly with the
+minimum post-spawn endpoint mass $131102$. These results, including
+coverage of all 480 labeled openings, are checked by Lean~4's kernel.
+The constructive theorem has no axiom dependencies; the combined
+optimum theorem uses only \texttt{propext} and \texttt{Quot.sound}.
 
-The lower-bound argument uses mass above a doubling threshold, directly
-under the slide-and-spawn rules. The reachability theorem has no axiom
-dependencies; the exact-optimum theorem uses only Lean's standard
-\texttt{propext} and \texttt{Quot.sound} axioms. Plaintext witnesses and
-two independent executable replayers accompany the formal development.
+Written bounds and independently replayed witnesses further establish
+the maximum score $1{,}966{,}216$ among fastest target-reaching games,
+and a $65{,}548$-round optimum when exactly one 4-birth is permitted.
+We certify 320 distinct minimum-length full-chain arrangements in 40
+symmetry orbits, including every boundary location of the largest tile
+and diagonally opposite placements of the smallest and largest tiles.
+Unavoidable total-mass configurations yield policy-independent
+probability bounds, a fixed spawn-value word for any ceiling-score game,
+and a scalar relaxation of optimal expected score. We also give a
+uniform one-dimensional construction and a moving-window embedding lemma.
 
-Separately, we derive a general minimum-move bound, a primed-board
-classification for fastest top-tile games, the score ceiling
-$\Phi_c-4c$ for a $c$-cell board with
-$\Phi_c=\sum_{k=2}^{c+1}(k-1)2^k$, and the game-length bound
-$2^{c+1}-4-c$. On $4\times4$ these ceilings are $3{,}932{,}100$ points
-and $131{,}052$ moves. We characterise the last move of full-chain games
-and the eight corner-snake symmetries. Enumeration checks the small
-boards, including the $2\times2\times2$ cube, and reproduces the
-published $3\times3$ state count. Our $4\times4$ full-chain witness
-uses $65{,}533$ moves; a score-oriented witness reaches $3{,}925{,}224$
-points, leaving attainment of the score ceiling conjectural. We also
-analyse re-randomising undo and honest-play agents. The Lean claim is
-limited to fixed-$4\times4$ reachability, minimum move counts, and their
-supporting lemmas; the remaining results are not thereby formally verified.
+The broader score and game-length bounds are checked on enumerated
+small boards: the $2\times5$ possible-play computation has
+$1{,}814{,}373{,}350$ positions up to symmetry and attains $36{,}828$
+points and $2{,}034$ rounds; the cube and the published $3\times3$
+count supply further comparisons. Attainment of the $4\times4$ score
+ceiling $3{,}932{,}100$ remains conjectural. The Lean scope is the fixed-board
+time--mass optima and supporting deterministic lemmas, not all stochastic,
+score, or arbitrary-board arguments. Plaintext witnesses, two independent
+replayers, proof sources, and reproducible audits accompany the manuscript.
 \end{abstract}
 
 \section{Introduction}
@@ -122,8 +122,10 @@ of the minimum possible length, published as a text file that a short
 independent program checks (Section~\ref{sec:certificate}). The same
 witness and a universal lower bound are now kernel-checked in Lean~4,
 along with the exact $32{,}782$-move optimum for two initial 2s
-(Section~\ref{sec:lean}). The third and fourth questions we have not seen
-asked in print; their answers fall out of the same accounting.
+(Section~\ref{sec:lean}). The numerical score and longest-game figures already appear in
+Rip\`a's 2014 analysis \cite{ripa2014,ripaoeis2014}. We contribute
+explicit proof arguments and certificates rather than claiming those
+numbers as new.
 
 \paragraph{Contributions.}
 \begin{itemize}[nosep]
@@ -135,7 +137,7 @@ certificate generation, axiom audit, and reproducible build are described
 in Section~\ref{sec:lean}.
 \item Theorem~\ref{thm:moves}: $2^n$ needs at least $(2^n-8)/4+(n-2)$
 moves on any board, with equality for $n=11$ (519) and $n=17$
-($32{,}781$) on $4\times4$ and for every tile on every board of at most
+($32{,}781$) on $4\times4$ and for every relevant tile on each enumerated board of at most
 ten cells. Lemma~\ref{lem:primed}: every fastest top tile passes through
 one and the same full board and finishes with a forced cascade.
 \item Theorem~\ref{thm:score}: on any $c$-cell board, score $\le\Phi_c-4c$.
@@ -185,6 +187,16 @@ relaxed model has only the small spawn value. The real game's 4-spawns are
 precisely the resource that buys an extra cell, and Theorem~\ref{thm:score}
 prices that resource: four points each, and exactly $c$ of them on the way
 to the top position.
+
+\paragraph{Numerical prior art and scope.}
+Rip\`a \cite{ripa2014,ripaoeis2014} already gives the numerical score
+formula, the $131052$-round figure, and the necessary rare spawn-value
+word probability in 2014. A contemporaneous account \cite{amo2014}
+observes that the final 2 or 4 does not affect the score. We retain
+this credit when proving bounds and correcting the equality case;
+we do not treat successful computation or formalization as evidence of
+historical priority. No uniform arbitrary-rectangle construction or
+$4\times4$ score-ceiling witness is asserted here.
 
 \paragraph{Learning agents.} Szubert and Ja\'skowski \cite{szubert2014}
 introduced temporal-difference learning of $n$-tuple networks for 2048; Wu
@@ -376,7 +388,8 @@ Attainability is a construction. For $n=11$, Lees-Miller's Markov chain
 \cite{leesmiller2017} exhibits the $519=510+9$ move win on $4\times4$. For
 $n=17$ we generated, verified and ship a $32{,}781$-move line
 (Section~\ref{sec:algorithm}); Table~\ref{tab:exact} shows that the bound
-is attained for every tile on every board up to ten cells---the 2048
+is attained for each relevant tile on each enumerated board up to ten
+cells---the 2048
 tile, for instance, needs exactly $519$ moves on the ten-cell $2\times5$
 board too, where it is the largest tile there is. For the
 largest tile a board can hold, the fastest plays are far more constrained
@@ -514,10 +527,12 @@ Let $\Phi_c=\sum_{k=2}^{c+1}(k-1)2^k=(c-1)2^{c+2}+4$, the value of
 $\Phichain$ on the full chain $2^{c+1},2^c,\dots,2^2$.
 
 \begin{theorem}\label{thm:score}
-On any board with $c$ cells, every play satisfies
-$\mathrm{score}\le\Phi_c-4c$. Equality requires the final position to be
-the full chain, reached with exactly one spawned 4 in the merge tree of
-each of its $c$ tiles.
+On any board with $c\ge2$ cells, every play satisfies
+$\mathrm{score}\le\Phi_c-4c$. Equality after a complete round requires
+the full chain with exactly $c$ spawned 4s, or the same chain with its
+4 replaced by a 2 and exactly $c-1$ spawned 4s. Each of the $c-1$ larger
+tiles has exactly one spawned 4 in its merge tree; a final 4 is itself
+spawned.
 \end{theorem}
 \begin{proof}
 Fix a play and its final position with tiles $T_1,\dots,T_m$, $m\le c$, of
@@ -548,7 +563,11 @@ board ($m=c$) is best, and
 \mathrm{score}\;\le\;\sum_{p=1}^{c}\Bigl[(c+1-p)2^{c+2-p}-4\Bigr]
 =\sum_{k=2}^{c+1}(k-1)2^k-4c=\Phi_c-4c.
 \]
-Equality forces $k_p=c+2-p$ and $h_p=1$ with $h'_p=1$ for every $p$.
+Equality forces $m\ge c-1$, and for $p<c$ it forces $k_p=c+2-p$
+and $h'_p=h_p=1$. If $m=c-1$, every final tile has value at least 8,
+which is impossible just after the mandatory 2/4 spawn. Thus $m=c$.
+The final zero-valued bracket permits both
+$(k_c,h_c,h'_c)=(2,1,1)$ and $(1,0,0)$, giving the two stated cases.
 \end{proof}
 
 \begin{corollary}\label{cor:4x4}
@@ -591,7 +610,7 @@ and there is a moment when it owns the whole board.
 \begin{corollary}[the top position]\label{cor:top}
 On a board with $c$ cells:
 \begin{enumerate}[nosep,label=(\roman*)]
-\item the full chain is the unique position of maximum mass, $2^{c+2}-4$;
+\item the full chain is the unique tile multiset of maximum mass, $2^{c+2}-4$;
 \item every play reaching the full chain has at least $c$ spawned 4s, one
 in the merge tree of each of its tiles; in particular its 4 is itself a
 spawned 4, and the chain cannot be built from 2s alone;
@@ -729,7 +748,7 @@ $4\times4$ & 16 & ? & ? & $\ge3{,}925{,}224$ & 3{,}932{,}100 & 3{,}932{,}156 & 6
 positions up to the board's symmetries (8 for squares, 4 for rectangles,
 48 for the cube), ``raw'' without reduction; ``chain in'' is the fewest moves to the full
 chain ($2^c-3$, Corollary~\ref{cor:chain}); ``longest'' the longest game
-(Theorem~\ref{thm:longest}). On every board up to ten cells, the
+(Theorem~\ref{thm:longest}). On every enumerated board up to ten cells, the
 three-dimensional one included, the maximum score equals the ceiling of
 Theorem~\ref{thm:score}, the full chain is reached with exactly $c$
 spawned 4s, and the longest game equals the bound.
@@ -739,17 +758,19 @@ this paper and the shipped lines.}
 \label{tab:exact}
 \end{table}
 
-Table~\ref{tab:exact} summarises. On every board tested the score ceiling
-is attained, always on the full chain, always with exactly one spawned 4
-per tile, and the longest game is exactly $2^{c+1}-4-c$ moves and ends on
+Table~\ref{tab:exact} summarises. Each enumerated board admits a
+ceiling-score full-chain witness with exactly one spawned 4 per tile.
+Replacing its last spawned 4 by a 2 gives the other equality case without
+changing the score. The longest game is exactly $2^{c+1}-4-c$ moves and ends on
 the full chain or on the chain with a 2 in place of the 4, as
 Theorem~\ref{thm:longest} predicts; the fewest moves to every tile $2^k$
 with $k\ge3$ equals $M(k)$ of Theorem~\ref{thm:moves}, and the fewest to
 the full chain equals $2^c-3$. The ten-cell $2\times5$ board, with
 $1.8\cdot10^{9}$ positions up to symmetry, took three hours in a
-forward-only pass that keeps only the open layers; its honest game, which
-needs every layer, did not fit in memory here and is left to a bigger
-machine. The $3\times3$ enumeration gives
+forward-only pass that keeps only the open layers. Our implementation
+of the stochastic backward pass retained all layers and exceeded available
+memory; that stochastic solution was not completed. This is an
+implementation limitation, not a necessity to retain all layers in RAM. The $3\times3$ enumeration gives
 $48{,}713{,}519$ positions, the number Yamashita, Kaneko and Nakayashiki
 report, which also fixes the convention of their count: positions up to
 the eight symmetries of the square. (Lees-Miller's ``about 25 million''
@@ -794,7 +815,7 @@ full chain with $\nfour=1{,}735$, hence a score of
 \]
 $99.825\%$ of the ceiling and $6{,}876$ points short of it. The identities
 $\text{moves}=131{,}068-\nfour$ (all $129{,}333$ moves spawn 2 except the
-4s; mass $262{,}140=8+2\cdot\text{moves}+2\nfour$) and
+4s; mass $262{,}140=4+2\cdot\text{moves}+2\nfour$) and
 $\text{score}=3{,}932{,}164-4\nfour$ are verified by replay through the
 game engine in all four corners and both spiral orientations.
 
@@ -1249,7 +1270,7 @@ optimal move in every reachable position and hence the optimal expected
 score and the optimal probability of every tile---is out of reach of this
 paper and, as far as we know, of any current computation; the layered
 pass of Section~\ref{sec:exact} is the right shape for it (it is
-Kaneko and Yamashita's), and the obstacle is purely size. What the
+Kaneko and Yamashita's), and a central obstacle is the state-space size. What the
 previous sections settle is the other half of ``perfect 2048'', the
 possible-play half. Table~\ref{tab:status} lists both halves.
 
@@ -1268,8 +1289,8 @@ fewest moves to 131072 & $32{,}781$, exact and kernel-checked in Lean (Theorem~\
 fewest moves to 131072, two initial 2s & $32{,}782$, exact and kernel-checked in Lean (Theorem~\ref{thm:leanexact}) \\
 maximum score & between $3{,}925{,}224$ and $3{,}932{,}100$ (Theorems~\ref{thm:score}, \ref{thm:lines}); conjectured $3{,}932{,}100$ \\
 longest game & between $129{,}333$ and $131{,}052$ (Theorems~\ref{thm:longest}, \ref{thm:lines}) \\
-the full chain $131072,\dots,4$ & reachable, in exactly $65{,}533$ moves at the fewest (Corollary~\ref{cor:chain}); eight spiral arrangements reachable (Theorem~\ref{thm:eight}); every reachable arrangement has its 4 on the boundary beside the 8 (Proposition~\ref{prop:lastmove}); which other arrangements are reachable is open \\
-probability that an honest game reaches 131072 & open; at least $10^{-57{,}047}$, the probability of the shipped line (Proposition~\ref{prop:cert}) \\
+the full chain $131072,\dots,4$ & reachable, in exactly $65{,}533$ moves at the fewest (Corollary~\ref{cor:chain}); at least 320 arrangements have minimum-length certificates (Section~\ref{sec:deductions}), with the largest tile in every boundary cell; every reachable arrangement has its 4 on the boundary beside the 8 (Proposition~\ref{prop:lastmove}); which other arrangements are reachable is open \\
+probability that an honest game reaches 131072 & open; between $10^{-48{,}607}$ and $(1+10^{-65535})/11$ by Section~\ref{sec:deductions}; the exact optimum is open \\
 number of reachable positions & open; more than $1.3\cdot10^{12}$ \cite{leesmiller2017b} \\
 \bottomrule
 \end{tabular}
@@ -1288,17 +1309,18 @@ board as their Theorem~1. Their argument prescribes the spawns and
 proceeds by induction on the board, performing the construction for an
 $n_1\times n_2$ board inside an $(n_1+1)\times n_2$ board and then using
 the extra cells; but a slide moves every line of the board, so a
-sub-board is not isolated from the rest, and the step needs an invariant
-that keeps the extra cells out of the way, which the paper does not
-state. We were unable to complete the argument from what is written, and
-we do not claim the general statement here. What is established: on every
-board up to ten cells, the cube included, by exhaustive enumeration
+fixed-coordinate sub-board is not isolated from the rest.
+Proposition~\ref{prop:embedding} supplies a moving-window invariant
+that validates embedding itself. The remaining use of the additional
+cells for further doublings still needs a complete strategy and invariant;
+we do not claim that general construction here. What is established: on the enumerated
+boards up to ten cells, the cube included, by exhaustive enumeration
 (Table~\ref{tab:exact}); on $4\times3$ by Kaneko and Yamashita's
 enumeration, which reaches $8192=2^{13}$; and on $4\times4$ by the
 certificate of Section~\ref{sec:certificate}, whose legality and
-minimum length are kernel-checked in Section~\ref{sec:lean}. A uniform
+minimum length are kernel-checked in Section~\ref{sec:lean}. A uniform multidimensional
 construction with a proven invariant remains an unresolved verification
-task in this work; the failed naive strategy alone does not establish
+task in this work; the line family is handled in Section~\ref{sec:deductions}; the failed naive strategy alone does not establish
 that the general theorem is false or historically unsolved: a snake counter
 that spawns at the far end of the frontier row and slides toward its head
 fails at the first turn of every board we tried, and our $4\times4$ line
@@ -1307,7 +1329,7 @@ was found by search, not by a rule.
 \paragraph{Predictions for $4\times3$.} Kaneko and Yamashita's pass
 carries, per position, what the optimal policy needs. Adding a two-byte
 ``fewest spawned 4s'' field and a ``fewest moves'' field would decide
-the possible-play half of $4\times3$ at negligible cost, and this paper
+the possible-play half of $4\times3$ with additional per-state storage, and this paper
 predicts the answers: the largest tile $8192$ in $M(13)=2{,}057$ moves
 and not fewer; the full chain $8192,\dots,4$ in $2^{12}-3=4{,}093$ moves
 at the fewest and with exactly twelve spawned 4s at the fewest; a maximum
@@ -1331,13 +1353,18 @@ eight cells: an optimal expected score of $2{,}953.42$ against
 $2{,}641.87$, a 256 tile with probability $94.04\%$ against $86.98\%$,
 and a 512 with $6.32\%$ against $2.46\%$. Six directions beat four.
 
+\input{deductions}
+
+\fussy
+\input{state-space}
+
 \section{Open problems}\label{sec:open}
 
 \begin{enumerate}[nosep]
 \item Strongly solving $4\times4$ (Table~\ref{tab:status}): the optimal
 expected score and the optimal probability of each tile, in particular of
-$131072$, for which only the trivial lower bound of the shipped line is
-known.
+$131072$, whose policy-independent probability bounds are sharpened in
+Section~\ref{sec:deductions}.
 \item Conjecture~\ref{conj}: a $4\times4$ play with sixteen spawned 4s,
 equivalently a $131{,}052$-move game.
 \item The maximum score and longest game of $4\times3$ (predicted
@@ -1353,19 +1380,37 @@ and~\ref{thm:longest} are tight on \emph{every} board and in every
 dimension. The $2\times2\times3$ box (twelve cells) is the next
 three-dimensional case, at the scale of $4\times3$.
 \item Which arrangements of the full chain are reachable on $4\times4$?
-At least the eight spirals are; every reachable one has its 4 on the
-boundary beside the 8 (Proposition~\ref{prop:lastmove}). Can the
-$131072$ sit off the corners, or the 4 at the corner opposite the
-$131072$?
+At least 320 arrangements have optimal-length certificates, including
+every boundary location of $131072$ and the opposite-corner placement of
+the 4 (Section~\ref{sec:deductions}). Can the $131072$ occupy an
+interior cell of a full chain? A complete classification remains open.
 \item The boards passed at move $M(n)-(n-2)$ by the fastest plays to
 $2^n$ when $2^n$ is not the top tile (Lemma~\ref{lem:primed} fixes them
 only for $n=c+1$).
 \item Minimum undos: the expected undo count above is for the shipped
-lines; the line minimising expected undos (which would prefer spawns with
-many empty cells) is a different optimisation.
+lines; the line minimising expected undos (which would prefer fewer empty cells
+for a fixed prescribed spawn value) is a different optimisation.
 \end{enumerate}
 
 \section*{Reproducibility}
+
+\paragraph{Manuscript and artifact availability.}
+The manuscript, plaintext witnesses, source code, and verification records
+are available in the public repository
+\url{https://github.com/DomTheDeveloper/2048-undo}, on its
+\texttt{gh-pages} branch. The submission source bundle and its build
+manifest are retained under \texttt{submission/}. All results are
+reported with their verification scope; posting this preprint does not
+constitute journal acceptance or external peer review.
+
+\paragraph{Research expansion.}
+Run \texttt{bash research/finish.sh} to rebuild the original certificate,
+the every-opening and minimum-mass theorems, the deadline-slack lemmas,
+and the finite calculations and new arrangement certificates.
+The optional \texttt{--computations-only} mode explicitly makes no fresh
+Lean-checking claim. \path{research/audit/final-verification.json}
+records the checked source hashes and the exact theorem dependencies.
+The multi-billion-state $2\times5$ enumeration is not rerun by these checks.
 
 \paragraph{Formal proof.}
 Run \texttt{bash lean-kernel/check.sh} from the repository root with
@@ -1400,6 +1445,15 @@ tiny boards; \texttt{node test/gen\_perfect.js} regenerates a line from
 nothing; \texttt{node test/honest.js} and \texttt{node
 test/honest\_drive.js} produce the honest-play table. The board drawings
 are generated from the engine's own snake tables.
+
+\section*{AI-assisted development}
+Generative AI assisted with conjecture exploration, manuscript drafting,
+programming, and Lean proof development. Kernel verification applies to
+the named formal statements under the displayed definitions; executable
+replay applies to the supplied finite witnesses. Neither constitutes
+peer review of the unformalized arguments or establishes historical
+priority. The proof and experiment sources are provided for independent
+checking.
 
 \bibliographystyle{plain}
 \bibliography{refs}

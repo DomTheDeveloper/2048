@@ -1,62 +1,11 @@
+# Compatibility entrypoint. The separate lean/ Mathlib prototype is preserved,
+# but its recursion-depth failures are not evidence for the manuscript's claims.
+# Both entrypoints now rebuild the canonical stronger kernel-only development.
 name: Lean 2048 proof
-
 on:
-  push:
-    branches:
-      - claude/super-mode-speed-corners-doxfcj
-      - gh-pages
-  pull_request:
   workflow_dispatch:
-
 permissions:
   contents: read
-
-concurrency:
-  group: lean-2048-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   verify:
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install Lean
-        shell: bash
-        run: |
-          set -euo pipefail
-          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh \
-            | sh -s -- -y --default-toolchain none
-          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
-
-      - name: Fetch Mathlib and cache
-        shell: bash
-        run: |
-          set -euo pipefail
-          lake update
-          lake exe cache get
-
-      - name: Generate certificate chunks
-        run: python3 lean/gen_witness.py
-
-      - name: Build Lean proof
-        run: lake build
-
-      - name: Axiom audit
-        shell: bash
-        run: |
-          set -euo pipefail
-          lake env lean lean/Game2048/Audit.lean 2>&1 | tee lean-audit.log
-          if grep -E 'sorryAx|Lean\.trustCompiler|Lean\.ofReduce' lean-audit.log; then
-            echo 'forbidden axiom/oracle found'
-            exit 1
-          fi
-
-      - name: Upload audit transcript
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lean-2048-audit
-          path: lean-audit.log
-          if-no-files-found: warn
+    uses: ./.github/workflows/lean-2048-kernel.yml

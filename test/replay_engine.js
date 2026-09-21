@@ -55,21 +55,44 @@ gm.addRandomTile = function () {
 };
 
 var DIRS = { U: 0, R: 1, D: 2, L: 3 };
-var lines = fs.readFileSync(file, "utf8").split("\n");
+var lines;
+try {
+  lines = fs.readFileSync(file, "utf8").split("\n");
+} catch (error) {
+  console.error("Cannot read witness: " + error.message);
+  process.exit(1);
+}
+function reject(lineNumber, reason) {
+  console.error("line " + lineNumber + ": " + reason + "\nCertificate: INVALID");
+  process.exit(1);
+}
 var starts = 0, steps = 0, illegalMoves = 0, twos = 0, fours = 0, firstBad = null;
 for (var i = 0; i < lines.length; i++) {
   var line = lines[i].split("#")[0].trim();
   if (!line) continue;
   var p = line.split(/\s+/);
+  if (p.length !== 4) reject(i + 1, "expected exactly four fields");
+  if (!p.slice(1).every(function (token) { return /^[+-]?\d+$/.test(token); })) {
+    reject(i + 1, "coordinates and value must be integers");
+  }
+  var row = Number(p[1]), column = Number(p[2]), value = Number(p[3]);
+  if (!Number.isInteger(row) || !Number.isInteger(column) ||
+      row < 0 || row >= 4 || column < 0 || column >= 4) {
+    reject(i + 1, "coordinates outside the board");
+  }
+  if (value !== 2 && value !== 4) reject(i + 1, "a new tile must be 2 or 4");
   if (p[0] === "start") {
-    var sv = Number(p[3]);
-    gm.grid.insertTile(new Tile({ x: Number(p[2]), y: Number(p[1]) }, sv));
+    if (starts >= 2 || steps !== 0) reject(i + 1, "exactly two starting tiles must precede all moves");
+    if (!gm.grid.cellAvailable({ x: column, y: row })) reject(i + 1, "duplicate starting cell");
+    var sv = value;
+    gm.grid.insertTile(new Tile({ x: column, y: row }, sv));
     starts++;
     if (sv === 2) twos++; else fours++;
     continue;
   }
   if (starts !== 2) { console.error("line " + (i + 1) + ": a game starts with exactly two tiles"); process.exit(1); }
-  pending = { x: Number(p[2]), y: Number(p[1]), value: Number(p[3]) };
+  if (!Object.prototype.hasOwnProperty.call(DIRS, p[0])) reject(i + 1, "direction must be U, R, D, or L");
+  pending = { x: column, y: row, value: value };
   spawned = false;
   var before = illegalSpawns;
   gm.move(DIRS[p[0]]);

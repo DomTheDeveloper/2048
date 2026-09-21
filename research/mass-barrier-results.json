@@ -1,0 +1,75 @@
+{
+  "model": "mass-only upper bounds, NOT optimal geometric winning probabilities",
+  "exact_small_case_checks": [
+    {
+      "cells": 2,
+      "full_chain_mass_upper": 0.0091,
+      "coefficients_checked": 4
+    },
+    {
+      "cells": 3,
+      "full_chain_mass_upper": 0.00082727281,
+      "coefficients_checked": 8
+    },
+    {
+      "cells": 4,
+      "full_chain_mass_upper": 7.520661909090916e-05,
+      "coefficients_checked": 16
+    },
+    {
+      "cells": 5,
+      "full_chain_mass_upper": 6.836965371900833e-06,
+      "coefficients_checked": 32
+    },
+    {
+      "cells": 6,
+      "full_chain_mass_upper": 6.215423065364394e-07,
+      "coefficients_checked": 64
+    }
+  ],
+  "expected_value_mass_relaxation": {
+    "2": {
+      "expected_score_upper": 3.968,
+      "expected_rounds_upper": 0.9010000000000002,
+      "absorption_probability": 1.0
+    },
+    "4": {
+      "expected_score_upper": 69.81491212228762,
+      "expected_rounds_upper": 12.329009018926449,
+      "absorption_probability": 1.0000000000000002
+    },
+    "9": {
+      "expected_score_upper": 7462.61306947039,
+      "expected_rounds_upper": 484.7099567099858,
+      "absorption_probability": 1.0000000000000002
+    },
+    "10": {
+      "expected_score_upper": 17066.38631210061,
+      "expected_rounds_upper": 972.3290043290074,
+      "absorption_probability": 1.0000000000000002
+    },
+    "12": {
+      "expected_score_upper": 85416.64481550177,
+      "expected_rounds_upper": 3898.0432900432897,
+      "absorption_probability": 1.0000000000000002
+    },
+    "16": {
+      "expected_score_upper": 1915854.9577406454,
+      "expected_rounds_upper": 62412.32900432902,
+      "absorption_probability": 1.0000000000000002
+    }
+  },
+  "max_tile_probability_upper_exact": "(1 + 10^(-65535))/11",
+  "full_chain_probability_upper": 2.3963146538167794e-17,
+  "full_chain_probability_upper_log10": -16.62045615646461,
+  "score_ceiling_probability_upper_log10": -6010.970048089745,
+  "full_chain_minimum_fours_word_probability_log10": -6011.970048089745,
+  "deadline_upper_log10": {
+    "32781": -32767.999999999993,
+    "33000": -31559.737160039178,
+    "40000": -14854.030637906957,
+    "50000": -3668.6128681947534,
+    "55000": -909.5543038978019,
+    "59000": -18.091641194711276
+  }
+}

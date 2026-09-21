@@ -1,0 +1,50 @@
+[
+  {
+    "cells": 2,
+    "decimal_precision": 50,
+    "expected_score_relaxation_lower": "3.9680",
+    "expected_score_relaxation_upper": "3.9680",
+    "expected_rounds_relaxation_lower": "0.9010",
+    "expected_rounds_relaxation_upper": "0.9010"
+  },
+  {
+    "cells": 4,
+    "decimal_precision": 50,
+    "expected_score_relaxation_lower": "69.81491212228761057524270080",
+    "expected_score_relaxation_upper": "69.81491212228761057524270080",
+    "expected_rounds_relaxation_lower": "12.32900901892644697363711810",
+    "expected_rounds_relaxation_upper": "12.32900901892644697363711810"
+  },
+  {
+    "cells": 9,
+    "decimal_precision": 50,
+    "expected_score_relaxation_lower": "7462.6130694703898681240534916210668445584410603019",
+    "expected_score_relaxation_upper": "7462.6130694703898681240534916210668445584410604216",
+    "expected_rounds_relaxation_lower": "484.70995670998583068317529569024103602233392466584",
+    "expected_rounds_relaxation_upper": "484.70995670998583068317529569024103602233392467317"
+  },
+  {
+    "cells": 10,
+    "decimal_precision": 50,
+    "expected_score_relaxation_lower": "17066.386312100613954953426350477948225538370674044",
+    "expected_score_relaxation_upper": "17066.386312100613954953426350477948225538370675747",
+    "expected_rounds_relaxation_lower": "972.32900432900697634309858059993926773756754686319",
+    "expected_rounds_relaxation_upper": "972.32900432900697634309858059993926773756754687984"
+  },
+  {
+    "cells": 12,
+    "decimal_precision": 50,
+    "expected_score_relaxation_lower": "85416.644815501958492490223658794333155883487656645",
+    "expected_score_relaxation_upper": "85416.644815501958492490223658794333155883487666244",
+    "expected_rounds_relaxation_lower": "3898.0432900432900651688760964587523155109791454671",
+    "expected_rounds_relaxation_upper": "3898.0432900432900651688760964587523155109791460158"
+  },
+  {
+    "cells": 16,
+    "decimal_precision": 50,
+    "expected_score_relaxation_lower": "1915854.9577406720263863212112465010880880262390478",
+    "expected_score_relaxation_upper": "1915854.9577406720263863212112465010880880262499456",
+    "expected_rounds_relaxation_lower": "62412.329004329004329005823358048450778172570263370",
+    "expected_rounds_relaxation_upper": "62412.329004329004329005823358048450778172570362987"
+  }
+]

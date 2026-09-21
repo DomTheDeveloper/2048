@@ -1,0 +1,26 @@
+[
+  {
+    "height": 5,
+    "width": 5,
+    "rounds": 32781,
+    "score": 1966092,
+    "largest_tile": 131072,
+    "every_translated_state_checked": true
+  },
+  {
+    "height": 5,
+    "width": 7,
+    "rounds": 32781,
+    "score": 1966092,
+    "largest_tile": 131072,
+    "every_translated_state_checked": true
+  },
+  {
+    "height": 4,
+    "width": 8,
+    "rounds": 32781,
+    "score": 1966092,
+    "largest_tile": 131072,
+    "every_translated_state_checked": true
+  }
+]

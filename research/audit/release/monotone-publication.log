@@ -1,0 +1,354 @@
+{
+  "shape": [
+    4,
+    4
+  ],
+  "mode": "rich",
+  "moves": 432,
+  "score": 4916,
+  "spawned_4s": 16,
+  "spawned_2s": 418,
+  "maximum_tile": 256,
+  "first_maximum_at": 265,
+  "final_mass": 900,
+  "directions_by_axis": {
+    "0": 25,
+    "1": 407
+  },
+  "final_board": [
+    256,
+    128,
+    64,
+    32,
+    128,
+    64,
+    32,
+    16,
+    64,
+    32,
+    16,
+    8,
+    32,
+    16,
+    8,
+    4
+  ],
+  "both_slide_algorithms_agree": true,
+  "status": "PASS"
+}
+{
+  "file": "monotone-4x4.txt",
+  "board_size": [
+    4,
+    4
+  ],
+  "steps": 432,
+  "maximum_tile": 256,
+  "first_maximum_at": 265,
+  "score": 4916,
+  "spawned_2s": 418,
+  "spawned_4s": 16,
+  "mass": 900,
+  "directions": {
+    "U": 25,
+    "L": 407,
+    "D": 0,
+    "R": 0
+  },
+  "final_board": [
+    [
+      256,
+      128,
+      64,
+      32
+    ],
+    [
+      128,
+      64,
+      32,
+      16
+    ],
+    [
+      64,
+      32,
+      16,
+      8
+    ],
+    [
+      32,
+      16,
+      8,
+      4
+    ]
+  ],
+  "certificate": "VALID",
+  "slide_algorithms_agree": true
+}
+{
+  "shape": [
+    2,
+    2,
+    2
+  ],
+  "mode": "rich",
+  "moves": 44,
+  "score": 292,
+  "spawned_4s": 8,
+  "spawned_2s": 38,
+  "maximum_tile": 32,
+  "first_maximum_at": 31,
+  "final_mass": 108,
+  "directions_by_axis": {
+    "0": 3,
+    "1": 10,
+    "2": 31
+  },
+  "final_board": [
+    32,
+    16,
+    16,
+    8,
+    16,
+    8,
+    8,
+    4
+  ],
+  "both_slide_algorithms_agree": true,
+  "status": "PASS"
+}
+{
+  "file": "monotone-cube.txt",
+  "shape": [
+    2,
+    2,
+    2
+  ],
+  "moves": 44,
+  "score": 292,
+  "spawned_4s": 8,
+  "maximum_tile": 32,
+  "final_mass": 108,
+  "status": "VALID"
+}
+[
+  {
+    "shape": [
+      1,
+      4
+    ],
+    "raw_reachable_states": 148,
+    "processed_states": 148,
+    "legal_slide_spawn_arcs": 330,
+    "maximum_tile": 32,
+    "maximum_score": 180,
+    "longest_game": 24,
+    "maximum_mass": 60,
+    "minimum_fours_to_target": 4,
+    "seconds": 0.002,
+    "status": "PASS: exhaustive"
+  },
+  {
+    "shape": [
+      2,
+      2
+    ],
+    "raw_reachable_states": 189,
+    "processed_states": 189,
+    "legal_slide_spawn_arcs": 596,
+    "maximum_tile": 16,
+    "maximum_score": 68,
+    "longest_game": 12,
+    "maximum_mass": 36,
+    "minimum_fours_to_target": 4,
+    "seconds": 0.003,
+    "status": "PASS: exhaustive"
+  },
+  {
+    "shape": [
+      2,
+      3
+    ],
+    "raw_reachable_states": 4607,
+    "processed_states": 4607,
+    "legal_slide_spawn_arcs": 24354,
+    "maximum_tile": 32,
+    "maximum_score": 236,
+    "longest_game": 34,
+    "maximum_mass": 84,
+    "minimum_fours_to_target": 6,
+    "seconds": 0.098,
+    "status": "PASS: exhaustive"
+  },
+  {
+    "shape": [
+      2,
+      2,
+      2
+    ],
+    "raw_reachable_states": 104397,
+    "processed_states": 104397,
+    "legal_slide_spawn_arcs": 1138116,
+    "maximum_tile": 32,
+    "maximum_score": 292,
+    "longest_game": 44,
+    "maximum_mass": 108,
+    "minimum_fours_to_target": 8,
+    "seconds": 4.344,
+    "status": "PASS: exhaustive"
+  }
+]
+{
+  "exhaustive": [
+    {
+      "shape": [
+        2,
+        2
+      ],
+      "word": "ULU",
+      "distinct_boards_per_step": [
+        1,
+        2,
+        4,
+        12
+      ],
+      "status": "PASS"
+    },
+    {
+      "shape": [
+        2,
+        3
+      ],
+      "word": "ULULU",
+      "distinct_boards_per_step": [
+        1,
+        2,
+        4,
+        12,
+        24,
+        55
+      ],
+      "status": "PASS"
+    },
+    {
+      "shape": [
+        3,
+        1
+      ],
+      "word": "UU",
+      "distinct_boards_per_step": [
+        1,
+        2,
+        4
+      ],
+      "status": "PASS"
+    },
+    {
+      "shape": [
+        3,
+        2
+      ],
+      "word": "UULUU",
+      "distinct_boards_per_step": [
+        1,
+        2,
+        4,
+        8,
+        24,
+        82
+      ],
+      "status": "PASS"
+    },
+    {
+      "shape": [
+        4,
+        2
+      ],
+      "word": "UUULUUU",
+      "distinct_boards_per_step": [
+        1,
+        2,
+        4,
+        12,
+        32,
+        84,
+        270,
+        828
+      ],
+      "status": "PASS"
+    },
+    {
+      "shape": [
+        3,
+        3
+      ],
+      "word": "UULUULUU",
+      "distinct_boards_per_step": [
+        1,
+        2,
+        4,
+        8,
+        24,
+        82,
+        201,
+        529,
+        2131
+      ],
+      "status": "PASS"
+    },
+    {
+      "shape": [
+        5,
+        2
+      ],
+      "word": "UUUULUUUU",
+      "distinct_boards_per_step": [
+        1,
+        2,
+        4,
+        12,
+        30,
+        92,
+        168,
+        608,
+        1741,
+        4319
+      ],
+      "status": "PASS"
+    }
+  ],
+  "random_runs": 160,
+  "status": "PASS"
+}
+the primed board (32,781-move line)
+  ok   after move 32,766 the board holds exactly 65536,...,8,4,4 (full)
+  ok   131072 after move 32,781
+  ok   the fifteen fold moves create 8, 16, ..., 131072 in order (junk merges ride along)
+the last move (full line)
+  ok   the last two spawns are 4s
+  ok   before the last slide: full board, 131072..16 and two 4s
+  ok   the last slide merges exactly 4+4 -> 8
+  ok   the final 4 is on the boundary, in the line of the 8
+  ok   the final position is the full chain
+the last move (score line)
+  ok   the last two spawns are 4s
+  ok   before the last slide: full board, 131072..16 and two 4s
+  ok   the last slide merges exactly 4+4 -> 8
+  ok   the final 4 is on the boundary, in the line of the 8
+  ok   the final position is the full chain
+the eight spirals
+  ok   the four corners and two orientations give eight distinct snakes
+  ok   the eight snakes are the orbit of one under the symmetries of the square
+  ok   the transformed full-chain line replays to eight distinct final spirals in 65,533 moves each
+  ok   52 Hamiltonian paths leave a corner; 16 end at an adjacent corner, none at the opposite one
+tiny boards, exhaustively
+  2x2: 662 positions, longest game 24, max score 180
+  ok   2x2 longest game = 2^(c+1)-4-c = 24
+  ok   2x2 max score = Phi_c-4c
+  ok   2x2 full chain needs exactly c = 4 spawned 4s
+  ok   2x2 every move producing the full chain: full board 2^(c+1)..16,4,4, merge 4+4 -> 8, spawn 4
+  2x3: 85844 positions, longest game 118, max score 1260
+  ok   2x3 longest game = 2^(c+1)-4-c = 118
+  ok   2x3 max score = Phi_c-4c
+  ok   2x3 full chain needs exactly c = 6 spawned 4s
+  ok   2x3 every move producing the full chain: full board 2^(c+1)..16,4,4, merge 4+4 -> 8, spawn 4
+PAPER FACTS OK

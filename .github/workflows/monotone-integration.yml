@@ -1,0 +1,52 @@
+name: Monotone theorem and paper integration
+on:
+  push:
+    branches: [gh-pages]
+    paths: ['paper/*.tex', 'paper/*.bib', 'research/monotone/**', '.github/workflows/monotone-integration.yml']
+  pull_request:
+    branches: [gh-pages]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: monotone-paper-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Python syntax and constructive checks
+        run: |
+          set -euo pipefail
+          python3 -m py_compile research/monotone/*.py
+          python3 research/monotone/construct.py 4x4 --mode rich --out /tmp/monotone-4x4.txt
+          python3 research/monotone/verify_2d.py /tmp/monotone-4x4.txt
+          python3 research/monotone/construct.py 2x2x2 --mode rich --out /tmp/monotone-cube.txt
+          python3 research/monotone/verify_box.py /tmp/monotone-cube.txt
+          python3 research/monotone/exhaustive.py
+          python3 research/monotone/test_rectangle_fold.py
+          node test/paper_facts.js
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends latexmk texlive-latex-extra texlive-pictures texlive-fonts-recommended poppler-utils
+      - name: Build and validate paper
+        run: |
+          set -euo pipefail
+          cd paper
+          latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error main.tex
+          if grep -E 'undefined references|Citation .* undefined|Reference .* undefined|Overfull \\hbox' main.log; then exit 1; fi
+          pdfinfo main.pdf
+          pdftotext main.pdf /tmp/paper.txt
+          grep -q 'Exact monotone extrema' /tmp/paper.txt
+          grep -q 'Spawn-robust rectangular fold' /tmp/paper.txt
+          grep -q 'Every-opening joint optimum' /tmp/paper.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: checked-manuscript-${{ github.run_id }}
+          path: paper/main.pdf
+          retention-days: 30

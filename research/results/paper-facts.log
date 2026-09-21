@@ -1,0 +1,33 @@
+the primed board (32,781-move line)
+  ok   after move 32,766 the board holds exactly 65536,...,8,4,4 (full)
+  ok   131072 after move 32,781
+  ok   the fifteen fold moves create 8, 16, ..., 131072 in order (junk merges ride along)
+the last move (full line)
+  ok   the last two spawns are 4s
+  ok   before the last slide: full board, 131072..16 and two 4s
+  ok   the last slide merges exactly 4+4 -> 8
+  ok   the final 4 is on the boundary, in the line of the 8
+  ok   the final position is the full chain
+the last move (score line)
+  ok   the last two spawns are 4s
+  ok   before the last slide: full board, 131072..16 and two 4s
+  ok   the last slide merges exactly 4+4 -> 8
+  ok   the final 4 is on the boundary, in the line of the 8
+  ok   the final position is the full chain
+the eight spirals
+  ok   the four corners and two orientations give eight distinct snakes
+  ok   the eight snakes are the orbit of one under the symmetries of the square
+  ok   the transformed full-chain line replays to eight distinct final spirals in 65,533 moves each
+  ok   52 Hamiltonian paths leave a corner; 16 end at an adjacent corner, none at the opposite one
+tiny boards, exhaustively
+  2x2: 662 positions, longest game 24, max score 180
+  ok   2x2 longest game = 2^(c+1)-4-c = 24
+  ok   2x2 max score = Phi_c-4c
+  ok   2x2 full chain needs exactly c = 4 spawned 4s
+  ok   2x2 every move producing the full chain: full board 2^(c+1)..16,4,4, merge 4+4 -> 8, spawn 4
+  2x3: 85844 positions, longest game 118, max score 1260
+  ok   2x3 longest game = 2^(c+1)-4-c = 118
+  ok   2x3 max score = Phi_c-4c
+  ok   2x3 full chain needs exactly c = 6 spawned 4s
+  ok   2x3 every move producing the full chain: full board 2^(c+1)..16,4,4, merge 4+4 -> 8, spawn 4
+PAPER FACTS OK

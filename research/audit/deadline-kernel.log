@@ -1,0 +1,3 @@
+'Game2048.deadline_slack_131072' depends on axioms: [propext, Quot.sound]
+'Game2048.optimal_opening_and_prefix' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Game2048.target_prefix_budget' depends on axioms: [propext, Quot.sound]

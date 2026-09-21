@@ -1,0 +1,18 @@
+{
+  "title": "Perfect 2048: Kernel-Verified Optima and Extremal Play",
+  "authors": [
+    {
+      "name": "Dominic Dabish",
+      "affiliation": "San Diego State University",
+      "email": "ddabish@sdsu.edu"
+    }
+  ],
+  "date": "2026-09-07",
+  "status": "preprint; not submitted by this update",
+  "abstract": "We study extremal possible play in 2048: player moves and legal spawn outcomes together\nspecify a trajectory, without asserting that those outcomes can be forced in random play. For\nevery ordinary two-tile opening of the standard 4 × 4 game, we determine the exact minimum\nnumber of rounds to reach 131072: 32,781 from two 4s and 32,782 otherwise. Every opening\nattains its time optimum jointly with the minimum post-spawn endpoint mass 131102. These\nresults, including coverage of all 480 labeled openings, are checked by Lean 4’s kernel. The\nconstructive theorem has no axiom dependencies; the combined optimum theorem uses only\npropext and Quot.sound.\nWritten bounds and independently replayed witnesses further establish the maximum score\n1,966,216 among fastest target-reaching games, and a 65,548-round optimum when exactly\none 4-birth is permitted. We certify 320 distinct minimum-length full-chain arrangements\nin 40 symmetry orbits, including every boundary location of the largest tile and diagonally\nopposite placements of the smallest and largest tiles. Unavoidable total-mass configurations\nyield policy-independent probability bounds, a fixed spawn-value word for any ceiling-score\ngame, and a scalar relaxation of optimal expected score. We also give a uniform one-dimensional\nconstruction and a moving-window embedding lemma.\nThe broader score and game-length bounds are checked on enumerated small boards: the\n2 × 5 possible-play computation has 1,814,373,350 positions up to symmetry and attains 36,828\npoints and 2,034 rounds; the cube and the published 3 × 3 count supply further comparisons.\nAttainment of the 4 × 4 score ceiling 3,932,100 remains conjectural. The Lean scope is the\nfixed-board time–mass optima and supporting deterministic lemmas, not all stochastic, score,\nor arbitrary-board arguments. Plaintext witnesses, two independent replayers, proof sources,\nand reproducible audits accompany the manuscript.",
+  "pages": 42,
+  "main_tex": "main.tex",
+  "processor": "pdflatex",
+  "artifact_repository": "https://github.com/DomTheDeveloper/2048-undo",
+  "artifact_branch": "gh-pages"
+}

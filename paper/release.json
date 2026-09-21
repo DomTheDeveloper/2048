@@ -1,0 +1,43 @@
+{
+  "schema_version": 2,
+  "manuscript_title": "Perfect 2048: Kernel-Verified Optima and Extremal Play",
+  "author": "Dominic Dabish",
+  "affiliation": "San Diego State University",
+  "email": "ddabish@sdsu.edu",
+  "manuscript_status": "research preprint; not submitted or accepted",
+  "publication_source_commit": "2f1d61cfea5c0ea29726c5240af921a281de1718",
+  "publication_workflow_run": "34175273325",
+  "completed_at_utc": "2026-09-08T01:04:06.396629+00:00",
+  "kernel_verification_run": 34173916457,
+  "kernel_checked_source_commit": "2d301bc52d14ced8a91bbbbfe3af6600a6edee7b",
+  "kernel_version": "Lean (version 4.19.0, x86_64-unknown-linux-gnu, commit 6caaee842e94, Release)",
+  "all_audited_inputs_unchanged": true,
+  "kernel_rebuilt_in_this_publication_job": false,
+  "kernel_evidence": "The fresh full rebuild in the identified audit passed. This publication reuses it only after exact source-hash verification.",
+  "labeled_openings": 480,
+  "endpoint_mass": 131102,
+  "fresh_state_space_cases": [
+    "2x2",
+    "2x3",
+    "2x2-stop32",
+    "4x4-stop8",
+    "4x4-age24",
+    "3x3",
+    "4x4-stop16"
+  ],
+  "monotone_constructive_tests": "rerun in this publication job; conventional proofs, not Lean",
+  "pdf_sha256": "71c2f3b77c8f66f786ac8d8f52e612092229c204a2c23fc7f66b5ad0f2b3df14",
+  "source_bundle_sha256": "59156f73034402393fc3ecbe4baa66dbd56e60b9a7692f021dfa4644f39c1970",
+  "paper_source_sha256": {
+    "author.tex": "d62edfa0fbbee7a93d040b36cc8fd8141b2131288ce642b69f339cbad1524cf4",
+    "deductions.tex": "c0b34eb69bc4d7b11d71f7677afca84b44d4846ece719e74f7e06a3b4265029a",
+    "figs.tex": "697931a40181ec20c34acbbda926b0dc5b87d7ccf8875407154160d2c865ea6a",
+    "lean.tex": "93606f42156071d16c2221e6cbfe6f3e71b05e211a5ca50f4fe28ff76cf09912",
+    "main.tex": "21235cc2cd854a52a22d5fdaabb87cf6506cc1b656e0cd6cc8191181f6ea1d61",
+    "monotone.tex": "5ada49fa4873b0fed659b935dc33389b2b865bf2115ca94fd5415ed66382e16b",
+    "refs.bib": "32d8b05edfaee54bd5da6657bfafdb353de875757df164448d9a841d757a05a2",
+    "state-space-body.tex": "2ddb2e6e5bf61e31d241de08baa3cb3cbabaddc5a1676792d97849d28983870a",
+    "state-space.tex": "fb0a5b4707ea68a38af7824ad46c47f2c803187f746ba8a8880edf6cf8afb5e6"
+  },
+  "scope": "Named fixed-4x4 time/mass/deadline theorems are kernel checked. State-space, score and monotone arguments remain human proofs with executable checks. Exact full 4x4 count and unrestricted score-ceiling attainment are not established."
+}

@@ -1,0 +1,2 @@
+'Game2048.MinimumMass.certified_play' does not depend on any axioms
+'Game2048.MinimumMass.joint_optimum' depends on axioms: [propext, Quot.sound]

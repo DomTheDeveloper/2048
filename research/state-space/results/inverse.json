@@ -1,0 +1,26 @@
+{
+  "input_rows": 104976,
+  "candidate_rows_through_rank17": 104976,
+  "image_rows_through_rank17": 74818,
+  "nonempty_image_rows_through_rank17": 74817,
+  "additional_synthetic_rank18_outputs": 836,
+  "no_predecessor_example": [
+    2,
+    4,
+    8,
+    8,
+    4,
+    4,
+    8,
+    16,
+    16,
+    32,
+    64,
+    64,
+    16,
+    32,
+    128,
+    256
+  ],
+  "example_predecessors": 0
+}

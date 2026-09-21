@@ -1,0 +1,446 @@
+\section{Further extremal deductions}\label{sec:deductions}
+
+The formal witness also supports stronger questions than the first
+existential optimum. We now distinguish the minimum for a \emph{fixed}
+opening, the least possible mass when the target is reached, and the
+largest score among the fastest games. Separately, binary mass barriers
+yield policy-independent stochastic bounds and a useful restriction of
+the unresolved maximum-score search. Only the results explicitly marked
+as Lean-checked below are included in the extended formal development.
+
+\subsection{Joint time--mass optima for every opening}
+
+\begin{theorem}[Every-opening joint optimum; Lean-checked]\label{thm:allopenings}
+Let $A$ be any ordinary two-tile opening of standard $4\times4$ 2048, and put
+\[
+ m(A)=\begin{cases}
+ 32{,}781,&\text{both opening tiles are 4s},\\
+ 32{,}782,&\text{otherwise}.
+ \end{cases}
+\]
+There is a legal play from $A$ of exactly $m(A)$ rounds ending with a
+$131072$ tile and total mass $131102$. Every legal play from $A$ reaching
+that tile has at least $m(A)$ rounds and endpoint mass at least $131102$.
+\end{theorem}
+
+The quantifiers are stronger than in Theorem~\ref{thm:leanexact}:
+\emph{for every opening there exists a continuation}. There are 480
+labeled openings: 120 with two 4s, 240 mixed, and 120 with two 2s. They
+form 75 square-symmetry classes. A finite bridge search finds, for each
+opening, at most three preparatory rounds joining a symmetry of one of
+the first four states of the original certificate. The length of the
+remaining suffix is accounted for exactly, rather than adding a blanket
+three-round overhead. A separately proved symmetry transport, every
+bridge, and exhaustive coverage of the ordinary-opening definition are
+checked in Lean. The new theorem is
+\begin{quote}\small\ttfamily
+Game2048.standard2048\_all\_openings\_exact.
+\end{quote}
+The constructive half has no axiom dependencies; the combined theorem
+uses only \texttt{propext} and \texttt{Quot.sound}.
+
+\begin{proof}[Mass lower bound and construction]
+Continue to write $H_k(B)$ for the mass in tiles strictly greater than
+$k$. A round $B\to B'$ with $k\ge2$ satisfies
+\[
+ H_{2k}(B')\le H_k(B),\qquad \mass(B')\ge\mass(B)+2.
+\]
+Thus the mass outside the increasing threshold grows by at least two
+per round. Induction over any final $r$ rounds gives
+\[
+ H_{2^{r+1}}(B')+2r\le\mass(B').
+\]
+With $r=15$, a $131072$ tile contributes to $H_{65536}$, so the endpoint
+mass is at least $131072+30=131102$. The existing move lower bound
+ensures that these fifteen rounds exist. This argument is proved from
+the executable rules in \texttt{ResidualMass.lean}.
+
+A new fifteen-round cascade uses only 2-spawns after the original
+$32{,}766$-round primed prefix. It attains both the mass bound and the
+move bound. The bridge construction transports this cleaner suffix to
+every opening. For an opening of mass at most 6, the same threshold
+inequality used earlier gives $131072\le6+4(T-15)$ and hence
+$T\ge32{,}782$; mass 8 gives $32{,}781$.
+\end{proof}
+
+The new minimum-mass witness uses $32{,}768$ spawned 4s and fifteen
+spawned 2s, opening included, and scores $1{,}966{,}148$. Its score is
+independently replayed, not asserted by the Lean mass theorem.
+
+\subsection{Maximum score among the fastest games}
+
+\begin{theorem}[Fastest-game score optimum]\label{thm:fastscore}
+Among ordinary $4\times4$ plays reaching $131072$ in exactly
+$32{,}781$ rounds, the largest score at that time is $1{,}966{,}216$.
+\end{theorem}
+\begin{proof}
+The minimum-time equality argument forces all $131072$ mass at round
+$32{,}766$ to contribute to the target. All earlier births are 4s, and
+none of the final fifteen spawns can contribute to its ancestry.
+The target's merge tree therefore contributes
+\[
+ (17-1)131072-4\cdot32768=1{,}966{,}080.
+\]
+Only the other fourteen births before the last spawn can contribute
+additional merge score; the last spawn itself is unscored. If $y$ of
+these fourteen births are 4s, their total mass is $28+2y$. Repeatedly
+merging equal values in a geometry-free multiset increases its potential
+and ends at the binary expansion of its mass. Write $\Phi_{\rm bin}(s)$
+for that expansion's potential. The additional score is at most
+\[
+ \Phi_{\rm bin}(28+2y)-4y,\qquad 0\le y\le14.
+\]
+For these fifteen values of $y$, the bounds are respectively
+\[
+\begin{gathered}
+68,64,120,116,116,112,120,116,\\
+116,112,136,132,132,128,136.
+\end{gathered}
+\]
+The maximum is 136. A second new fifteen-round cascade uses all 4s
+and ends with the target together with junk tiles $32,16,8,4$,
+attaining $1{,}966{,}080+136$. Both independent rule replayers accept
+the complete trajectory in \texttt{witness/131072-fold-4.txt}.
+\end{proof}
+
+This is an optimum subject to the shortest-game constraint, not the
+unrestricted $3{,}932{,}100$ score conjecture. Replacing its last spawn
+by a 2 preserves the score. In particular the original minimum-length
+certificate was not optimized for either endpoint mass or score:
+\begin{center}\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+trajectory & rounds & endpoint mass & score\\
+\midrule
+original minimum-length witness & 32{,}781 & 131{,}116 & 1{,}966{,}092\\
+new minimum-mass continuation & 32{,}781 & 131{,}102 & 1{,}966{,}148\\
+new fastest-game score optimum & 32{,}781 & 131{,}132 & 1{,}966{,}216\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{A second Pareto endpoint: one spawned 4.}
+The gateway theorem below forces at least one 4-birth. Appending a new
+all-2 cascade to the first gateway of the score-oriented witness gives
+$131072$ in exactly $65{,}548$ rounds with just one 4-birth, opening
+included, mass $131102$, and score $2{,}097{,}216$. This is the fewest
+rounds possible under that resource constraint, because
+$131072\le4+2(T-15)+2$ forces $T\ge65{,}548$.
+It also has the largest score among minimum-mass target endpoints:
+the non-target mass 30 has binary potential at most 68, and the required
+4-birth costs at least four points, giving
+$\Phi(131072)+68-4=2{,}097{,}216$.
+Both existing replayers check \texttt{witness/131072-one-four.txt}.
+This low-4 prefix is independently replayed, not included in the extended
+Lean certificate.
+
+\subsection{Unavoidable mass gateways}
+
+\begin{theorem}[Gateway theorem]\label{thm:gateways}
+Let $c\ge3$, $C=2^{c+2}$, and $G_j=C-2^{j+2}$ for
+$j=0,\ldots,c-1$. Every ordinary play reaching mass at least $G_j$
+visits mass exactly $G_j$, entering it by a 4-spawn. Its tile multiset
+there is
+\[
+ \bigl(\{4,8,\ldots,2^{c+1}\}\setminus\{2^{j+2}\}\bigr)\cup\{4\},
+\]
+where the final union adds one tile, including a second 4 when $j>0$.
+\end{theorem}
+\begin{proof}
+The binary expansion of $G_j-2$ has $c$ nonzero bits. Any representation
+by at most $c$ powers of two is consequently that expansion itself:
+the board is full, its values are distinct, and it is dead. A first
+crossing of $G_j$ cannot depart from $G_j-2$, nor can it jump over
+$G_j$. It must go from $G_j-4$ to $G_j$ by spawning a 4.
+Immediately before that spawn there are at most $c-1$ tiles, because
+one cell must be vacant, and $G_j-4$ has binary popcount $c-1$.
+Its afterstate multiset is therefore the binary expansion, which fixes
+the claimed post-spawn multiset. For $c\ge3$ every ordinary opening
+lies below the first gateway.
+\end{proof}
+
+For $4\times4$ the gateways are, in order,
+\[
+\begin{gathered}
+131072,196608,229376,245760,253952,258048,\\
+260096,261120,261632,261888,262016,262080,\\
+262112,262128,262136,262140.
+\end{gathered}
+\]
+Thus \emph{every} route to $131072$ passes through the primed multiset,
+not merely the fastest routes. Every full-chain play needs a 4-spawn
+at each of the sixteen gateway entries. The argument is independent of
+any snake invariant or merge-tree scheduling theorem.
+
+\subsection{Stochastic consequences of the gateways}
+
+Let each birth independently be 4 with probability $p$ and 2 with
+probability $q=1-p$. In units of 2 the birth-mass process is a walk
+with increments 1 and 2. Its probability of ever hitting $n\ge0$ is
+\[
+ u_n=\frac{1-(-p)^{n+1}}{1+p},
+\]
+as follows from $u_0=1$, $u_1=q$, and
+$u_n=q u_{n-1}+p u_{n-2}$. A gateway at even distance $D$ can be
+crossed only by hitting $D-2$ and next adding 2, not by hitting the
+preceding dead layer. Its mass-only success probability is
+\[
+ b(D)=p u_{D-2}=\frac{p}{1+p}(1+p^{D-1}).
+\]
+Extending the independent birth sequence beyond an actual game's
+stopping time gives an unrestricted walk containing every successful
+game as an event. Discarding geometry and other failure conditions can
+only increase the success probability. This coupling proves the
+following bounds for every history-dependent player policy.
+
+\begin{corollary}[Policy-independent probability bounds]\label{cor:probabilitygates}
+On a $c$-cell board with $c\ge3$,
+\[
+ \Pr(\text{reach }2^{c+1})
+ \le\frac{p}{1+p}(1+p^{2^c-1}),
+\]
+and
+\[
+ \Pr(\text{reach the full chain})
+ \le\left(\frac{p}{1+p}\right)^c
+       \prod_{k=1}^c(1+p^{2^k-1}).
+\]
+\end{corollary}
+\begin{proof}
+The first event requires crossing the first gateway, whose unit-mass
+distance from zero is $2^c$. Successive distances for the full chain
+are $2^c,2^{c-1},\ldots,2$; future increments are independent of the
+history upon reaching each gateway. Multiply the corresponding $b(D)$.
+The two initial tiles are the first two births, both before the first
+barrier for $c\ge3$.
+\end{proof}
+
+For standard $4\times4$ play, with $p=1/10$, these become
+\[
+ \Pr(131072)\le\frac{1+10^{-65535}}{11}<0.090909091
+\]
+and a full-chain bound of approximately $2.3963146538\cdot10^{-17}$.
+The exact expression in the corollary is the upper bound; a rounded
+decimal must not silently replace it. In particular, the positive
+correction in the first bound cannot be dropped to claim $\le1/11$.
+
+There is also a better constructive lower bound than the original
+minimum-length transcript provides. The one-4 witness first
+reaches $131072$ at round $65{,}548$. Its exact rational probability,
+including the prescribed two-cell opening and every empty-cell spawn
+choice, is at least $10^{-48607}$. The computation factors that rational
+number and proves the comparison by integer arithmetic. Hence
+\[
+ 10^{-48607}\le \sup_\pi\Pr_\pi(131072)
+ \le\frac{1+10^{-65535}}{11}.
+\]
+This interval is wide and is not an estimate of an optimal agent's
+win rate. The new lower bound improves the valid $10^{-57048}$ bound
+from the original shortest witness by 8441 powers of ten. The earlier
+printed $10^{-57047}$ rounded that witness's probability in the wrong
+direction; its logarithm is approximately $-57047.3719$.
+
+\subsection{The value word of a ceiling-score game}
+
+The score equality case has two post-spawn alternatives: the full chain
+with $c$ spawned 4s, or the same chain with its last 4 replaced by a 2
+and $c-1$ spawned 4s. The last slot in the score inequality contributes
+zero in either case. Every earlier slot must be saturated. Changing
+the final spawn from 4 to 2 changes no merge score.
+
+The gateway theorem forces all $c-1$ nonfinal 4-births in either
+ceiling-score play. There can be no other pre-final 4-births, so all
+remaining births, including the opening, are 2s. Therefore the spawn
+\emph{values} are fixed up to an arbitrary final 2 or 4: the unresolved
+search need choose only directions and empty cells, not additional
+2-versus-4 decisions. There are $2^{c+1}-2c-2$ forced 2-births and
+$c-1$ forced 4-births before the final arbitrary birth. Consequently,
+\[
+ \Pr(\text{attain }\Phi_c-4c)
+ \le q^{2^{c+1}-2c-2}p^{c-1}.
+\]
+For $4\times4$ this is
+$0.9^{131038}0.1^{15}\approx1.0714006617\cdot10^{-6011}$.
+Rip\`a already gave this value-word probability and the numerical
+score and length formulas in 2014 \cite{ripa2014,ripaoeis2014}; we do
+not claim them as new. This necessary-event bound does not assume that the score ceiling is
+attainable. Our bounded fixed-value-word search did not complete a
+ceiling-score witness and supplies no impossibility result.
+
+\subsection{New full-chain arrangements}
+
+An exhaustive 64-round suffix search from round $65{,}469$ of the
+existing all-4 full-chain witness gives 32 distinct terminal $D_4$
+orbits. Each complete chain has sixteen distinct values, hence trivial
+stabilizer and eight labeled boards per orbit. A separate 70-round
+checkpoint bridge supplies eight further noncorner-largest-tile orbits.
+Deduplicating the union gives 40 orbits and at least
+\textbf{320} arrangements with $65{,}533$-round witnesses, all optimal
+by Corollary~\ref{cor:chain}. It does not classify all reachable endpoints:
+only continuations of that fixed prefix were enumerated.
+
+In particular, the question whether the 4 can be diagonally opposite
+$131072$ has a positive answer. A sixteen-round replacement tail gives
+\[
+\begin{array}{rrrr}
+4&8&16&32\\
+64&128&256&512\\
+8192&4096&2048&1024\\
+16384&32768&65536&131072
+\end{array}.
+\]
+The full transcript is \texttt{witness/full-chain-opposite.txt}.
+The off-corner question also has a positive answer. A 70-round legal
+bridge between rounds $49{,}166$ and $49{,}236$, followed by a reflected
+suffix with the two distinct inert largest labels exchanged, produces
+\[
+\begin{array}{rrrr}
+4&8&16&32\\
+512&256&128&64\\
+1024&2048&4096&8192\\
+65536&131072&32768&16384
+\end{array}.
+\]
+The explicit transcript \path{witness/full-chain-noncorner.txt} is
+replayed in its entirety; no arbitrary label exchange is permitted as
+an operation in the actual game. The exchange describes how the
+candidate suffix was found, not how its legality is justified.
+Symmetries put the largest tile in every boundary cell. Interior
+placement in a full-chain endpoint and a complete classification remain
+unresolved. Forty-eight representative histories (including overlaps)
+are independently replayed by both rule implementations, and the
+endpoint union is explicitly deduplicated. Reports are retained under
+\path{research/results/}.
+
+\subsection{A uniform one-dimensional family and a valid embedding}
+
+On a line with $c\ge2$ cells, start with 4s at opposite ends and
+repeatedly slide left and spawn a 4 at the far right. Nonzero values
+remain nonincreasing. A non-full board moves because the last birth is
+at the right edge; a full board with a duplicate has an adjacent merge.
+The only full, distinct multiset with values at least 4 under the tile
+ceiling is the full chain. Thus it is reached in $2^c-3$ rounds.
+The first primed configuration folds by one carry per round, giving the
+largest tile in $2^{c-1}+c-3$ rounds, exactly the general lower bound.
+
+For maximum score, start with opposite-end 2s and spawn a 2 except
+when the after-slide mass is $G_j-4$, when a 4 is required. Those
+exceptional afterstates contain no 2s, so order remains nonincreasing.
+A full distinct board containing a 2 must be at a dead layer $G_j-2$;
+the rule skips every such layer. It ends on the full chain with exactly
+$c$ 4-births, attaining both $\Phi_c-4c$ points and
+$2^{c+1}-4-c$ rounds. This is an infinite-family construction, not merely
+the finite tests (lengths 2 through 16) supplied with the paper.
+It is not a construction for arbitrary rectangles.
+
+\begin{proposition}[Floating-window embedding]\label{prop:embedding}
+A legal play on a box of side lengths $n_i$ embeds in any box of side
+lengths $N_i\ge n_i$, preserving its directions, spawn values, number
+of rounds, and merge score, with translated spawn coordinates.
+\end{proposition}
+\begin{proof}
+Keep all tiles in a translated $n_1\times\cdots\times n_d$ window.
+After sliding along axis $j$, set that window's offset on axis $j$ to
+0 toward the low wall or $N_j-n_j$ toward the high wall. Other offsets
+are unchanged. Empty padding changes no ordered nonzero line sequence
+and hence no merges; compression gives the translated small-board
+result. The window moves in the same direction as the slide and cannot
+cancel a nontrivial displacement. A merge likewise stays nontrivial.
+Translate the prescribed spawn into its still-empty window cell.
+Induction over the play proves the claim.
+\end{proof}
+
+Thus a fixed-coordinate sub-board is not isolated, but a moving-window
+invariant does justify embedding. This repairs that part of the concern
+raised about Das and Paul's induction; it does not prove their further
+claim that every new cell buys an additional doubling. Independent lifts
+of the entire shortest witness to $5\times5$, $5\times7$, and $4\times8$
+check the invariant move by move.
+
+\subsection{A computable upper bound on optimal expected score}
+\label{sec:massbellman}
+
+Use mass units of 2, put $H=2^{c+1}-2$, and let $F(m)$ be the
+potential of the binary expansion of actual mass $2m$. For $c\ge3$,
+there is a Bellman relaxation with only $H+1$ scalar mass states.
+Stop the increment walk at its first mass with $c$ binary ones. Define
+\[
+W(m)=
+\begin{cases}
+F(m),&s_2(m)=c,\\
+qW(m+1)+p\bigl(W(m+2)-4\bigr),&s_2(m)<c,
+\end{cases}
+\qquad 0\le m\le H.
+\]
+All successors used in the second case are at most $H$. This backward
+recurrence exactly computes the expected terminal binary potential minus
+four times the number of future 4-spawns in the relaxation.
+
+To justify it as an upper bound, at spawn index $n$ let $m_n$ be the
+mass and $f_n$ the number of 4-spawns, and put $R_n=F(m_n)-4f_n$.
+The actual score is at most $R_n$. Moreover $R_n$ is nondecreasing:
+a 2-spawn changes it by $F(m+1)-F(m)\ge0$, and a 4-spawn changes it by
+$F(m+2)-F(m)-4\ge0$. The real game cannot continue beyond the walk's
+first terminal barrier. Extending the pre-sampled walk after an earlier
+geometric loss therefore still gives an upper bound. In particular,
+for an ordinary random opening,
+\[
+\sup_\pi\mathbb E_\pi[\mathrm{score}]\le W(0).
+\]
+From an already given board $B$ of mass $m$ in units of 2, the analogous
+upper bound on future score is $W(m)-\Phichain(B)$.
+A second recurrence $J(m)=1+qJ(m+1)+pJ(m+2)$, with zero boundary values,
+bounds the expected game length by $J(0)-2$.
+
+For $c=16$, outward-rounded decimal evaluation gives
+\begin{align*}
+\sup_\pi\mathbb E_\pi[\mathrm{score}]&<1{,}915{,}854.958,\\
+\sup_\pi\mathbb E_\pi[T]&<62{,}412.330.
+\end{align*}
+For comparison the four-cell score relaxation is $69.814912\ldots$,
+above the exact geometric $2\times2$ value in Table~\ref{tab:honest}.
+These are bounds, not strong solutions. The script
+\path{research/mass_interval.py} uses fifty-digit arithmetic rounded
+outwards at every operation and records enclosing intervals; a separate
+forward computation checks the values numerically.
+
+\subsection{Near-optimum rigidity and deadline probabilities}
+\label{sec:slack}
+
+If a $4\times4$ play reaches 131072 at round $T=32781+d$, inspect its
+prefix ending fifteen moves earlier. The threshold-mass lemma requires
+at least 131072 mass there. If $z$ is the number of 2-spawns in that
+prefix, excluding the opening, and $M_0$ is the opening mass, the ledger
+therefore gives
+\[
+2z+(8-M_0)\le4d.
+\]
+The left side also counts the opening 2s, at a charge of two mass units
+each. Thus among the first $32768+d$ spawns, including the opening,
+there can be at most $2d$ twos. The deterministic prefix inequality,
+its general-target version, and the zero-slack consequence are
+kernel-checked in \texttt{Game2048/DeadlineSlack.lean}.
+
+Pre-sampling values again gives a bound for \emph{any} policy reaching
+the tile by the deadline:
+\[
+\Pr_\pi(T_{131072}\le32781+d)
+\le \sum_{z=0}^{\min(2d,32768+d)}
+ \binom{32768+d}{z}(0.9)^z(0.1)^{32768+d-z}.
+\]
+For an earlier hit the required mass has already been acquired by the
+specified prefix, so the same necessary event applies. At $d=0$ this
+is $10^{-32768}$. For deadlines $40000$, $50000$, and $55000$, the
+base-ten logarithms of the upper bounds are approximately
+$-14854.03$, $-3668.61$, and $-909.55$. These are spawn-value bounds;
+requiring suitable locations can only decrease the success probability.
+The stochastic corollary is not separately formalised in Lean.
+
+\paragraph{Reproduction and scope.}
+The scripts in \texttt{research/} generate the short bridges, clean
+cascades, suffix variants, exact probability bounds, and line tests.
+\texttt{bash research/finish.sh} runs the extended checks after the
+original formal development is rebuilt. The symmetry, every-opening,
+endpoint-mass, and deterministic deadline-slack theorems are kernel-checked. The other new deductions
+have written proofs and executable checks, and are not thereby claimed
+to have been completely formalized in Lean.

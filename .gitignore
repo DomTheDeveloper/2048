@@ -7,8 +7,13 @@ paper/*.bbl
 paper/*.blg
 paper/*.out
 paper/*.toc
+paper/*.fls
+paper/*.fdb_latexmk
 
-# Decision-model data and Python caches
-ai/data/
-ai/__pycache__/
+# Reproducible interpreter/build caches
 __pycache__/
+*.py[cod]
+submission/_build/
+
+# Decision-model datasets (generate with: node test/decision.js --dataset)
+ai/data/

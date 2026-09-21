@@ -1,0 +1,33 @@
+name: Verify 2048 state-space research
+on:
+  push:
+    paths:
+      - 'research/state-space/**'
+      - '.github/workflows/state-space-ci.yml'
+  pull_request:
+    paths:
+      - 'research/state-space/**'
+      - '.github/workflows/state-space-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: state-space-ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Fresh full regression run
+        run: bash research/state-space/run.sh --large --output-dir "$RUNNER_TEMP/state-space-ci"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: state-space-audit-${{ github.run_id }}
+          path: ${{ runner.temp }}/state-space-ci/
+          if-no-files-found: error
+          retention-days: 30

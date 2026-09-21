@@ -1,0 +1,252 @@
+\section{Structural reachability and reproducible state-space bounds}
+\label{sec:state-space}
+
+This section concerns boards after the mandatory spawn, including every
+ordinary two-tile opening. Accumulated score and random-generator state
+are not part of the counted object. We distinguish labeled boards from
+orbits under the eight square symmetries. A run stopped at target $T$
+counts boards whose maximum tile is strictly below $T$; individual losing
+boards remain distinct and there are no artificial win or loss nodes.
+The following arguments are human proofs with executable checks, not
+extensions of the Lean formalization in Section~\ref{sec:lean}.
+
+\subsection{A direct rank invariant}
+
+For a $c$-cell board $B$, let $N_q(B)$ be the number of tiles with value
+at least $2^q$.
+
+\begin{theorem}[rank envelope]\label{ss:rank}
+For every reachable board with $c\ge2$ cells,
+\[
+ N_q(B)\le c+2-q\qquad(2\le q\le c+2).
+\]
+Equivalently, decreasing nonzero ranks satisfy $r_p\le c+2-p$.
+Consequently no tile exceeds $2^{c+1}$ and
+\[
+ \mass(B)\le 2^{c+2}-4.
+\]
+Equality in the mass bound requires the unique multiset
+$\{2^{c+1},2^c,\ldots,4\}$.
+\end{theorem}
+\begin{proof}
+The opening satisfies the inequalities; the case $q=2$ is the cell
+capacity. Suppose the bounds hold before a slide and fix $q\ge3$.
+Write $H=N_q(B)$ and let $j$ be the number of disjoint merges of two
+rank-$(q-1)$ tiles. Only these merges can increase $N_q$.
+If $j=0$, its old bound persists. Otherwise,
+\[
+ H+2j\le N_{q-1}(B)\le c+3-q,
+ \qquad N_q(\text{after})\le H+j\le c+2-q.
+\]
+A spawn has rank at most 2, so the induction closes, including parallel
+merges. No rank $c+2$ can occur, and larger ranks cannot arise without
+first producing it. Sorting the threshold inequalities yields the rank
+form. Sum its slotwise tile bounds to obtain the mass bound and its
+unique equality multiset.
+\end{proof}
+
+This proof is independent of the earlier tight-moment argument. On
+$4\times4$ it gives $\mass(B)\le262140$ and a tile bound of $131072$;
+attainment still relies on the separately checked witnesses.
+
+\subsection{Recent-spawn constraints}
+
+Let $L_q(B)$ be the total mass in tiles strictly below $2^q$.
+\begin{lemma}[recent-spawn mass]\label{ss:latency}
+If $B$ contains a tile of rank at least $q\ge3$, then
+\[
+ L_q(B)\ge2(q-2).
+\]
+\end{lemma}
+\begin{proof}
+A spawn made $j$ rounds before $B$ has experienced at most $j$
+subsequent merges along its ancestry, so its current descendant has
+rank at most $j+2$. All of the latest $q-2$ spawns therefore have
+descendants below rank $q$, and their disjoint ancestral masses sum to
+at least $2(q-2)$. Reaching rank $q$ from an ordinary opening requires
+at least $q-2$ rounds, so these spawns exist.
+\end{proof}
+
+A stronger necessary test records forced recent 4-spawns. Let $n_r$
+count rank-$r$ tiles, let $K$ be the maximum rank, and let $E(B)$ be the
+occupied cells whose deletion leaves occupancy compact toward some wall.
+The last spawn must be an eligible 2 or 4. Set $f=0$ when an eligible 2
+exists, otherwise $f=1$ when an eligible 4 exists, and reject if neither
+does. For $r=3,\ldots,K$, set
+\[
+ j=r-2,\qquad U_r=\sum_{s<r}n_s2^{s-1}.
+\]
+Whenever $U_r\le j+f$, require $n_r>0$ and increase $f$ by one;
+otherwise leave $f$ unchanged.
+
+\begin{lemma}[causal supply]\label{ss:causal}
+Every noninitial reachable board passes this test.
+\end{lemma}
+\begin{proof}
+Let $F_j$ be the actual number of 4-spawns among the latest $j$ spawns.
+Inductively $f\le F_j$. These $j$ spawns have descendants below rank
+$r=j+2$ and occupy $2j+2F_j$ of the available lower-rank mass $2U_r$.
+If $U_r\le j+f$, there is no remaining lower-rank mass for the next
+older spawn to be a 2: its descendant would still be below rank $r$.
+It must be a 4, and there must be a rank-$r$ tile to receive mass that
+cannot fit below $r$. Increasing $f$ preserves the lower bound.
+When the inequality fails, leaving $f$ unchanged is a relaxation.
+A rejection can occur only at a missing rank $r\le K$, whence
+$K\ge r+1=j+3$; at least $j+1$ rounds have then occurred, and the older
+spawn used in the contradiction exists. No pre-opening spawn is assumed.
+\end{proof}
+
+For example, the inventory $\{128,8,2\}$ passes
+Lemma~\ref{ss:latency} but fails Lemma~\ref{ss:causal}. The last spawn
+must be the 2; the preceding spawn must be a 4 to contribute to the 8
+with only one subsequent merge available. The latest five spawns would
+then carry at least 12 mass below 128, but only 10 is present.
+
+\subsection{Exact inverse slides}
+
+\begin{theorem}[inverse line rule]\label{ss:inverse}
+Let $(y_1,\ldots,y_m,0,\ldots,0)$ be a compact target line of length
+$\ell$, with $y_i$ a power of two at least 2. Choose $s_i\in\{0,1\}$.
+Use the input block $[y_i]$ if $s_i=0$, or $[y_i/2,y_i/2]$ if $s_i=1$,
+the latter allowed only for $y_i\ge4$. These choices yield exactly all
+preimages provided
+\[
+ m+\sum_i s_i\le\ell,\qquad
+ s_i=0\ \Longrightarrow\ y_i\ne y_{i+1}/2^{s_{i+1}}
+ \quad(i<m).
+\]
+Concatenate the blocks and insert zeros in any remaining positions.
+\end{theorem}
+\begin{proof}
+Every output consumes either one input tile or two equal input tiles,
+which gives the two block forms. A pair is consumed and cannot merge
+onward in the same slide. A singleton must not equal the next block's
+first tile, or the greedy scan would merge across the proposed boundary.
+These conditions are necessary and make the scan consume exactly the
+specified blocks, proving sufficiency. Inserting zeros preserves the
+nonzero order.
+\end{proof}
+
+For a four-cell line the characterization is particularly simple.
+A nonempty partial compact output is in the image exactly when its
+nonzero sequence has no adjacent pair $2,2$; a full output is in the
+image exactly when every adjacent pair differs. For unequal neighbors,
+use a shifted sequence as a preimage. For a partial output $a,a,b$ split
+the first $a$; for $a,b,b$ split the last $b$; for $a,a,a$ split the middle
+$a$. The repeated value is at least 4 and Theorem~\ref{ss:inverse}
+verifies every case. Full image lines and empty lines have only identity
+preimages; every nonempty partial image line has a nonidentity preimage.
+
+With $q=17$ allowed positive ranks, the image size within that rank range is
+\[
+ 1+q+(q^2-1)+(q^3-2q+1)+q(q-1)^3=74{,}818.
+\]
+The checker exhausts all $18^4=104{,}976$ inputs and handles synthetic
+rank-18 outputs separately. Board predecessors are obtained by deleting
+each proposed last 2/4, choosing a common direction, and combining line
+preimages, retaining nonidentity slides and post-spawn predecessors.
+This describes immediate predecessors, not their reachability.
+
+\subsection{A finite characterization and a numerical upper bound}
+
+Let $I$ be the ordinary openings, $R$ the reachable boards, and $U$ a
+proved finite superset of $R$. With exact successors define
+\[
+ F_0=U,\qquad F_{k+1}=I\cup\bigl(U\cap\operatorname{Succ}(F_k)\bigr).
+\]
+\begin{proposition}[rooted predecessor filtering]\label{ss:rooted}
+The sequence decreases, contains $R$ at every stage, and stabilizes
+at exactly $R$. For the $4\times4$ rank-bounded universe of mass at
+least 4, $F_{131069}=R$.
+\end{proposition}
+\begin{proof}
+Monotonicity and $F_1\subseteq U$ give descent. Reachable boards survive
+because they are openings or have reachable predecessors. At a fixed
+point every noninitial member has a predecessor in the same set.
+Following predecessors decreases mass by 2 or 4, so it must end at an
+opening. Every fixed-point member is therefore reachable. A chain in
+the stated universe has at most $(262140-4)/2=131068$ edges; unrolling
+the recurrence for 131069 stages leaves no orphan predecessor chain.
+\end{proof}
+
+We count a cheaper superset, using Theorem~\ref{ss:rank}, deletion-based
+occupancy compaction, and Lemma~\ref{ss:causal}. For each symmetry,
+occupied cells form cycles of its permutation, and invariant tile values
+are constant on each cycle. Group cycles by length and eligibility,
+choose low values 2 and 4, and assign ranks 3 through 17 with a finite
+integer recurrence. At rank $r$, at most $18-r$ unassigned occupied
+\emph{cells} may remain. Binomial factors choose the cycles; the running
+lower-rank mass and $f$ implement the causal test. Saturation at 32 units
+of value 2 is safe because every comparison threshold is below 32.
+
+The fixed counts for the identity, quarter-turn, half-turn, three-quarter
+turn, vertical reflection, horizontal reflection, and the two diagonals are
+\[
+\begin{gathered}
+22{,}851{,}583{,}961{,}907{,}351{,}128;\quad9{,}616;\quad1{,}074{,}108{,}288;
+\quad9{,}616;\\
+1{,}296{,}452{,}906;\quad1{,}296{,}452{,}906;\quad
+411{,}457{,}895{,}734;\quad411{,}457{,}895{,}734.
+\end{gathered}
+\]
+Of the 480 labeled openings, 24 lie outside the compaction set. Their
+fixed-count corrections are $(24,0,4,0,4,4,6,6)$. Burnside's lemma gives
+\begin{align*}
+ N_{\mathrm{labeled}}&\le22{,}851{,}583{,}961{,}907{,}351{,}152,\\
+ N_{/D_4}&\le2{,}856{,}448{,}098{,}561{,}271{,}997.
+\end{align*}
+Separate Python-integer and JavaScript-BigInt implementations reproduce
+all eight fixed counts and all opening corrections. These numbers are
+exact sizes of necessary-condition supersets, not estimates or exact
+counts of the reachable set. The exact inverse-slide value restrictions
+are \emph{not} included in this numerical bound.
+
+\subsection{Executed checks and reproducibility}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Board and stopping rule & Symmetry classes & Labeled boards\\
+\midrule
+$2\times2$, continued &110&662\\
+$2\times3$, continued &21{,}752&85{,}844\\
+$3\times3$, continued &48{,}713{,}519&388{,}921{,}077\\
+$4\times4$, stop at 8 &84{,}660&675{,}154\\
+$4\times4$, stop at 16 &23{,}483{,}970&187{,}809{,}874\\
+$4\times4$, mass at most 24 &67{,}104&535{,}148\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+These are completed regression computations, not new record claims.
+The separate raw-board Python search agrees with the entire symmetry
+expansion of the C++ dumps for $2\times2$ and $2\times3$. On $2\times2$
+the inverse relation is checked for all 1,296 syntactic target boards
+through 32. Rooted filtering gives $896,686,666,662$ before stabilization.
+The $3\times3$ benchmark is reproduced under the published convention;
+mass-layer enumeration itself already appears in Lees-Miller's 2017
+work~\cite{leesmiller2017b}, preceding the larger
+$4\times3$ computation~\cite{kaneko2026}.
+
+A 24-round $2\times2$ certificate ends on
+\[
+ \begin{pmatrix}0&0\\2&2\end{pmatrix}
+ \longrightarrow
+ \begin{pmatrix}2&8\\16&32\end{pmatrix},
+ \qquad\operatorname{score}=180.
+\]
+It attains the ceiling without a final 4, demonstrating why both equality
+cases in Theorem~\ref{thm:score} are required. Changing a final spawn
+changes no merge and hence no score. The complete replay records every
+move, spawn, intermediate board, and cumulative score.
+
+Run \texttt{bash research/state-space/run.sh --large} from the repository
+root. Each invocation uses a fresh directory, rebuilds the executable,
+checks every reported aggregate against its layer table, compares both
+bound implementations, and tests corrupt state dumps and invalid inputs.
+The manifest records only executed cases, source hashes, tool versions,
+exit codes, and output hashes. These hashes establish byte identity, not
+completeness; the independent set and closure checks supply the latter
+for the tested small boards. No full $4\times4$ cardinality, target-64/128
+completion, or attainment of the $4\times4$ score ceiling is claimed.

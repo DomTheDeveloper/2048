@@ -1,0 +1,789 @@
+orbit 0 bridge 1
+orbit 1 bridge 3
+orbit 2 bridge 3
+orbit 3 bridge 0
+orbit 4 bridge 1
+orbit 5 bridge 3
+orbit 6 bridge 3
+orbit 7 bridge 1
+orbit 8 bridge 1
+orbit 9 bridge 3
+orbit 10 bridge 1
+orbit 11 bridge 3
+orbit 12 bridge 3
+orbit 13 bridge 3
+orbit 14 bridge 2
+orbit 15 bridge 3
+orbit 16 bridge 3
+orbit 17 bridge 3
+orbit 18 bridge 2
+orbit 19 bridge 3
+orbit 20 bridge 3
+orbit 21 bridge 3
+orbit 22 bridge 2
+orbit 23 bridge 3
+orbit 24 bridge 3
+orbit 25 bridge 3
+orbit 26 bridge 3
+orbit 27 bridge 3
+orbit 28 bridge 3
+orbit 29 bridge 3
+orbit 30 bridge 3
+orbit 31 bridge 3
+orbit 32 bridge 3
+orbit 33 bridge 3
+orbit 34 bridge 1
+orbit 35 bridge 3
+orbit 36 bridge 1
+orbit 37 bridge 3
+orbit 38 bridge 3
+orbit 39 bridge 2
+orbit 40 bridge 1
+orbit 41 bridge 3
+orbit 42 bridge 3
+orbit 43 bridge 2
+orbit 44 bridge 3
+orbit 45 bridge 3
+orbit 46 bridge 3
+orbit 47 bridge 2
+orbit 48 bridge 3
+orbit 49 bridge 3
+orbit 50 bridge 3
+orbit 51 bridge 2
+orbit 52 bridge 1
+orbit 53 bridge 3
+orbit 54 bridge 3
+orbit 55 bridge 2
+orbit 56 bridge 3
+orbit 57 bridge 3
+orbit 58 bridge 3
+orbit 59 bridge 3
+orbit 60 bridge 3
+orbit 61 bridge 3
+orbit 62 bridge 3
+orbit 63 bridge 1
+orbit 64 bridge 3
+orbit 65 bridge 2
+orbit 66 bridge 3
+orbit 67 bridge 3
+orbit 68 bridge 3
+orbit 69 bridge 1
+orbit 70 bridge 3
+orbit 71 bridge 2
+orbit 72 bridge 3
+orbit 73 bridge 3
+orbit 74 bridge 3
+ALL 480 OPENINGS COVERED; maximum bridge length 3
+depth 0 states 1
+depth 1 states 2
+depth 2 states 3
+depth 3 states 10
+depth 4 states 7
+depth 5 states 10
+depth 6 states 50
+depth 7 states 124
+depth 8 states 125
+depth 9 states 282
+depth 10 states 946
+depth 11 states 2319
+depth 12 states 3362
+depth 13 states 7744
+depth 14 states 25667
+{
+  "spawn_values": [
+    2
+  ],
+  "complete": true,
+  "layer_counts": [
+    1,
+    2,
+    3,
+    10,
+    7,
+    10,
+    50,
+    124,
+    125,
+    282,
+    946,
+    2319,
+    3362,
+    7744,
+    25667
+  ],
+  "final_states": 59963,
+  "minimum_fold_fours": 0,
+  "tail": [
+    [
+      "L",
+      0,
+      3,
+      2
+    ],
+    [
+      "L",
+      0,
+      3,
+      2
+    ],
+    [
+      "L",
+      0,
+      2,
+      2
+    ],
+    [
+      "D",
+      0,
+      0,
+      2
+    ],
+    [
+      "R",
+      0,
+      0,
+      2
+    ],
+    [
+      "R",
+      0,
+      0,
+      2
+    ],
+    [
+      "R",
+      0,
+      0,
+      2
+    ],
+    [
+      "D",
+      0,
+      0,
+      2
+    ],
+    [
+      "R",
+      0,
+      0,
+      2
+    ],
+    [
+      "L",
+      0,
+      1,
+      2
+    ],
+    [
+      "L",
+      0,
+      2,
+      2
+    ],
+    [
+      "D",
+      2,
+      3,
+      2
+    ],
+    [
+      "L",
+      2,
+      3,
+      2
+    ],
+    [
+      "R",
+      1,
+      0,
+      2
+    ],
+    [
+      "R",
+      0,
+      0,
+      2
+    ]
+  ],
+  "final_board": [
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    4,
+    0,
+    0,
+    16,
+    8,
+    0,
+    0,
+    0,
+    131072
+  ],
+  "final_mass": 131102
+}
+depth 0 states 1
+depth 1 states 2
+depth 2 states 3
+depth 3 states 10
+depth 4 states 7
+depth 5 states 10
+depth 6 states 50
+depth 7 states 124
+depth 8 states 125
+depth 9 states 282
+depth 10 states 946
+depth 11 states 2319
+depth 12 states 3362
+depth 13 states 7744
+depth 14 states 25667
+{
+  "spawn_values": [
+    4
+  ],
+  "complete": true,
+  "layer_counts": [
+    1,
+    2,
+    3,
+    10,
+    7,
+    10,
+    50,
+    124,
+    125,
+    282,
+    946,
+    2319,
+    3362,
+    7744,
+    25667
+  ],
+  "final_states": 59963,
+  "minimum_fold_fours": 15,
+  "tail": [
+    [
+      "L",
+      0,
+      3,
+      4
+    ],
+    [
+      "L",
+      0,
+      3,
+      4
+    ],
+    [
+      "L",
+      0,
+      2,
+      4
+    ],
+    [
+      "D",
+      0,
+      0,
+      4
+    ],
+    [
+      "R",
+      0,
+      0,
+      4
+    ],
+    [
+      "R",
+      0,
+      0,
+      4
+    ],
+    [
+      "R",
+      0,
+      0,
+      4
+    ],
+    [
+      "D",
+      0,
+      0,
+      4
+    ],
+    [
+      "R",
+      0,
+      0,
+      4
+    ],
+    [
+      "L",
+      0,
+      1,
+      4
+    ],
+    [
+      "L",
+      0,
+      2,
+      4
+    ],
+    [
+      "D",
+      2,
+      3,
+      4
+    ],
+    [
+      "L",
+      2,
+      3,
+      4
+    ],
+    [
+      "R",
+      1,
+      0,
+      4
+    ],
+    [
+      "R",
+      0,
+      0,
+      4
+    ]
+  ],
+  "final_board": [
+    4,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    8,
+    0,
+    0,
+    32,
+    16,
+    0,
+    0,
+    0,
+    131072
+  ],
+  "final_mass": 131132
+}
+depth 0 states 1
+depth 1 states 2
+depth 2 states 3
+depth 3 states 10
+depth 4 states 7
+depth 5 states 10
+depth 6 states 50
+depth 7 states 124
+depth 8 states 125
+depth 9 states 282
+depth 10 states 946
+depth 11 states 2319
+depth 12 states 3362
+depth 13 states 7744
+depth 14 states 25667
+{
+  "spawn_values": [
+    2
+  ],
+  "complete": true,
+  "layer_counts": [
+    1,
+    2,
+    3,
+    10,
+    7,
+    10,
+    50,
+    124,
+    125,
+    282,
+    946,
+    2319,
+    3362,
+    7744,
+    25667
+  ],
+  "final_states": 59963,
+  "minimum_fold_fours": 0,
+  "tail": [
+    [
+      "L",
+      0,
+      3,
+      2
+    ],
+    [
+      "L",
+      0,
+      3,
+      2
+    ],
+    [
+      "L",
+      0,
+      2,
+      2
+    ],
+    [
+      "D",
+      0,
+      0,
+      2
+    ],
+    [
+      "R",
+      0,
+      0,
+      2
+    ],
+    [
+      "R",
+      0,
+      0,
+      2
+    ],
+    [
+      "R",
+      0,
+      0,
+      2
+    ],
+    [
+      "D",
+      0,
+      0,
+      2
+    ],
+    [
+      "R",
+      0,
+      0,
+      2
+    ],
+    [
+      "L",
+      0,
+      1,
+      2
+    ],
+    [
+      "L",
+      0,
+      2,
+      2
+    ],
+    [
+      "D",
+      2,
+      3,
+      2
+    ],
+    [
+      "L",
+      2,
+      3,
+      2
+    ],
+    [
+      "R",
+      1,
+      0,
+      2
+    ],
+    [
+      "R",
+      0,
+      0,
+      2
+    ]
+  ],
+  "final_board": [
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    4,
+    0,
+    0,
+    16,
+    8,
+    0,
+    0,
+    0,
+    131072
+  ],
+  "final_mass": 131102
+}
+tail 16 step 0 states 1
+tail 16 step 1 states 3
+tail 16 step 2 states 2
+tail 16 step 3 states 3
+tail 16 step 4 states 10
+tail 16 step 5 states 19
+tail 16 step 6 states 20
+tail 16 step 7 states 29
+tail 16 step 8 states 33
+tail 16 step 9 states 26
+tail 16 step 10 states 6
+tail 16 step 11 states 3
+tail 16 step 12 states 10
+tail 16 step 13 states 14
+tail 16 step 14 states 6
+tail 16 step 15 states 6
+{
+  "depth": 16,
+  "cut": 65517,
+  "complete": true,
+  "nonterminal_states": 191,
+  "terminal_boards": 8,
+  "symmetry_orbits": 8,
+  "max_locations": [
+    15
+  ]
+}
+tail 32 step 0 states 1
+tail 32 step 1 states 3
+tail 32 step 2 states 2
+tail 32 step 3 states 3
+tail 32 step 4 states 10
+tail 32 step 5 states 19
+tail 32 step 6 states 25
+tail 32 step 7 states 65
+tail 32 step 8 states 145
+tail 32 step 9 states 281
+tail 32 step 10 states 352
+tail 32 step 11 states 308
+tail 32 step 12 states 244
+tail 32 step 13 states 342
+tail 32 step 14 states 416
+tail 32 step 15 states 350
+tail 32 step 16 states 262
+tail 32 step 17 states 192
+tail 32 step 18 states 88
+tail 32 step 19 states 30
+tail 32 step 20 states 42
+tail 32 step 21 states 60
+tail 32 step 22 states 66
+tail 32 step 23 states 82
+tail 32 step 24 states 80
+tail 32 step 25 states 66
+tail 32 step 26 states 20
+tail 32 step 27 states 6
+tail 32 step 28 states 20
+tail 32 step 29 states 28
+tail 32 step 30 states 12
+tail 32 step 31 states 12
+{
+  "depth": 32,
+  "cut": 65501,
+  "complete": true,
+  "nonterminal_states": 3632,
+  "terminal_boards": 16,
+  "symmetry_orbits": 16,
+  "max_locations": [
+    15
+  ]
+}
+tail 64 step 0 states 1
+tail 64 step 1 states 3
+tail 64 step 2 states 2
+tail 64 step 3 states 3
+tail 64 step 4 states 10
+tail 64 step 5 states 19
+tail 64 step 6 states 25
+tail 64 step 7 states 88
+tail 64 step 8 states 277
+tail 64 step 9 states 875
+tail 64 step 10 states 2206
+tail 64 step 11 states 4117
+tail 64 step 12 states 5683
+tail 64 step 13 states 7631
+tail 64 step 14 states 12255
+tail 64 step 15 states 19478
+tail 64 step 16 states 25363
+tail 64 step 17 states 30931
+tail 64 step 18 states 33530
+tail 64 step 19 states 29881
+tail 64 step 20 states 20901
+tail 64 step 21 states 18099
+tail 64 step 22 states 16978
+tail 64 step 23 states 15518
+tail 64 step 24 states 15881
+tail 64 step 25 states 18204
+tail 64 step 26 states 16616
+tail 64 step 27 states 13521
+tail 64 step 28 states 9500
+tail 64 step 29 states 8538
+tail 64 step 30 states 7168
+tail 64 step 31 states 5244
+tail 64 step 32 states 3878
+tail 64 step 33 states 3382
+tail 64 step 34 states 1394
+tail 64 step 35 states 440
+tail 64 step 36 states 454
+tail 64 step 37 states 532
+tail 64 step 38 states 360
+tail 64 step 39 states 545
+tail 64 step 40 states 844
+tail 64 step 41 states 1070
+tail 64 step 42 states 1194
+tail 64 step 43 states 1079
+tail 64 step 44 states 810
+tail 64 step 45 states 928
+tail 64 step 46 states 976
+tail 64 step 47 states 786
+tail 64 step 48 states 578
+tail 64 step 49 states 420
+tail 64 step 50 states 192
+tail 64 step 51 states 60
+tail 64 step 52 states 84
+tail 64 step 53 states 120
+tail 64 step 54 states 132
+tail 64 step 55 states 164
+tail 64 step 56 states 160
+tail 64 step 57 states 132
+tail 64 step 58 states 40
+tail 64 step 59 states 12
+tail 64 step 60 states 40
+tail 64 step 61 states 56
+tail 64 step 62 states 24
+tail 64 step 63 states 24
+{
+  "depth": 64,
+  "cut": 65469,
+  "complete": true,
+  "nonterminal_states": 359456,
+  "terminal_boards": 32,
+  "symmetry_orbits": 32,
+  "max_locations": [
+    15
+  ]
+}
+{'cells': 2, 'policy': 'fours', 'rounds': 1, 'first_largest': 1, 'score': 8, 'twos': 0, 'fours': 3}
+{'cells': 2, 'policy': 'twos', 'rounds': 2, 'first_largest': 2, 'score': 12, 'twos': 2, 'fours': 2}
+{'cells': 3, 'policy': 'fours', 'rounds': 5, 'first_largest': 4, 'score': 40, 'twos': 0, 'fours': 7}
+{'cells': 3, 'policy': 'twos', 'rounds': 9, 'first_largest': 7, 'score': 56, 'twos': 8, 'fours': 3}
+{'cells': 4, 'policy': 'fours', 'rounds': 13, 'first_largest': 9, 'score': 136, 'twos': 0, 'fours': 15}
+{'cells': 4, 'policy': 'twos', 'rounds': 24, 'first_largest': 16, 'score': 180, 'twos': 22, 'fours': 4}
+{'cells': 5, 'policy': 'fours', 'rounds': 29, 'first_largest': 18, 'score': 392, 'twos': 0, 'fours': 31}
+{'cells': 5, 'policy': 'twos', 'rounds': 55, 'first_largest': 33, 'score': 496, 'twos': 52, 'fours': 5}
+{'cells': 6, 'policy': 'fours', 'rounds': 61, 'first_largest': 35, 'score': 1032, 'twos': 0, 'fours': 63}
+{'cells': 6, 'policy': 'twos', 'rounds': 118, 'first_largest': 66, 'score': 1260, 'twos': 114, 'fours': 6}
+{'cells': 7, 'policy': 'fours', 'rounds': 125, 'first_largest': 68, 'score': 2568, 'twos': 0, 'fours': 127}
+{'cells': 7, 'policy': 'twos', 'rounds': 245, 'first_largest': 131, 'score': 3048, 'twos': 240, 'fours': 7}
+{'cells': 8, 'policy': 'fours', 'rounds': 253, 'first_largest': 133, 'score': 6152, 'twos': 0, 'fours': 255}
+{'cells': 8, 'policy': 'twos', 'rounds': 500, 'first_largest': 260, 'score': 7140, 'twos': 494, 'fours': 8}
+{'cells': 9, 'policy': 'fours', 'rounds': 509, 'first_largest': 262, 'score': 14344, 'twos': 0, 'fours': 511}
+{'cells': 9, 'policy': 'twos', 'rounds': 1011, 'first_largest': 517, 'score': 16352, 'twos': 1004, 'fours': 9}
+{'cells': 10, 'policy': 'fours', 'rounds': 1021, 'first_largest': 519, 'score': 32776, 'twos': 0, 'fours': 1023}
+{'cells': 10, 'policy': 'twos', 'rounds': 2034, 'first_largest': 1030, 'score': 36828, 'twos': 2026, 'fours': 10}
+{'cells': 11, 'policy': 'fours', 'rounds': 2045, 'first_largest': 1032, 'score': 73736, 'twos': 0, 'fours': 2047}
+{'cells': 11, 'policy': 'twos', 'rounds': 4081, 'first_largest': 2055, 'score': 81880, 'twos': 4072, 'fours': 11}
+{'cells': 12, 'policy': 'fours', 'rounds': 4093, 'first_largest': 2057, 'score': 163848, 'twos': 0, 'fours': 4095}
+{'cells': 12, 'policy': 'twos', 'rounds': 8176, 'first_largest': 4104, 'score': 180180, 'twos': 8166, 'fours': 12}
+{'cells': 13, 'policy': 'fours', 'rounds': 8189, 'first_largest': 4106, 'score': 360456, 'twos': 0, 'fours': 8191}
+{'cells': 13, 'policy': 'twos', 'rounds': 16367, 'first_largest': 8201, 'score': 393168, 'twos': 16356, 'fours': 13}
+{'cells': 14, 'policy': 'fours', 'rounds': 16381, 'first_largest': 8203, 'score': 786440, 'twos': 0, 'fours': 16383}
+{'cells': 14, 'policy': 'twos', 'rounds': 32750, 'first_largest': 16394, 'score': 851916, 'twos': 32738, 'fours': 14}
+{'cells': 15, 'policy': 'fours', 'rounds': 32765, 'first_largest': 16396, 'score': 1703944, 'twos': 0, 'fours': 32767}
+{'cells': 15, 'policy': 'twos', 'rounds': 65517, 'first_largest': 32779, 'score': 1834952, 'twos': 65504, 'fours': 15}
+{'cells': 16, 'policy': 'fours', 'rounds': 65533, 'first_largest': 32781, 'score': 3670024, 'twos': 0, 'fours': 65535}
+{'cells': 16, 'policy': 'twos', 'rounds': 131052, 'first_largest': 65548, 'score': 3932100, 'twos': 131038, 'fours': 16}
+Gateway checks, rational recurrence checks, and line constructions all pass.
+{
+  "full_chain_probability_upper": "2.396314653816771935205414875689885089421107739241438218504981759691613E-17",
+  "score_ceiling_probability_upper": "1.071400661686492688550369066045355397955330054542118005614272572227293E-6011",
+  "score_ceiling_log10": "-6010.970048089747083468267226512400226067027788359190528848132451366765",
+  "largest_tile_probability_upper_exact": "(1 + 10^(-65535))/11",
+  "largest_tile_probability_upper_safe_decimal": "0.090909091",
+  "probability_model": "independent standard 90/10 values; arbitrary adaptive directions and uniform empty-cell placement"
+}
+[
+  {
+    "height": 5,
+    "width": 5,
+    "rounds": 32781,
+    "score": 1966092,
+    "largest_tile": 131072,
+    "every_translated_state_checked": true
+  },
+  {
+    "height": 5,
+    "width": 7,
+    "rounds": 32781,
+    "score": 1966092,
+    "largest_tile": 131072,
+    "every_translated_state_checked": true
+  },
+  {
+    "height": 4,
+    "width": 8,
+    "rounds": 32781,
+    "score": 1966092,
+    "largest_tile": 131072,
+    "every_translated_state_checked": true
+  }
+]
+[68, 64, 120, 116, 116, 112, 120, 116, 116, 112, 136, 132, 132, 128, 136]
+131072.txt 32781 -57047.3713833731888824455641505964798356772420120478542138433 10^(-57048)
+131072-two-twos.txt 32782 -57047.6389896133659139384653279919899967228734355738200177075 10^(-57048)
+full-chain.txt 32784 -57063.7834746990871250747933638465412889604123926205581520868 10^(-57064)
+max-score.txt 65550 -48607.7738871597944473777867387604104149221912796789066445483 10^(-48608)
+131072-one-four.txt 65548 -48606.1363696345456218140867057247165897547370564589849046084 10^(-48607)
+131072-minimum-fold-fours.txt 32781 -57043.9695920039304517684723262936633126617535302897713610130 10^(-57044)
+131072-fold-4.txt 32781 -57058.2832296455203248873231633913167719377573962154922369579 10^(-57059)
+independently verified variant 0
+independently verified variant 1
+independently verified variant 2
+independently verified variant 3
+independently verified variant 4
+independently verified variant 5
+independently verified variant 6
+independently verified variant 7
+independently verified variant 8
+independently verified variant 9
+independently verified variant 10
+independently verified variant 11
+independently verified variant 12
+independently verified variant 13
+independently verified variant 14
+independently verified variant 15
+independently verified variant 16
+independently verified variant 17
+independently verified variant 18
+independently verified variant 19
+independently verified variant 20
+independently verified variant 21
+independently verified variant 22
+independently verified variant 23
+independently verified variant 24
+independently verified variant 25
+independently verified variant 26
+independently verified variant 27
+independently verified variant 28
+independently verified variant 29
+independently verified variant 30
+independently verified variant 31
+All 32 representatives pass both independent full replayers.
+Generated OpeningTails, OpeningCases, and full all-openings theorem.
+COMPUTATIONAL CHECKS PASSED. This mode does not run or claim a fresh Lean check.
+PASS: research/spliced_certificates.py
+PASS: research/score_equality_test.py
+PASS: research/mass_barriers.py
+PASS: research/mass_interval.py
+PASS: 48 complete histories, 40 endpoint orbits, 320 distinct labeled endpoints.
+Interior full-chain placement and the unrestricted 4x4 score optimum remain unresolved.
+CONSOLIDATED COMPUTATIONAL CHECKS PASSED; no fresh Lean audit claimed.

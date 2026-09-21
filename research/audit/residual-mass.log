@@ -1,0 +1,1 @@
+'Game2048.lower_bound_mass_131072' depends on axioms: [propext, Quot.sound]
